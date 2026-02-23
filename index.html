@@ -780,28 +780,35 @@ Alexandra Chen</textarea></div>
     <button class="modal-close" onclick="closeUpgrade()">✕</button>
     <div class="modal-icon">⚡</div>
     <h2>Unlock Pro Features</h2>
-    <p>Get AI-powered bullet points, cover letter generator, ATS scoring, 50+ templates, and unlimited resumes.</p>
-    <div class="plan-cards">
-      <div class="plan-card selected" data-price-id="price_1T44gAC1ZHqbk5PZQxxbQ3Ow" onclick="selectPlan(this)">
-        <div class="plan-name">Monthly</div>
-        <div class="plan-price">$9<span>/mo</span></div>
-        <div class="plan-features">Cancel anytime<br>All Pro features</div>
-      </div>
-      <div class="plan-card" data-price-id="price_1T44grC1ZHqbk5PZXGEGypbZ" onclick="selectPlan(this)">
-        <div class="plan-badge">BEST VALUE</div>
-        <div class="plan-name">Annual</div>
-        <div class="plan-price">$5<span>/mo</span></div>
-        <div class="plan-features">$59/year · Save 39%<br>All Pro features</div>
-      </div>
+    <p>AI bullet points, cover letter generator, ATS scoring, 50+ templates & unlimited resumes.</p>
+
+    <!-- Plan toggle -->
+    <div style="display:flex;gap:0;border:1.5px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:1.5rem;">
+      <button id="toggle-monthly" onclick="showPlan('monthly')" style="flex:1;padding:0.6rem;font-family:'DM Sans',sans-serif;font-size:0.85rem;font-weight:700;border:none;background:var(--ink);color:var(--paper);cursor:pointer;transition:all 0.2s;">Monthly — $9</button>
+      <button id="toggle-annual" onclick="showPlan('annual')" style="flex:1;padding:0.6rem;font-family:'DM Sans',sans-serif;font-size:0.85rem;font-weight:600;border:none;background:white;color:var(--muted);cursor:pointer;transition:all 0.2s;">Annual — $59 <span style="background:var(--gold);color:var(--ink);font-size:0.65rem;font-weight:800;padding:0.1rem 0.4rem;border-radius:4px;margin-left:0.3rem;">SAVE 39%</span></button>
     </div>
-    <button class="btn-gold" style="width:100%;font-size:1rem;padding:1rem;" onclick="handleCheckout()" id="checkout-btn">
-      Start Pro — 7-Day Free Trial
-    </button>
-    <p id="checkout-error" style="font-size:0.78rem;color:var(--rust);margin-top:0.6rem;display:none;"></p>
-    <p style="font-size:0.75rem; color:var(--muted); margin-top:0.8rem;">Cancel anytime. No charge during trial. Powered by Stripe.</p>
+
+    <!-- Monthly buy button -->
+    <div id="plan-monthly">
+      <stripe-buy-button
+        buy-button-id="buy_btn_1T44zHC1ZHqbk5PZy0UzI9di"
+        publishable-key="pk_test_51T43nFC1ZHqbk5PZi2AyL011wbk6D6naawx65kyg0zCSp375xQ81Fgt5oMH5lPNABll3Is3L9bIZKJzY6jJa7wzI00sX1YIrLJ"
+      ></stripe-buy-button>
+    </div>
+
+    <!-- Annual buy button -->
+    <div id="plan-annual" style="display:none;">
+      <stripe-buy-button
+        buy-button-id="buy_btn_1T44x4C1ZHqbk5PZuWxfErA5"
+        publishable-key="pk_test_51T43nFC1ZHqbk5PZi2AyL011wbk6D6naawx65kyg0zCSp375xQ81Fgt5oMH5lPNABll3Is3L9bIZKJzY6jJa7wzI00sX1YIrLJ"
+      ></stripe-buy-button>
+    </div>
+
+    <p style="font-size:0.75rem;color:var(--muted);margin-top:1rem;">7-day free trial · Cancel anytime · Powered by Stripe 🔒</p>
   </div>
 </div>
 
+<script async src="https://js.stripe.com/v3/buy-button.js"></script>
 <script src="https://js.stripe.com/v3/"></script>
 <script>
 // ── STRIPE ──
