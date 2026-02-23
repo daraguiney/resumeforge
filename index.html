@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ResumeForge — Build Resumes That Get Interviews</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="https://unpkg.com/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 <style>
   :root {
     --ink: #0f0e0c; --paper: #faf8f3; --cream: #f2ede2;
@@ -200,7 +200,7 @@
     <div class="resume-preview">
       <div class="rp-name">Alexandra Chen</div>
       <div class="rp-title">Senior Product Manager</div>
-      <div class="rp-contact"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="e2838e879aa2878f838b8ecc818d8f">[email&#160;protected]</a> · (415) 555-0192 · San Francisco, CA</div>
+      <div class="rp-contact">alex@email.com · (415) 555-0192 · San Francisco, CA</div>
       <hr class="rp-divider">
       <div class="rp-section-title">Experience</div>
       <div class="rp-job">
@@ -354,7 +354,7 @@ Alexandra Chen</textarea></div>
       <div class="doc" id="resume-doc">
         <div class="doc-name" id="d-name">Alexandra Chen</div>
         <div class="doc-title" id="d-title">Senior Product Manager</div>
-        <div class="doc-contact" id="d-contact"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="91f0fdf4e9d1f4fcf0f8fdbff2fefc">[email&#160;protected]</a> · (415) 555-0192 · San Francisco, CA</div>
+        <div class="doc-contact" id="d-contact">alex@email.com · (415) 555-0192 · San Francisco, CA</div>
         <hr class="doc-divider">
         <div class="doc-section"><div class="doc-section-title">Summary</div><div class="doc-summary" id="d-summary"></div></div>
         <hr class="doc-divider">
@@ -367,7 +367,7 @@ Alexandra Chen</textarea></div>
       <div class="doc" id="cl-doc" style="display:none;">
         <div style="margin-bottom:2rem;">
           <div class="doc-name" id="cl-d-name">Alexandra Chen</div>
-          <div class="doc-contact" id="cl-d-contact"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="e6878a839ea6838b878f8ac885898b">[email&#160;protected]</a> · (415) 555-0192</div>
+          <div class="doc-contact" id="cl-d-contact">alex@email.com · (415) 555-0192</div>
         </div>
         <div style="margin-bottom:2rem;"><div id="cl-d-to" style="font-size:0.85rem;line-height:1.8;color:#333;">Hiring Team<br>Stripe</div></div>
         <div id="cl-d-body" style="font-size:0.84rem;line-height:1.9;color:#333;white-space:pre-wrap;"></div>
@@ -413,13 +413,13 @@ Alexandra Chen</textarea></div>
     </div>
     <div style="background:var(--cream);border-radius:8px;padding:0.9rem;margin-top:1rem;text-align:left;">
       <p style="font-size:0.8rem;color:var(--ink);font-weight:600;margin-bottom:0.3rem;">✅ After payment — activate Pro instantly:</p>
-      <p style="font-size:0.78rem;color:var(--muted);">Email your Stripe receipt to <strong><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a9dadcd9d9c6dbdde9dbccdadcc4cccfc6dbcecc87c0c6">[email&#160;protected]</a></strong> and we'll upgrade your account within minutes.</p>
+      <p style="font-size:0.8rem;color:var(--muted);">Email your Stripe receipt to <strong>support@resumeforge.io</strong> and we'll upgrade your account within minutes.</p>
     </div>
     <p style="font-size:0.75rem;color:var(--muted);margin-top:0.8rem;">7-day free trial · Powered by Stripe 🔒</p>
   </div>
 </div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 // ── SUPABASE INIT ──
 const { createClient } = supabase;
 const sb = createClient(
