@@ -512,7 +512,7 @@
     <div class="resume-preview">
       <div class="rp-name">Alexandra Chen</div>
       <div class="rp-title">Senior Product Manager</div>
-      <div class="rp-contact">alex@email.com · (415) 555-0192 · San Francisco, CA · linkedin.com/in/alexchen</div>
+      <div class="rp-contact"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="6908050c11290c04080005470a0604">[email&#160;protected]</a> · (415) 555-0192 · San Francisco, CA · linkedin.com/in/alexchen</div>
       <hr class="rp-divider">
       <div class="rp-section-title">Experience</div>
       <div class="rp-job">
@@ -736,7 +736,7 @@ Alexandra Chen</textarea></div>
       <div class="doc" id="resume-doc">
         <div class="doc-name" id="d-name">Alexandra Chen</div>
         <div class="doc-title" id="d-title">Senior Product Manager</div>
-        <div class="doc-contact" id="d-contact">alex@email.com · (415) 555-0192 · San Francisco, CA · linkedin.com/in/alexchen</div>
+        <div class="doc-contact" id="d-contact"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f7969b928fb7929a969e9bd994989a">[email&#160;protected]</a> · (415) 555-0192 · San Francisco, CA · linkedin.com/in/alexchen</div>
         <hr class="doc-divider">
         <div class="doc-section" id="d-summary-section">
           <div class="doc-section-title">Summary</div>
@@ -763,7 +763,7 @@ Alexandra Chen</textarea></div>
       <div class="doc" id="cl-doc" style="display:none;">
         <div style="margin-bottom:2rem;">
           <div class="doc-name" id="cl-d-name">Alexandra Chen</div>
-          <div class="doc-contact" id="cl-d-contact">alex@email.com · (415) 555-0192</div>
+          <div class="doc-contact" id="cl-d-contact"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="5f3e333a271f3a323e3633713c3032">[email&#160;protected]</a> · (415) 555-0192</div>
         </div>
         <div style="margin-bottom:2rem;">
           <div id="cl-d-to" style="font-size:0.85rem; line-height:1.8; color:#333;">Hiring Team<br>Stripe<br></div>
@@ -782,26 +782,75 @@ Alexandra Chen</textarea></div>
     <h2>Unlock Pro Features</h2>
     <p>Get AI-powered bullet points, cover letter generator, ATS scoring, 50+ templates, and unlimited resumes.</p>
     <div class="plan-cards">
-      <div class="plan-card selected" onclick="selectPlan(this)">
+      <div class="plan-card selected" data-price-id="price_1T44gAC1ZHqbk5PZQxxbQ3Ow" onclick="selectPlan(this)">
         <div class="plan-name">Monthly</div>
         <div class="plan-price">$9<span>/mo</span></div>
         <div class="plan-features">Cancel anytime<br>All Pro features</div>
       </div>
-      <div class="plan-card" onclick="selectPlan(this)">
+      <div class="plan-card" data-price-id="price_1T44grC1ZHqbk5PZXGEGypbZ" onclick="selectPlan(this)">
         <div class="plan-badge">BEST VALUE</div>
         <div class="plan-name">Annual</div>
         <div class="plan-price">$5<span>/mo</span></div>
         <div class="plan-features">$59/year · Save 39%<br>All Pro features</div>
       </div>
     </div>
-    <button class="btn-gold" style="width:100%;font-size:1rem;padding:1rem;" onclick="handleCheckout()">
+    <button class="btn-gold" style="width:100%;font-size:1rem;padding:1rem;" onclick="handleCheckout()" id="checkout-btn">
       Start Pro — 7-Day Free Trial
     </button>
+    <p id="checkout-error" style="font-size:0.78rem;color:var(--rust);margin-top:0.6rem;display:none;"></p>
     <p style="font-size:0.75rem; color:var(--muted); margin-top:0.8rem;">Cancel anytime. No charge during trial. Powered by Stripe.</p>
   </div>
 </div>
 
+<script src="https://js.stripe.com/v3/"></script>
 <script>
+// ── STRIPE ──
+const STRIPE_PK = 'pk_test_51T43nFC1ZHqbk5PZi2AyL011wbk6D6naawx65kyg0zCSp375xQ81Fgt5oMH5lPNABll3Is3L9bIZKJzY6jJa7wzI00sX1YIrLJ';
+const stripe = Stripe(STRIPE_PK);
+
+async function handleCheckout() {
+  const selectedCard = document.querySelector('.plan-card.selected');
+  const priceId = selectedCard?.dataset?.priceId;
+  if (!priceId) return;
+
+  const btn = document.getElementById('checkout-btn');
+  const errEl = document.getElementById('checkout-error');
+  btn.textContent = 'Redirecting to Stripe...';
+  btn.disabled = true;
+  errEl.style.display = 'none';
+
+  try {
+    // Use Stripe's hosted checkout — no backend needed for basic setup!
+    const { error } = await stripe.redirectToCheckout({
+      lineItems: [{ price: priceId, quantity: 1 }],
+      mode: 'subscription',
+      successUrl: window.location.origin + '/?checkout=success',
+      cancelUrl: window.location.origin + '/?checkout=cancel',
+      // 7-day trial is set on the price in Stripe dashboard
+    });
+    if (error) {
+      errEl.textContent = error.message;
+      errEl.style.display = 'block';
+      btn.textContent = 'Start Pro — 7-Day Free Trial';
+      btn.disabled = false;
+    }
+  } catch (e) {
+    errEl.textContent = 'Something went wrong. Please try again.';
+    errEl.style.display = 'block';
+    btn.textContent = 'Start Pro — 7-Day Free Trial';
+    btn.disabled = false;
+  }
+}
+
+// Show success message if returning from Stripe
+window.addEventListener('DOMContentLoaded', () => {
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('checkout') === 'success') {
+    alert('🎉 Welcome to ResumeForge Pro! Your 7-day free trial has started.');
+    window.history.replaceState({}, '', '/');
+  }
+});
+
 // ── STATE ──
 const entries = { exp: [], edu: [] };
 let expId = 0, eduId = 0;
@@ -935,10 +984,6 @@ function closeUpgrade() { document.getElementById('upgrade-modal').classList.rem
 function selectPlan(el) {
   document.querySelectorAll('.plan-card').forEach(c => c.classList.remove('selected'));
   el.classList.add('selected');
-}
-function handleCheckout() {
-  closeUpgrade();
-  alert('🚀 In production, this connects to Stripe Checkout!\n\nTo integrate:\n1. Create a Stripe account\n2. Add your publishable key\n3. Set up a /create-checkout-session endpoint\n\nSee the Launch Playbook for full instructions.');
 }
 
 init();
