@@ -376,7 +376,7 @@ Alexandra Chen</textarea></div>
     </div>
     <div style="background:var(--cream);border-radius:8px;padding:.9rem;margin-top:1rem;text-align:left">
       <p style="font-size:.8rem;font-weight:600;margin-bottom:.3rem">✅ After payment — activate Pro:</p>
-      <p style="font-size:.78rem;color:var(--muted)">Email your receipt to <strong>support@resumeforge.io</strong> and we'll upgrade your account within minutes.</p>
+      <p style="font-size:.78rem;color:var(--muted)">Email your receipt to <strong>alex@email.com</strong> and we'll upgrade your account within minutes.</p>
     </div>
     <p style="font-size:.75rem;color:var(--muted);margin-top:.8rem">7-day free trial · Powered by Stripe 🔒</p>
   </div>
@@ -496,17 +496,4 @@ renderEntries('exp'); renderEntries('edu'); updateDoc(); updateCL();
       'sb_publishable_1ZS8klug8sZMU_yrIRndqA_sfvTioMj'
     );
     sb.auth.onAuthStateChange(async function(event,session) {
-      currentUser=session?session.user:null;
-      if (currentUser) {
-        try { var r=await sb.from('profiles').select('is_pro').eq('id',currentUser.id).single(); isPro=r.data&&r.data.is_pro===true; } catch(e){isPro=false;}
-        updateProUI(); showUserNav();
-        if (document.getElementById('auth-modal').classList.contains('open')) { closeAuth(); showApp(); }
-      } else { isPro=false; updateProUI(); showGuestNav(); }
-    });
-  };
-  script.onerror=function(){console.warn('Supabase CDN failed - auth disabled');};
-  document.body.appendChild(script);
-})();
-</script>
-</body>
-</html>
+      currentU
