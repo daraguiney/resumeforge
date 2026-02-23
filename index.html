@@ -6,162 +6,127 @@
 <title>ResumeForge — Build Resumes That Get Interviews</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --ink: #0f0e0c; --paper: #faf8f3; --cream: #f2ede2;
-    --gold: #c9a84c; --gold-light: #e8d49e; --rust: #b85c38;
-    --sage: #4a6741; --muted: #7a7165; --border: #ddd8cc;
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'DM Sans', sans-serif; background: var(--paper); color: var(--ink); min-height: 100vh; }
-
-  nav { display: flex; align-items: center; justify-content: space-between; padding: 1.2rem 2.5rem; border-bottom: 1px solid var(--border); background: var(--paper); position: sticky; top: 0; z-index: 100; }
-  .logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 900; letter-spacing: -0.02em; color: var(--ink); cursor: pointer; }
-  .logo span { color: var(--gold); }
-  nav .nav-links { display: flex; gap: 1.5rem; align-items: center; }
-  nav a { color: var(--muted); text-decoration: none; font-size: 0.9rem; font-weight: 500; cursor: pointer; }
-
-  .btn-primary { background: var(--ink); color: var(--paper); border: none; padding: 0.65rem 1.4rem; border-radius: 6px; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: background 0.2s; }
-  .btn-primary:hover { background: var(--rust); }
-  .btn-gold { background: var(--gold); color: var(--ink); border: none; padding: 0.75rem 1.8rem; border-radius: 6px; font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 700; cursor: pointer; transition: all 0.2s; }
-  .btn-gold:hover { background: #b8933c; }
-  .btn-outline { background: transparent; color: var(--ink); border: 1.5px solid var(--border); padding: 0.65rem 1.4rem; border-radius: 6px; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 500; cursor: pointer; transition: all 0.2s; }
-  .btn-outline:hover { border-color: var(--ink); }
-
-  .hero { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; max-width: 1200px; margin: 0 auto; padding: 5rem 2.5rem 4rem; align-items: center; }
-  .hero-tag { display: inline-block; background: var(--cream); border: 1px solid var(--border); color: var(--muted); font-size: 0.78rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.35rem 0.9rem; border-radius: 100px; margin-bottom: 1.5rem; }
-  .hero h1 { font-family: 'Playfair Display', serif; font-size: 3.8rem; font-weight: 900; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 1.4rem; }
-  .hero h1 em { font-style: italic; color: var(--rust); }
-  .hero p { font-size: 1.1rem; color: var(--muted); line-height: 1.7; margin-bottom: 2rem; max-width: 460px; }
-  .hero-cta { display: flex; gap: 1rem; align-items: center; }
-  .hero-note { font-size: 0.8rem; color: var(--muted); margin-top: 0.8rem; }
-
-  .resume-preview { background: white; border-radius: 12px; box-shadow: 0 4px 40px rgba(0,0,0,0.12); padding: 2rem; font-size: 0.78rem; position: relative; animation: floatCard 4s ease-in-out infinite; }
-  @keyframes floatCard { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
-  .resume-preview::before { content: 'PREVIEW'; position: absolute; top: -10px; right: 20px; background: var(--gold); color: var(--ink); font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; padding: 0.2rem 0.6rem; border-radius: 4px; }
-  .rp-name { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; }
-  .rp-title { color: var(--rust); font-size: 0.8rem; font-weight: 600; margin: 0.2rem 0 0.8rem; }
-  .rp-contact { color: var(--muted); font-size: 0.72rem; margin-bottom: 1.2rem; }
-  .rp-divider { border: none; border-top: 1.5px solid var(--ink); margin-bottom: 0.8rem; }
-  .rp-section-title { font-weight: 700; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.5rem; }
-  .rp-job { margin-bottom: 0.9rem; }
-  .rp-job-title { font-weight: 600; }
-  .rp-job-co { color: var(--muted); font-size: 0.7rem; margin-bottom: 0.3rem; }
-  .rp-bullet { color: var(--muted); padding-left: 1rem; position: relative; margin-bottom: 0.2rem; font-size: 0.71rem; }
-  .rp-bullet::before { content: '—'; position: absolute; left: 0; color: var(--gold); }
-  .rp-skills { display: flex; flex-wrap: wrap; gap: 0.4rem; }
-  .rp-skill { background: var(--cream); border: 1px solid var(--border); padding: 0.2rem 0.6rem; border-radius: 4px; font-size: 0.68rem; }
-
-  .stats-bar { background: var(--ink); color: var(--paper); padding: 0.8rem 2.5rem; display: flex; justify-content: center; gap: 4rem; }
-  .stat { text-align: center; }
-  .stat .num { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 900; color: var(--gold); }
-  .stat .label { font-size: 0.72rem; color: #aaa; letter-spacing: 0.05em; }
-
-  .features { max-width: 1100px; margin: 5rem auto; padding: 0 2.5rem; }
-  .features-header { text-align: center; margin-bottom: 3rem; }
-  .features-header h2 { font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 900; margin-bottom: 0.8rem; }
-  .features-header p { color: var(--muted); max-width: 500px; margin: 0 auto; line-height: 1.7; }
-  .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
-  .feature-card { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 1.8rem; }
-  .feature-icon { font-size: 2rem; margin-bottom: 1rem; }
-  .feature-card h3 { font-weight: 700; margin-bottom: 0.5rem; }
-  .feature-card p { font-size: 0.88rem; color: var(--muted); line-height: 1.6; }
-  .badge { display: inline-block; font-size: 0.65rem; font-weight: 700; padding: 0.15rem 0.5rem; border-radius: 4px; margin-top: 0.6rem; }
-  .badge-free { background: #e8f5e4; color: var(--sage); }
-  .badge-pro { background: var(--gold-light); color: #7a5c1a; }
-
-  .pricing-section { background: var(--cream); padding: 5rem 2.5rem; }
-  .pricing-section h2 { font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 900; text-align: center; margin-bottom: 0.8rem; }
-  .pricing-section .sub { text-align: center; color: var(--muted); margin-bottom: 3rem; }
-  .pricing-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; max-width: 780px; margin: 0 auto; }
-  .pricing-card { background: white; border: 2px solid var(--border); border-radius: 16px; padding: 2rem; }
-  .pricing-card.featured { border-color: var(--gold); position: relative; }
-  .pricing-card.featured::before { content: 'MOST POPULAR'; position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--gold); color: var(--ink); font-size: 0.65rem; font-weight: 800; padding: 0.2rem 0.8rem; border-radius: 100px; white-space: nowrap; }
-  .pricing-name { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.5rem; }
-  .pricing-price { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 900; line-height: 1; margin-bottom: 0.3rem; }
-  .pricing-price sub { font-size: 1rem; font-family: 'DM Sans', sans-serif; font-weight: 400; }
-  .pricing-desc { font-size: 0.82rem; color: var(--muted); margin-bottom: 1.5rem; }
-  .pricing-features { list-style: none; margin-bottom: 1.8rem; }
-  .pricing-features li { padding: 0.45rem 0; font-size: 0.86rem; border-bottom: 1px solid var(--cream); display: flex; align-items: center; gap: 0.6rem; }
-
-  #app { display: none; }
-  .app-layout { display: grid; grid-template-columns: 340px 1fr; min-height: calc(100vh - 65px); }
-  .sidebar { background: var(--cream); border-right: 1px solid var(--border); padding: 1.5rem; overflow-y: auto; }
-  .sidebar h3 { font-family: 'Playfair Display', serif; font-size: 1.1rem; margin-bottom: 1.2rem; padding-bottom: 0.7rem; border-bottom: 1px solid var(--border); }
-  .form-group { margin-bottom: 1rem; }
-  .form-group label { display: block; font-size: 0.78rem; font-weight: 600; color: var(--muted); letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 0.4rem; }
-  .form-group input, .form-group textarea { width: 100%; padding: 0.6rem 0.8rem; border: 1.5px solid var(--border); border-radius: 6px; font-family: 'DM Sans', sans-serif; font-size: 0.88rem; background: white; color: var(--ink); }
-  .form-group input:focus, .form-group textarea:focus { outline: none; border-color: var(--gold); }
-  .form-group textarea { resize: vertical; min-height: 80px; }
-  .section-toggle { display: flex; align-items: center; justify-content: space-between; padding: 0.6rem 0; cursor: pointer; font-weight: 600; font-size: 0.88rem; user-select: none; }
-  .add-btn { background: none; border: 1.5px dashed var(--border); border-radius: 6px; padding: 0.5rem; width: 100%; font-size: 0.82rem; color: var(--muted); cursor: pointer; font-family: 'DM Sans', sans-serif; }
-  .entry-card { background: white; border: 1px solid var(--border); border-radius: 8px; padding: 0.8rem; margin-bottom: 0.6rem; position: relative; }
-  .entry-card .remove-btn { position: absolute; top: 0.5rem; right: 0.5rem; background: none; border: none; cursor: pointer; color: var(--muted); font-size: 1rem; }
-  .sidebar-tabs { display: flex; margin-bottom: 1.2rem; border-bottom: 1px solid var(--border); }
-  .sidebar-tab { padding: 0.5rem 1rem; cursor: pointer; font-size: 0.82rem; font-weight: 600; color: var(--muted); border-bottom: 2px solid transparent; }
-  .sidebar-tab.active { color: var(--ink); border-bottom-color: var(--rust); }
-  .ai-btn { display: flex; align-items: center; gap: 0.5rem; background: linear-gradient(135deg, #f8f0e0, #fdf6e8); border: 1.5px solid var(--gold); border-radius: 6px; padding: 0.6rem 1rem; font-family: 'DM Sans', sans-serif; font-size: 0.82rem; font-weight: 600; cursor: pointer; color: #7a5c1a; width: 100%; margin-bottom: 0.8rem; }
-  .pro-banner { background: linear-gradient(135deg, #fef9ee, #fdf3d0); border: 1.5px solid var(--gold); border-radius: 8px; padding: 0.7rem 1rem; font-size: 0.82rem; color: #7a5c1a; font-weight: 600; margin-bottom: 1rem; display: none; }
-
-  .preview-pane { background: #e8e4dc; padding: 2rem; overflow-y: auto; display: flex; flex-direction: column; align-items: center; }
-  .preview-toolbar { width: 100%; max-width: 680px; display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; }
-  .preview-toolbar h4 { font-size: 0.85rem; font-weight: 600; color: var(--muted); }
-  .tabs { display: flex; border-bottom: 1px solid var(--border); margin-bottom: 1.5rem; width: 100%; max-width: 680px; }
-  .tab { padding: 0.6rem 1.4rem; cursor: pointer; font-size: 0.85rem; font-weight: 600; color: var(--muted); border-bottom: 2px solid transparent; }
-  .tab.active { color: var(--ink); border-bottom-color: var(--ink); }
-  .doc { background: white; width: 100%; max-width: 680px; min-height: 900px; padding: 3rem 3.5rem; box-shadow: 0 4px 30px rgba(0,0,0,0.15); font-family: Georgia, serif; font-size: 0.82rem; line-height: 1.5; color: #1a1a1a; }
-  .doc-name { font-size: 2rem; font-weight: 700; margin-bottom: 0.2rem; }
-  .doc-title { color: var(--rust); font-size: 0.9rem; font-weight: 600; margin-bottom: 0.5rem; font-family: 'DM Sans', sans-serif; }
-  .doc-contact { font-family: 'DM Mono', monospace; font-size: 0.72rem; color: var(--muted); margin-bottom: 1.5rem; }
-  .doc-divider { border: none; border-top: 2px solid #1a1a1a; margin-bottom: 1.2rem; }
-  .doc-section { margin-bottom: 1.5rem; }
-  .doc-section-title { font-family: 'DM Sans', sans-serif; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--rust); margin-bottom: 0.8rem; }
-  .doc-entry { margin-bottom: 1rem; }
-  .doc-entry-header { display: flex; justify-content: space-between; }
-  .doc-entry-title { font-weight: 700; font-size: 0.88rem; }
-  .doc-entry-date { font-size: 0.72rem; color: var(--muted); font-family: 'DM Mono', monospace; }
-  .doc-entry-sub { font-size: 0.8rem; color: var(--muted); font-style: italic; margin-bottom: 0.4rem; }
-  .doc-entry-bullets { list-style: none; padding: 0; }
-  .doc-entry-bullets li { position: relative; padding-left: 1.2rem; margin-bottom: 0.3rem; font-size: 0.8rem; color: #333; }
-  .doc-entry-bullets li::before { content: '▸'; position: absolute; left: 0; color: var(--gold); font-size: 0.7rem; }
-  .doc-skills-grid { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-  .doc-skill { background: #f5f2ea; padding: 0.25rem 0.7rem; border-radius: 3px; font-size: 0.75rem; font-family: 'DM Sans', sans-serif; }
-  .doc-summary { font-size: 0.83rem; line-height: 1.7; color: #333; font-style: italic; }
-
-  .modal-backdrop { display: none; position: fixed; inset: 0; background: rgba(15,14,12,0.7); z-index: 999; align-items: center; justify-content: center; }
-  .modal-backdrop.open { display: flex; }
-  .modal { background: var(--paper); border-radius: 16px; padding: 2.5rem; max-width: 480px; width: 90%; text-align: center; position: relative; }
-  .modal-close { position: absolute; top: 1rem; right: 1rem; background: none; border: none; font-size: 1.3rem; cursor: pointer; color: var(--muted); }
-  .modal h2 { font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 0.7rem; }
-  .modal .sub { color: var(--muted); line-height: 1.6; margin-bottom: 1.5rem; }
-  .plan-toggle { display: flex; border: 1.5px solid var(--border); border-radius: 8px; overflow: hidden; margin-bottom: 1.5rem; }
-  .plan-toggle button { flex: 1; padding: 0.65rem; font-family: 'DM Sans', sans-serif; font-size: 0.85rem; font-weight: 700; border: none; cursor: pointer; transition: all 0.2s; }
-  .plan-toggle button.active { background: var(--ink); color: var(--paper); }
-  .plan-toggle button.inactive { background: white; color: var(--muted); }
-
-  .auth-modal { background: var(--paper); border-radius: 16px; padding: 2.5rem; max-width: 420px; width: 90%; position: relative; }
-  .auth-modal h2 { font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 0.4rem; }
-  .auth-modal .sub { color: var(--muted); font-size: 0.88rem; margin-bottom: 1.5rem; }
-  .auth-input { width: 100%; padding: 0.75rem 1rem; border: 1.5px solid var(--border); border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 0.95rem; background: white; color: var(--ink); margin-bottom: 0.8rem; display: block; }
-  .auth-input:focus { outline: none; border-color: var(--gold); }
-  .auth-error { color: var(--rust); font-size: 0.82rem; margin-bottom: 0.8rem; min-height: 1.1rem; }
-  .auth-switch { font-size: 0.82rem; color: var(--muted); text-align: center; margin-top: 1rem; }
-  .auth-switch a { color: var(--ink); font-weight: 600; cursor: pointer; text-decoration: underline; }
-
-  .user-chip { display: flex; align-items: center; gap: 0.6rem; background: var(--cream); border: 1px solid var(--border); border-radius: 100px; padding: 0.35rem 0.9rem; font-size: 0.8rem; }
-  .pro-tag { background: var(--gold); color: var(--ink); font-size: 0.65rem; font-weight: 800; padding: 0.1rem 0.45rem; border-radius: 4px; }
-  .signout-link { color: var(--muted); cursor: pointer; font-size: 0.75rem; }
-  .signout-link:hover { color: var(--rust); }
-
-  footer { background: var(--ink); color: #888; text-align: center; padding: 2rem; font-size: 0.82rem; }
-  footer a { color: var(--gold); text-decoration: none; }
-  .footer-logo { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--paper); margin-bottom: 0.5rem; }
-
-  @media (max-width: 768px) {
-    .hero { grid-template-columns: 1fr; padding: 3rem 1.5rem; }
-    .resume-preview { display: none; }
-    .app-layout { grid-template-columns: 1fr; }
-    .features-grid, .pricing-grid { grid-template-columns: 1fr; }
-  }
+  :root { --ink:#0f0e0c;--paper:#faf8f3;--cream:#f2ede2;--gold:#c9a84c;--gold-light:#e8d49e;--rust:#b85c38;--sage:#4a6741;--muted:#7a7165;--border:#ddd8cc; }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);min-height:100vh}
+  nav{display:flex;align-items:center;justify-content:space-between;padding:1.2rem 2.5rem;border-bottom:1px solid var(--border);background:var(--paper);position:sticky;top:0;z-index:100}
+  .logo{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:900;color:var(--ink);cursor:pointer}.logo span{color:var(--gold)}
+  .nav-links{display:flex;gap:1.5rem;align-items:center}
+  nav a{color:var(--muted);text-decoration:none;font-size:.9rem;font-weight:500;cursor:pointer}
+  .btn-primary{background:var(--ink);color:var(--paper);border:none;padding:.65rem 1.4rem;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:.9rem;font-weight:600;cursor:pointer;transition:background .2s}
+  .btn-primary:hover{background:var(--rust)}
+  .btn-gold{background:var(--gold);color:var(--ink);border:none;padding:.75rem 1.8rem;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:1rem;font-weight:700;cursor:pointer}
+  .btn-gold:hover{background:#b8933c}
+  .btn-outline{background:transparent;color:var(--ink);border:1.5px solid var(--border);padding:.65rem 1.4rem;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:.9rem;font-weight:500;cursor:pointer}
+  .btn-outline:hover{border-color:var(--ink)}
+  .hero{display:grid;grid-template-columns:1fr 1fr;gap:4rem;max-width:1200px;margin:0 auto;padding:5rem 2.5rem 4rem;align-items:center}
+  .hero-tag{display:inline-block;background:var(--cream);border:1px solid var(--border);color:var(--muted);font-size:.78rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:.35rem .9rem;border-radius:100px;margin-bottom:1.5rem}
+  .hero h1{font-family:'Playfair Display',serif;font-size:3.8rem;font-weight:900;line-height:1.05;letter-spacing:-.02em;margin-bottom:1.4rem}
+  .hero h1 em{font-style:italic;color:var(--rust)}
+  .hero p{font-size:1.1rem;color:var(--muted);line-height:1.7;margin-bottom:2rem;max-width:460px}
+  .hero-cta{display:flex;gap:1rem;align-items:center}
+  .hero-note{font-size:.8rem;color:var(--muted);margin-top:.8rem}
+  .resume-preview{background:white;border-radius:12px;box-shadow:0 4px 40px rgba(0,0,0,.12);padding:2rem;font-size:.78rem;position:relative;animation:floatCard 4s ease-in-out infinite}
+  @keyframes floatCard{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+  .resume-preview::before{content:'PREVIEW';position:absolute;top:-10px;right:20px;background:var(--gold);color:var(--ink);font-size:.65rem;font-weight:700;letter-spacing:.1em;padding:.2rem .6rem;border-radius:4px}
+  .rp-name{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700}.rp-title{color:var(--rust);font-size:.8rem;font-weight:600;margin:.2rem 0 .8rem}
+  .rp-contact{color:var(--muted);font-size:.72rem;margin-bottom:1.2rem}
+  .rp-divider{border:none;border-top:1.5px solid var(--ink);margin-bottom:.8rem}
+  .rp-section-title{font-weight:700;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.5rem}
+  .rp-job{margin-bottom:.9rem}.rp-job-title{font-weight:600}.rp-job-co{color:var(--muted);font-size:.7rem;margin-bottom:.3rem}
+  .rp-bullet{color:var(--muted);padding-left:1rem;position:relative;margin-bottom:.2rem;font-size:.71rem}
+  .rp-bullet::before{content:'—';position:absolute;left:0;color:var(--gold)}
+  .rp-skills{display:flex;flex-wrap:wrap;gap:.4rem}
+  .rp-skill{background:var(--cream);border:1px solid var(--border);padding:.2rem .6rem;border-radius:4px;font-size:.68rem}
+  .stats-bar{background:var(--ink);color:var(--paper);padding:.8rem 2.5rem;display:flex;justify-content:center;gap:4rem}
+  .stat{text-align:center}.stat .num{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:900;color:var(--gold)}.stat .label{font-size:.72rem;color:#aaa;letter-spacing:.05em}
+  .features{max-width:1100px;margin:5rem auto;padding:0 2.5rem}
+  .features-header{text-align:center;margin-bottom:3rem}
+  .features-header h2{font-family:'Playfair Display',serif;font-size:2.5rem;font-weight:900;margin-bottom:.8rem}
+  .features-header p{color:var(--muted);max-width:500px;margin:0 auto;line-height:1.7}
+  .features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
+  .feature-card{background:white;border:1px solid var(--border);border-radius:12px;padding:1.8rem}
+  .feature-icon{font-size:2rem;margin-bottom:1rem}.feature-card h3{font-weight:700;margin-bottom:.5rem}
+  .feature-card p{font-size:.88rem;color:var(--muted);line-height:1.6}
+  .badge{display:inline-block;font-size:.65rem;font-weight:700;padding:.15rem .5rem;border-radius:4px;margin-top:.6rem}
+  .badge-free{background:#e8f5e4;color:var(--sage)}.badge-pro{background:var(--gold-light);color:#7a5c1a}
+  .pricing-section{background:var(--cream);padding:5rem 2.5rem}
+  .pricing-section h2{font-family:'Playfair Display',serif;font-size:2.5rem;font-weight:900;text-align:center;margin-bottom:.8rem}
+  .pricing-section .sub{text-align:center;color:var(--muted);margin-bottom:3rem}
+  .pricing-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;max-width:780px;margin:0 auto}
+  .pricing-card{background:white;border:2px solid var(--border);border-radius:16px;padding:2rem}
+  .pricing-card.featured{border-color:var(--gold);position:relative}
+  .pricing-card.featured::before{content:'MOST POPULAR';position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--gold);color:var(--ink);font-size:.65rem;font-weight:800;padding:.2rem .8rem;border-radius:100px;white-space:nowrap}
+  .pricing-name{font-size:.8rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:.5rem}
+  .pricing-price{font-family:'Playfair Display',serif;font-size:3rem;font-weight:900;line-height:1;margin-bottom:.3rem}
+  .pricing-price sub{font-size:1rem;font-family:'DM Sans',sans-serif;font-weight:400}
+  .pricing-desc{font-size:.82rem;color:var(--muted);margin-bottom:1.5rem}
+  .pricing-features{list-style:none;margin-bottom:1.8rem}
+  .pricing-features li{padding:.45rem 0;font-size:.86rem;border-bottom:1px solid var(--cream);display:flex;align-items:center;gap:.6rem}
+  #app{display:none}
+  .app-layout{display:grid;grid-template-columns:340px 1fr;min-height:calc(100vh - 65px)}
+  .sidebar{background:var(--cream);border-right:1px solid var(--border);padding:1.5rem;overflow-y:auto}
+  .sidebar h3{font-family:'Playfair Display',serif;font-size:1.1rem;margin-bottom:1.2rem;padding-bottom:.7rem;border-bottom:1px solid var(--border)}
+  .form-group{margin-bottom:1rem}
+  .form-group label{display:block;font-size:.78rem;font-weight:600;color:var(--muted);letter-spacing:.05em;text-transform:uppercase;margin-bottom:.4rem}
+  .form-group input,.form-group textarea{width:100%;padding:.6rem .8rem;border:1.5px solid var(--border);border-radius:6px;font-family:'DM Sans',sans-serif;font-size:.88rem;background:white;color:var(--ink)}
+  .form-group input:focus,.form-group textarea:focus{outline:none;border-color:var(--gold)}
+  .form-group textarea{resize:vertical;min-height:80px}
+  .section-toggle{display:flex;align-items:center;justify-content:space-between;padding:.6rem 0;cursor:pointer;font-weight:600;font-size:.88rem;user-select:none}
+  .add-btn{background:none;border:1.5px dashed var(--border);border-radius:6px;padding:.5rem;width:100%;font-size:.82rem;color:var(--muted);cursor:pointer;font-family:'DM Sans',sans-serif}
+  .entry-card{background:white;border:1px solid var(--border);border-radius:8px;padding:.8rem;margin-bottom:.6rem;position:relative}
+  .entry-card .remove-btn{position:absolute;top:.5rem;right:.5rem;background:none;border:none;cursor:pointer;color:var(--muted);font-size:1rem}
+  .sidebar-tabs{display:flex;margin-bottom:1.2rem;border-bottom:1px solid var(--border)}
+  .sidebar-tab{padding:.5rem 1rem;cursor:pointer;font-size:.82rem;font-weight:600;color:var(--muted);border-bottom:2px solid transparent}
+  .sidebar-tab.active{color:var(--ink);border-bottom-color:var(--rust)}
+  .ai-btn{display:flex;align-items:center;gap:.5rem;background:linear-gradient(135deg,#f8f0e0,#fdf6e8);border:1.5px solid var(--gold);border-radius:6px;padding:.6rem 1rem;font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:600;cursor:pointer;color:#7a5c1a;width:100%;margin-bottom:.8rem}
+  .pro-banner{background:linear-gradient(135deg,#fef9ee,#fdf3d0);border:1.5px solid var(--gold);border-radius:8px;padding:.7rem 1rem;font-size:.82rem;color:#7a5c1a;font-weight:600;margin-bottom:1rem;display:none}
+  .preview-pane{background:#e8e4dc;padding:2rem;overflow-y:auto;display:flex;flex-direction:column;align-items:center}
+  .preview-toolbar{width:100%;max-width:680px;display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem}
+  .preview-toolbar h4{font-size:.85rem;font-weight:600;color:var(--muted)}
+  .tabs{display:flex;border-bottom:1px solid var(--border);margin-bottom:1.5rem;width:100%;max-width:680px}
+  .tab{padding:.6rem 1.4rem;cursor:pointer;font-size:.85rem;font-weight:600;color:var(--muted);border-bottom:2px solid transparent}
+  .tab.active{color:var(--ink);border-bottom-color:var(--ink)}
+  .doc{background:white;width:100%;max-width:680px;min-height:900px;padding:3rem 3.5rem;box-shadow:0 4px 30px rgba(0,0,0,.15);font-family:Georgia,serif;font-size:.82rem;line-height:1.5;color:#1a1a1a}
+  .doc-name{font-size:2rem;font-weight:700;margin-bottom:.2rem}
+  .doc-title{color:var(--rust);font-size:.9rem;font-weight:600;margin-bottom:.5rem;font-family:'DM Sans',sans-serif}
+  .doc-contact{font-family:'DM Mono',monospace;font-size:.72rem;color:var(--muted);margin-bottom:1.5rem}
+  .doc-divider{border:none;border-top:2px solid #1a1a1a;margin-bottom:1.2rem}
+  .doc-section{margin-bottom:1.5rem}
+  .doc-section-title{font-family:'DM Sans',sans-serif;font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--rust);margin-bottom:.8rem}
+  .doc-entry{margin-bottom:1rem}
+  .doc-entry-header{display:flex;justify-content:space-between}
+  .doc-entry-title{font-weight:700;font-size:.88rem}
+  .doc-entry-date{font-size:.72rem;color:var(--muted);font-family:'DM Mono',monospace}
+  .doc-entry-sub{font-size:.8rem;color:var(--muted);font-style:italic;margin-bottom:.4rem}
+  .doc-entry-bullets{list-style:none;padding:0}
+  .doc-entry-bullets li{position:relative;padding-left:1.2rem;margin-bottom:.3rem;font-size:.8rem;color:#333}
+  .doc-entry-bullets li::before{content:'▸';position:absolute;left:0;color:var(--gold);font-size:.7rem}
+  .doc-skills-grid{display:flex;flex-wrap:wrap;gap:.5rem}
+  .doc-skill{background:#f5f2ea;padding:.25rem .7rem;border-radius:3px;font-size:.75rem;font-family:'DM Sans',sans-serif}
+  .doc-summary{font-size:.83rem;line-height:1.7;color:#333;font-style:italic}
+  .modal-backdrop{display:none;position:fixed;inset:0;background:rgba(15,14,12,.7);z-index:999;align-items:center;justify-content:center}
+  .modal-backdrop.open{display:flex}
+  .modal{background:var(--paper);border-radius:16px;padding:2.5rem;max-width:480px;width:90%;text-align:center;position:relative}
+  .modal-close{position:absolute;top:1rem;right:1rem;background:none;border:none;font-size:1.3rem;cursor:pointer;color:var(--muted)}
+  .modal h2{font-family:'Playfair Display',serif;font-size:1.8rem;margin-bottom:.7rem}
+  .modal .sub{color:var(--muted);line-height:1.6;margin-bottom:1.5rem}
+  .plan-toggle{display:flex;border:1.5px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:1.5rem}
+  .plan-toggle button{flex:1;padding:.65rem;font-family:'DM Sans',sans-serif;font-size:.85rem;font-weight:700;border:none;cursor:pointer;transition:all .2s}
+  .plan-toggle button.active{background:var(--ink);color:var(--paper)}
+  .plan-toggle button.inactive{background:white;color:var(--muted)}
+  .auth-modal{background:var(--paper);border-radius:16px;padding:2.5rem;max-width:420px;width:90%;position:relative;text-align:center}
+  .auth-modal h2{font-family:'Playfair Display',serif;font-size:1.8rem;margin-bottom:.4rem}
+  .auth-modal .sub{color:var(--muted);font-size:.88rem;margin-bottom:1.5rem}
+  .auth-error{color:var(--rust);font-size:.82rem;margin-bottom:.8rem;min-height:1.1rem}
+  .user-chip{display:flex;align-items:center;gap:.6rem;background:var(--cream);border:1px solid var(--border);border-radius:100px;padding:.35rem .9rem;font-size:.8rem}
+  .pro-tag{background:var(--gold);color:var(--ink);font-size:.65rem;font-weight:800;padding:.1rem .45rem;border-radius:4px}
+  .signout-link{color:var(--muted);cursor:pointer;font-size:.75rem}
+  .signout-link:hover{color:var(--rust)}
+  footer{background:var(--ink);color:#888;text-align:center;padding:2rem;font-size:.82rem}
+  footer a{color:var(--gold);text-decoration:none}
+  .footer-logo{font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--paper);margin-bottom:.5rem}
+  @media(max-width:768px){.hero{grid-template-columns:1fr;padding:3rem 1.5rem}.resume-preview{display:none}.app-layout{grid-template-columns:1fr}.features-grid,.pricing-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -203,7 +168,8 @@
       <hr class="rp-divider">
       <div class="rp-section-title">Experience</div>
       <div class="rp-job">
-        <div class="rp-job-title">Lead Product Manager — Stripe · 2021–Present</div>
+        <div class="rp-job-title">Lead Product Manager — Stripe</div>
+        <div class="rp-job-co">2021–Present</div>
         <div class="rp-bullet">Grew checkout conversion by 18% via A/B-tested UX overhaul</div>
         <div class="rp-bullet">Launched 3 features adding $4.2M ARR in 12 months</div>
       </div>
@@ -246,12 +212,12 @@
         <div class="pricing-price">$0</div>
         <div class="pricing-desc">For casual job seekers</div>
         <ul class="pricing-features">
-          <li><span style="color:var(--sage);font-weight:700;">✓</span> 1 resume</li>
-          <li><span style="color:var(--sage);font-weight:700;">✓</span> PDF export</li>
-          <li><span style="color:var(--sage);font-weight:700;">✓</span> 3 templates</li>
-          <li><span style="color:#ccc;">✗</span> AI bullet generator</li>
-          <li><span style="color:#ccc;">✗</span> Cover letter writer</li>
-          <li><span style="color:#ccc;">✗</span> ATS score checker</li>
+          <li><span style="color:var(--sage);font-weight:700">✓</span> 1 resume</li>
+          <li><span style="color:var(--sage);font-weight:700">✓</span> PDF export</li>
+          <li><span style="color:var(--sage);font-weight:700">✓</span> 3 templates</li>
+          <li><span style="color:#ccc">✗</span> AI bullet generator</li>
+          <li><span style="color:#ccc">✗</span> Cover letter writer</li>
+          <li><span style="color:#ccc">✗</span> ATS score checker</li>
         </ul>
         <button class="btn-outline" style="width:100%" onclick="openAuth()">Get Started Free</button>
       </div>
@@ -260,12 +226,12 @@
         <div class="pricing-price">$9<sub>/mo</sub></div>
         <div class="pricing-desc">For serious job seekers</div>
         <ul class="pricing-features">
-          <li><span style="color:var(--sage);font-weight:700;">✓</span> Unlimited resumes</li>
-          <li><span style="color:var(--sage);font-weight:700;">✓</span> PDF export</li>
-          <li><span style="color:var(--sage);font-weight:700;">✓</span> 50+ templates</li>
-          <li><span style="color:var(--sage);font-weight:700;">✓</span> AI bullet generator</li>
-          <li><span style="color:var(--sage);font-weight:700;">✓</span> Cover letter writer</li>
-          <li><span style="color:var(--sage);font-weight:700;">✓</span> ATS score checker</li>
+          <li><span style="color:var(--sage);font-weight:700">✓</span> Unlimited resumes</li>
+          <li><span style="color:var(--sage);font-weight:700">✓</span> PDF export</li>
+          <li><span style="color:var(--sage);font-weight:700">✓</span> 50+ templates</li>
+          <li><span style="color:var(--sage);font-weight:700">✓</span> AI bullet generator</li>
+          <li><span style="color:var(--sage);font-weight:700">✓</span> Cover letter writer</li>
+          <li><span style="color:var(--sage);font-weight:700">✓</span> ATS score checker</li>
         </ul>
         <button class="btn-gold" style="width:100%" onclick="openUpgrade()">Upgrade to Pro</button>
       </div>
@@ -297,46 +263,44 @@
         <div class="form-group"><label>LinkedIn / Portfolio</label><input type="text" id="f-link" value="linkedin.com/in/alexchen" oninput="updateDoc()"></div>
         <div class="form-group">
           <label>Professional Summary</label>
-          <button class="ai-btn" onclick="proGate()">✨ Write with AI <span style="font-size:0.75rem;">🔒 PRO</span></button>
+          <button class="ai-btn" onclick="proGate()">✨ Write with AI <span style="font-size:.75rem">🔒 PRO</span></button>
           <textarea id="f-summary" oninput="updateDoc()">Results-driven Product Manager with 7+ years building B2B SaaS products. Track record of shipping features that drive measurable revenue growth and improve user retention at scale.</textarea>
         </div>
-        <div style="border-top:1px solid var(--border);padding-top:1rem;margin-bottom:1rem;">
+        <div style="border-top:1px solid var(--border);padding-top:1rem;margin-bottom:1rem">
           <div class="section-toggle" onclick="toggleSection('exp-body')">Experience <span>▾</span></div>
           <div id="exp-body">
-            <button class="ai-btn" onclick="proGate()">✨ AI Bullet Points <span style="font-size:0.75rem;">🔒 PRO</span></button>
+            <button class="ai-btn" onclick="proGate()">✨ AI Bullet Points <span style="font-size:.75rem">🔒 PRO</span></button>
             <div id="exp-entries"></div>
             <button class="add-btn" onclick="addEntry('exp')">+ Add Experience</button>
           </div>
         </div>
-        <div style="border-top:1px solid var(--border);padding-top:1rem;margin-bottom:1rem;">
+        <div style="border-top:1px solid var(--border);padding-top:1rem;margin-bottom:1rem">
           <div class="section-toggle" onclick="toggleSection('edu-body')">Education <span>▾</span></div>
           <div id="edu-body">
             <div id="edu-entries"></div>
             <button class="add-btn" onclick="addEntry('edu')">+ Add Education</button>
           </div>
         </div>
-        <div style="border-top:1px solid var(--border);padding-top:1rem;margin-bottom:1rem;">
+        <div style="border-top:1px solid var(--border);padding-top:1rem;margin-bottom:1rem">
           <div class="section-toggle" onclick="toggleSection('skills-body')">Skills <span>▾</span></div>
           <div id="skills-body">
             <div class="form-group"><label>Skills (comma separated)</label><textarea id="f-skills" oninput="updateDoc()">Product Strategy, SQL, Figma, Go-to-Market, Agile, User Research, Jira, Roadmapping</textarea></div>
           </div>
         </div>
       </div>
-      <div id="sidebar-coverletter" style="display:none;">
+      <div id="sidebar-coverletter" style="display:none">
         <h3>Cover Letter</h3>
         <div class="form-group"><label>Company Name</label><input type="text" id="cl-company" value="Stripe" oninput="updateCL()"></div>
         <div class="form-group"><label>Hiring Manager</label><input type="text" id="cl-manager" value="Hiring Team" oninput="updateCL()"></div>
-        <div class="form-group"><label>Job Title Applying For</label><input type="text" id="cl-job" value="Head of Product" oninput="updateCL()"></div>
-        <button class="ai-btn" onclick="proGate()">✨ Generate with AI <span style="font-size:0.75rem;">🔒 PRO</span></button>
-        <div class="form-group"><label>Your Letter</label><textarea id="cl-body" oninput="updateCL()" style="min-height:300px;">Dear Hiring Team,
+        <button class="ai-btn" onclick="proGate()">✨ Generate with AI <span style="font-size:.75rem">🔒 PRO</span></button>
+        <div class="form-group"><label>Your Letter</label><textarea id="cl-body" oninput="updateCL()" style="min-height:300px">Dear Hiring Team,
 
-I am excited to apply for the Head of Product role at Stripe. With over seven years of product leadership experience, I have a strong track record of shipping features that drive measurable revenue growth.
+I am excited to apply for this role. With over seven years of product leadership experience, I have a strong track record of shipping features that drive measurable revenue growth.
 
 Warm regards,
 Alexandra Chen</textarea></div>
       </div>
     </div>
-
     <div class="preview-pane">
       <div class="tabs">
         <div class="tab active" onclick="switchPreview('resume',this)">📄 Resume</div>
@@ -344,10 +308,10 @@ Alexandra Chen</textarea></div>
       </div>
       <div class="preview-toolbar">
         <h4>Live Preview</h4>
-        <div style="display:flex;gap:0.7rem;">
-          <button class="btn-outline" style="font-size:0.8rem;" onclick="proGate()">🎨 Templates (PRO)</button>
-          <button class="btn-outline" style="font-size:0.8rem;" onclick="proGate()">📊 ATS Score (PRO)</button>
-          <button class="btn-primary" style="font-size:0.8rem;" onclick="window.print()">⬇ Download PDF</button>
+        <div style="display:flex;gap:.7rem">
+          <button class="btn-outline" style="font-size:.8rem" onclick="proGate()">🎨 Templates (PRO)</button>
+          <button class="btn-outline" style="font-size:.8rem" onclick="proGate()">📊 ATS Score (PRO)</button>
+          <button class="btn-primary" style="font-size:.8rem" onclick="window.print()">⬇ Download PDF</button>
         </div>
       </div>
       <div class="doc" id="resume-doc">
@@ -363,13 +327,13 @@ Alexandra Chen</textarea></div>
         <hr class="doc-divider">
         <div class="doc-section"><div class="doc-section-title">Skills</div><div class="doc-skills-grid" id="d-skills"></div></div>
       </div>
-      <div class="doc" id="cl-doc" style="display:none;">
-        <div style="margin-bottom:2rem;">
+      <div class="doc" id="cl-doc" style="display:none">
+        <div style="margin-bottom:2rem">
           <div class="doc-name" id="cl-d-name">Alexandra Chen</div>
           <div class="doc-contact" id="cl-d-contact">alex@email.com · (415) 555-0192</div>
         </div>
-        <div style="margin-bottom:2rem;"><div id="cl-d-to" style="font-size:0.85rem;line-height:1.8;color:#333;">Hiring Team<br>Stripe</div></div>
-        <div id="cl-d-body" style="font-size:0.84rem;line-height:1.9;color:#333;white-space:pre-wrap;"></div>
+        <div style="margin-bottom:2rem"><div id="cl-d-to" style="font-size:.85rem;line-height:1.8;color:#333">Hiring Team<br>Stripe</div></div>
+        <div id="cl-d-body" style="font-size:.84rem;line-height:1.9;color:#333;white-space:pre-wrap"></div>
       </div>
     </div>
   </div>
@@ -377,17 +341,17 @@ Alexandra Chen</textarea></div>
 
 <!-- AUTH MODAL -->
 <div class="modal-backdrop" id="auth-modal">
-  <div class="auth-modal" style="text-align:center;">
+  <div class="auth-modal">
     <button class="modal-close" onclick="closeAuth()">✕</button>
-    <div style="font-size:2.5rem;margin-bottom:1rem;">📄</div>
+    <div style="font-size:2.5rem;margin-bottom:1rem">📄</div>
     <h2>Get started free</h2>
     <p class="sub">Build your resume in minutes. No credit card needed.</p>
     <div class="auth-error" id="auth-error"></div>
-    <button onclick="handleGoogleSignIn()" id="google-btn" style="width:100%;padding:0.85rem 1rem;border:1.5px solid var(--border);border-radius:8px;background:white;font-family:'DM Sans',sans-serif;font-size:1rem;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:0.75rem;transition:all 0.2s;margin-bottom:0.8rem;">
+    <button onclick="handleGoogleSignIn()" id="google-btn" style="width:100%;padding:.85rem 1rem;border:1.5px solid var(--border);border-radius:8px;background:white;font-family:'DM Sans',sans-serif;font-size:1rem;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:.75rem;margin-bottom:.8rem">
       <svg width="20" height="20" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20H24v8h11.3C33.6 33.1 29.3 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.1 7.9 2.9l5.7-5.7C34.1 6.5 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20c11 0 20-8 20-20 0-1.3-.1-2.7-.4-4z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.5 15.1 18.9 12 24 12c3.1 0 5.8 1.1 7.9 2.9l5.7-5.7C34.1 6.5 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-1.9 13.5-5l-6.2-5.2C29.4 35.6 26.8 36 24 36c-5.2 0-9.6-2.9-11.3-7.1l-6.5 5C9.5 40.1 16.3 44 24 44z"/><path fill="#1976D2" d="M43.6 20H24v8h11.3c-.9 2.4-2.5 4.4-4.6 5.8l6.2 5.2C40.8 35.4 44 30.1 44 24c0-1.3-.1-2.7-.4-4z"/></svg>
       Continue with Google
     </button>
-    <p style="font-size:0.75rem;color:var(--muted);">By signing up you agree to our Terms & Privacy Policy</p>
+    <p style="font-size:.75rem;color:var(--muted)">By signing up you agree to our Terms &amp; Privacy Policy</p>
   </div>
 </div>
 
@@ -395,216 +359,154 @@ Alexandra Chen</textarea></div>
 <div class="modal-backdrop" id="upgrade-modal">
   <div class="modal">
     <button class="modal-close" onclick="closeUpgrade()">✕</button>
-    <div class="modal-icon">⚡</div>
+    <div class="modal-icon" style="font-size:3rem;margin-bottom:1rem">⚡</div>
     <h2>Unlock Pro Features</h2>
-    <p class="sub">AI bullet points, cover letter generator, ATS scoring, 50+ templates & unlimited resumes.</p>
+    <p class="sub">AI bullet points, cover letter generator, ATS scoring, 50+ templates &amp; unlimited resumes.</p>
     <div class="plan-toggle">
       <button class="active" id="toggle-monthly" onclick="showPlan('monthly')">Monthly — $9</button>
-      <button class="inactive" id="toggle-annual" onclick="showPlan('annual')">Annual — $59 &nbsp;<span style="background:var(--gold);color:var(--ink);font-size:0.65rem;font-weight:800;padding:0.1rem 0.4rem;border-radius:4px;">SAVE 39%</span></button>
+      <button class="inactive" id="toggle-annual" onclick="showPlan('annual')">Annual — $59 &nbsp;<span style="background:var(--gold);color:var(--ink);font-size:.65rem;font-weight:800;padding:.1rem .4rem;border-radius:4px">SAVE 39%</span></button>
     </div>
     <div id="plan-monthly">
-      <button class="btn-gold" style="width:100%;font-size:1rem;padding:1rem;" onclick="window.open('https://buy.stripe.com/test_bJe4gybv04sQ5z7fQNcs801','_blank')">Start Monthly — 7-Day Free Trial →</button>
-      <p style="font-size:0.78rem;color:var(--muted);margin-top:0.6rem;">$9/month after trial · Cancel anytime</p>
+      <button class="btn-gold" style="width:100%;font-size:1rem;padding:1rem" onclick="window.open('https://buy.stripe.com/test_bJe4gybv04sQ5z7fQNcs801','_blank')">Start Monthly — 7-Day Free Trial →</button>
+      <p style="font-size:.78rem;color:var(--muted);margin-top:.6rem">$9/month after trial · Cancel anytime</p>
     </div>
-    <div id="plan-annual" style="display:none;">
-      <button class="btn-gold" style="width:100%;font-size:1rem;padding:1rem;" onclick="window.open('https://buy.stripe.com/test_6oU00ibv0f7u3qZcEBcs800','_blank')">Start Annual — 7-Day Free Trial →</button>
-      <p style="font-size:0.78rem;color:var(--muted);margin-top:0.6rem;">$59/year after trial · Cancel anytime</p>
+    <div id="plan-annual" style="display:none">
+      <button class="btn-gold" style="width:100%;font-size:1rem;padding:1rem" onclick="window.open('https://buy.stripe.com/test_6oU00ibv0f7u3qZcEBcs800','_blank')">Start Annual — 7-Day Free Trial →</button>
+      <p style="font-size:.78rem;color:var(--muted);margin-top:.6rem">$59/year after trial · Cancel anytime</p>
     </div>
-    <div style="background:var(--cream);border-radius:8px;padding:0.9rem;margin-top:1rem;text-align:left;">
-      <p style="font-size:0.8rem;color:var(--ink);font-weight:600;margin-bottom:0.3rem;">✅ After payment — activate Pro instantly:</p>
-      <p style="font-size:0.8rem;color:var(--muted);">Email your Stripe receipt to <strong>support@resumeforge.io</strong> and we'll upgrade your account within minutes.</p>
+    <div style="background:var(--cream);border-radius:8px;padding:.9rem;margin-top:1rem;text-align:left">
+      <p style="font-size:.8rem;font-weight:600;margin-bottom:.3rem">✅ After payment — activate Pro:</p>
+      <p style="font-size:.78rem;color:var(--muted)">Email your receipt to <strong>support@resumeforge.io</strong> and we'll upgrade your account within minutes.</p>
     </div>
-    <p style="font-size:0.75rem;color:var(--muted);margin-top:0.8rem;">7-day free trial · Powered by Stripe 🔒</p>
+    <p style="font-size:.75rem;color:var(--muted);margin-top:.8rem">7-day free trial · Powered by Stripe 🔒</p>
   </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.3/dist/umd/supabase.min.js"></script>
 <script>
-// ── SUPABASE INIT ──
-const { createClient } = window.supabase;
-const sb = createClient(
-  'https://nwnxhnwnffqzccwrbklv.supabase.co',
-  'sb_publishable_1ZS8klug8sZMU_yrIRndqA_sfvTioMj'
-);
+// ── ALL UI FUNCTIONS (defined first, before any external scripts) ──
+var currentUser = null;
+var isPro = false;
+var sb = null;
 
-let currentUser = null;
-let isPro = false;
-
-// ── LISTEN FOR AUTH CHANGES ──
-sb.auth.onAuthStateChange(async (event, session) => {
-  currentUser = session?.user ?? null;
-  if (currentUser) {
-    await checkProStatus();
-    showUserNav();
-  } else {
-    isPro = false;
-    showGuestNav();
-  }
-});
-
-// ── CHECK PRO STATUS ──
-async function checkProStatus() {
-  try {
-    const { data } = await sb
-      .from('profiles')
-      .select('is_pro')
-      .eq('id', currentUser.id)
-      .single();
-    isPro = data?.is_pro === true;
-  } catch (e) {
-    isPro = false;
-  }
-  updateProUI();
+function openAuth() { document.getElementById('auth-modal').classList.add('open'); }
+function closeAuth() { document.getElementById('auth-modal').classList.remove('open'); }
+function openUpgrade() { if (!currentUser) { openAuth(); return; } document.getElementById('upgrade-modal').classList.add('open'); }
+function closeUpgrade() { document.getElementById('upgrade-modal').classList.remove('open'); }
+function goHome() { document.getElementById('landing').style.display='block'; document.getElementById('app').style.display='none'; }
+function showApp() { document.getElementById('landing').style.display='none'; document.getElementById('app').style.display='block'; updateProUI(); }
+function scrollToPricing() { goHome(); setTimeout(()=>document.getElementById('pricing-section')?.scrollIntoView({behavior:'smooth'}),100); }
+function proGate() { if (isPro) return; openUpgrade(); }
+function showPlan(plan) {
+  document.getElementById('plan-monthly').style.display=plan==='monthly'?'block':'none';
+  document.getElementById('plan-annual').style.display=plan==='annual'?'block':'none';
+  document.getElementById('toggle-monthly').className=plan==='monthly'?'active':'inactive';
+  document.getElementById('toggle-annual').className=plan==='annual'?'active':'inactive';
 }
-
+function switchPreview(type,el) {
+  document.querySelectorAll('.tabs .tab').forEach(t=>t.classList.remove('active')); el.classList.add('active');
+  document.getElementById('resume-doc').style.display=type==='resume'?'block':'none';
+  document.getElementById('cl-doc').style.display=type==='cl'?'block':'none';
+}
+function switchSidebarTab(type,el) {
+  document.querySelectorAll('.sidebar-tab').forEach(t=>t.classList.remove('active')); el.classList.add('active');
+  document.getElementById('sidebar-resume').style.display=type==='resume'?'block':'none';
+  document.getElementById('sidebar-coverletter').style.display=type==='coverletter'?'block':'none';
+}
+function toggleSection(id) { var el=document.getElementById(id); el.style.display=el.style.display==='none'?'block':'none'; }
 function updateProUI() {
-  document.getElementById('pro-banner').style.display = isPro ? 'block' : 'none';
-  document.getElementById('nav-pro-tag').style.display = isPro ? 'inline' : 'none';
+  document.getElementById('pro-banner').style.display=isPro?'block':'none';
+  document.getElementById('nav-pro-tag').style.display=isPro?'inline':'none';
 }
-
 function showUserNav() {
-  document.getElementById('nav-guest').style.display = 'none';
-  document.getElementById('nav-user').style.display = 'block';
-  const emailShort = currentUser.email.split('@')[0];
-  document.getElementById('nav-email').textContent = emailShort;
+  document.getElementById('nav-guest').style.display='none';
+  document.getElementById('nav-user').style.display='block';
+  document.getElementById('nav-email').textContent=currentUser.email.split('@')[0];
 }
 function showGuestNav() {
-  document.getElementById('nav-guest').style.display = 'flex';
-  document.getElementById('nav-user').style.display = 'none';
+  document.getElementById('nav-guest').style.display='flex';
+  document.getElementById('nav-user').style.display='none';
 }
+async function signOut() { if(sb) await sb.auth.signOut(); currentUser=null; isPro=false; showGuestNav(); goHome(); }
 
-// ── GOOGLE SIGN IN ──
 async function handleGoogleSignIn() {
-  const btn = document.getElementById('google-btn');
-  const errEl = document.getElementById('auth-error');
-  btn.textContent = 'Redirecting to Google...';
-  btn.disabled = true;
-  errEl.textContent = '';
-  const { error } = await sb.auth.signInWithOAuth({
-    provider: 'google',
-    options: { redirectTo: 'https://resumeforge-delta.vercel.app' }
-  });
-  if (error) {
-    errEl.textContent = error.message;
-    errEl.style.display = 'block';
-    btn.textContent = 'Continue with Google';
-    btn.disabled = false;
-  }
-}
-
-// ── SIGN OUT ──
-async function signOut() {
-  await sb.auth.signOut();
-  goHome();
-}
-
-// ── AUTH MODAL ──
-function openAuth() {
-  document.getElementById('auth-modal').classList.add('open');
-}
-function closeAuth() { document.getElementById('auth-modal').classList.remove('open'); }
-function toggleAuthView() {} // no longer needed
-
-// ── UPGRADE MODAL ──
-function openUpgrade() {
-  if (!currentUser) { openAuth('signup'); return; }
-  document.getElementById('upgrade-modal').classList.add('open');
-}
-function closeUpgrade() { document.getElementById('upgrade-modal').classList.remove('open'); }
-function showPlan(plan) {
-  document.getElementById('plan-monthly').style.display = plan === 'monthly' ? 'block' : 'none';
-  document.getElementById('plan-annual').style.display = plan === 'annual' ? 'block' : 'none';
-  document.getElementById('toggle-monthly').className = plan === 'monthly' ? 'active' : 'inactive';
-  document.getElementById('toggle-annual').className = plan === 'annual' ? 'active' : 'inactive';
-}
-
-// ── PRO GATE ──
-function proGate() {
-  if (isPro) return;
-  openUpgrade();
-}
-
-// ── NAV ──
-function goHome() {
-  document.getElementById('landing').style.display = 'block';
-  document.getElementById('app').style.display = 'none';
-}
-function showApp() {
-  document.getElementById('landing').style.display = 'none';
-  document.getElementById('app').style.display = 'block';
-  updateProUI();
-}
-function scrollToPricing() {
-  goHome();
-  setTimeout(() => document.getElementById('pricing-section')?.scrollIntoView({ behavior: 'smooth' }), 100);
+  var btn=document.getElementById('google-btn');
+  var errEl=document.getElementById('auth-error');
+  if (!sb) { errEl.textContent='Auth service not loaded. Please refresh.'; return; }
+  btn.textContent='Redirecting to Google...'; btn.disabled=true; errEl.textContent='';
+  var result=await sb.auth.signInWithOAuth({provider:'google',options:{redirectTo:'https://resumeforge-delta.vercel.app'}});
+  if (result.error) { errEl.textContent=result.error.message; btn.innerHTML='<svg width="20" height="20" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20H24v8h11.3C33.6 33.1 29.3 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.1 7.9 2.9l5.7-5.7C34.1 6.5 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20c11 0 20-8 20-20 0-1.3-.1-2.7-.4-4z"/></svg> Continue with Google'; btn.disabled=false; }
 }
 
 // ── RESUME BUILDER ──
-const entries = { exp: [], edu: [] };
-let expId = 0, eduId = 0;
-entries.exp = [
-  { id: ++expId, title: 'Lead Product Manager', company: 'Stripe', dates: '2021–Present', bullets: 'Grew checkout conversion by 18% via A/B-tested UX overhaul\nLed team of 6 PMs across payments & identity products\nLaunched 3 enterprise features, adding $4.2M ARR in 12 months' },
-  { id: ++expId, title: 'Product Manager', company: 'Notion', dates: '2019–2021', bullets: 'Shipped collaborative database feature used by 500k+ teams\nReduced churn by 22% via onboarding redesign' }
+var entries={exp:[],edu:[]};
+var expId=0,eduId=0;
+entries.exp=[
+  {id:++expId,title:'Lead Product Manager',company:'Stripe',dates:'2021–Present',bullets:'Grew checkout conversion by 18% via A/B-tested UX overhaul\nLed team of 6 PMs across payments & identity products\nLaunched 3 enterprise features, adding $4.2M ARR in 12 months'},
+  {id:++expId,title:'Product Manager',company:'Notion',dates:'2019–2021',bullets:'Shipped collaborative database feature used by 500k+ teams\nReduced churn by 22% via onboarding redesign'}
 ];
-entries.edu = [{ id: ++eduId, title: 'B.S. Computer Science', company: 'UC Berkeley', dates: '2015–2019', bullets: '' }];
+entries.edu=[{id:++eduId,title:'B.S. Computer Science',company:'UC Berkeley',dates:'2015–2019',bullets:''}];
 
-function init() { renderEntries('exp'); renderEntries('edu'); updateDoc(); updateCL(); }
-
-function toggleSection(id) {
-  const el = document.getElementById(id);
-  el.style.display = el.style.display === 'none' ? 'block' : 'none';
-}
-function addEntry(type) {
-  const id = type === 'exp' ? ++expId : ++eduId;
-  entries[type].push({ id, title: '', company: '', dates: '', bullets: '' });
-  renderEntries(type); updateDoc();
-}
-function removeEntry(type, id) {
-  entries[type] = entries[type].filter(e => e.id !== id);
-  renderEntries(type); updateDoc();
-}
+function addEntry(type) { var id=type==='exp'?++expId:++eduId; entries[type].push({id,title:'',company:'',dates:'',bullets:''}); renderEntries(type); updateDoc(); }
+function removeEntry(type,id) { entries[type]=entries[type].filter(e=>e.id!==id); renderEntries(type); updateDoc(); }
 function renderEntries(type) {
-  const container = document.getElementById(`${type}-entries`);
-  container.innerHTML = '';
-  entries[type].forEach(e => {
-    const d = document.createElement('div');
-    d.className = 'entry-card';
-    d.innerHTML = `
-      <button class="remove-btn" onclick="removeEntry('${type}',${e.id})">✕</button>
-      <div class="form-group" style="margin-bottom:0.5rem;"><label>Title / Degree</label><input type="text" value="${e.title}" oninput="entries['${type}'].find(x=>x.id==${e.id}).title=this.value;updateDoc()"></div>
-      <div class="form-group" style="margin-bottom:0.5rem;"><label>Company / School</label><input type="text" value="${e.company}" oninput="entries['${type}'].find(x=>x.id==${e.id}).company=this.value;updateDoc()"></div>
-      <div class="form-group" style="margin-bottom:0.5rem;"><label>Dates</label><input type="text" value="${e.dates}" oninput="entries['${type}'].find(x=>x.id==${e.id}).dates=this.value;updateDoc()"></div>
-      ${type==='exp'?`<div class="form-group" style="margin-bottom:0;"><label>Bullets (one per line)</label><textarea oninput="entries['${type}'].find(x=>x.id==${e.id}).bullets=this.value;updateDoc()">${e.bullets}</textarea></div>`:''}
-    `;
+  var container=document.getElementById(type+'-entries'); container.innerHTML='';
+  entries[type].forEach(function(e) {
+    var d=document.createElement('div'); d.className='entry-card';
+    d.innerHTML='<button class="remove-btn" onclick="removeEntry(\''+type+'\','+e.id+')">✕</button>'+
+      '<div class="form-group" style="margin-bottom:.5rem"><label>Title / Degree</label><input type="text" value="'+e.title+'" oninput="entries[\''+type+'\'].find(x=>x.id=='+e.id+').title=this.value;updateDoc()"></div>'+
+      '<div class="form-group" style="margin-bottom:.5rem"><label>Company / School</label><input type="text" value="'+e.company+'" oninput="entries[\''+type+'\'].find(x=>x.id=='+e.id+').company=this.value;updateDoc()"></div>'+
+      '<div class="form-group" style="margin-bottom:.5rem"><label>Dates</label><input type="text" value="'+e.dates+'" oninput="entries[\''+type+'\'].find(x=>x.id=='+e.id+').dates=this.value;updateDoc()"></div>'+
+      (type==='exp'?'<div class="form-group" style="margin-bottom:0"><label>Bullets (one per line)</label><textarea oninput="entries[\''+type+'\'].find(x=>x.id=='+e.id+').bullets=this.value;updateDoc()">'+e.bullets+'</textarea></div>':'');
     container.appendChild(d);
   });
 }
 function updateDoc() {
-  const v = id => document.getElementById(id)?.value || '';
-  document.getElementById('d-name').textContent = v('f-name') || 'Your Name';
-  document.getElementById('d-title').textContent = v('f-title');
-  document.getElementById('d-contact').textContent = [v('f-email'),v('f-phone'),v('f-location'),v('f-link')].filter(Boolean).join(' · ');
-  document.getElementById('d-summary').textContent = v('f-summary');
-  let expHtml = '';
-  entries.exp.forEach(e => {
-    const bullets = e.bullets.split('\n').filter(b=>b.trim());
-    expHtml += `<div class="doc-entry"><div class="doc-entry-header"><span class="doc-entry-title">${e.title}</span><span class="doc-entry-date">${e.dates}</span></div><div class="doc-entry-sub">${e.company}</div>${bullets.length?`<ul class="doc-entry-bullets">${bullets.map(b=>`<li>${b}</li>`).join('')}</ul>`:''}</div>`;
-  });
-  document.getElementById('d-exp').innerHTML = expHtml;
-  let eduHtml = '';
-  entries.edu.forEach(e => {
-    eduHtml += `<div class="doc-entry"><div class="doc-entry-header"><span class="doc-entry-title">${e.title}</span><span class="doc-entry-date">${e.dates}</span></div><div class="doc-entry-sub">${e.company}</div></div>`;
-  });
-  document.getElementById('d-edu').innerHTML = eduHtml;
-  const skills = v('f-skills').split(',').map(s=>s.trim()).filter(Boolean);
-  document.getElementById('d-skills').innerHTML = skills.map(s=>`<span class="doc-skill">${s}</span>`).join('');
+  var v=function(id){return(document.getElementById(id)||{}).value||''};
+  document.getElementById('d-name').textContent=v('f-name')||'Your Name';
+  document.getElementById('d-title').textContent=v('f-title');
+  document.getElementById('d-contact').textContent=[v('f-email'),v('f-phone'),v('f-location'),v('f-link')].filter(Boolean).join(' · ');
+  document.getElementById('d-summary').textContent=v('f-summary');
+  var expHtml='';
+  entries.exp.forEach(function(e){var bullets=e.bullets.split('\n').filter(function(b){return b.trim()});expHtml+='<div class="doc-entry"><div class="doc-entry-header"><span class="doc-entry-title">'+e.title+'</span><span class="doc-entry-date">'+e.dates+'</span></div><div class="doc-entry-sub">'+e.company+'</div>'+(bullets.length?'<ul class="doc-entry-bullets">'+bullets.map(function(b){return'<li>'+b+'</li>'}).join('')+'</ul>':'')+'</div>';});
+  document.getElementById('d-exp').innerHTML=expHtml;
+  var eduHtml='';
+  entries.edu.forEach(function(e){eduHtml+='<div class="doc-entry"><div class="doc-entry-header"><span class="doc-entry-title">'+e.title+'</span><span class="doc-entry-date">'+e.dates+'</span></div><div class="doc-entry-sub">'+e.company+'</div></div>';});
+  document.getElementById('d-edu').innerHTML=eduHtml;
+  var skills=v('f-skills').split(',').map(function(s){return s.trim()}).filter(Boolean);
+  document.getElementById('d-skills').innerHTML=skills.map(function(s){return'<span class="doc-skill">'+s+'</span>'}).join('');
 }
 function updateCL() {
-  const v = id => document.getElementById(id)?.value || '';
-  document.getElementById('cl-d-name').textContent = v('f-name') || 'Your Name';
-  document.getElementById('cl-d-contact').textContent = [v('f-email'),v('f-phone')].filter(Boolean).join(' · ');
-  document.getElementById('cl-d-to').innerHTML = `${v('cl-manager')}<br>${v('cl-company')}`;
-  document.getElementById('cl-d-body').textContent = v('cl-body');
+  var v=function(id){return(document.getElementById(id)||{}).value||''};
+  document.getElementById('cl-d-name').textContent=v('f-name')||'Your Name';
+  document.getElementById('cl-d-contact').textContent=[v('f-email'),v('f-phone')].filter(Boolean).join(' · ');
+  document.getElementById('cl-d-to').innerHTML=v('cl-manager')+'<br>'+v('cl-company');
+  document.getElementById('cl-d-body').textContent=v('cl-body');
 }
-function switchPreview(type, el) {
-  document.querySelectorAll('.tabs .tab').forEach(t=>t.classList.remove('active'));
+
+// ── INIT ──
+renderEntries('exp'); renderEntries('edu'); updateDoc(); updateCL();
+
+// ── LOAD SUPABASE ASYNC ──
+(function() {
+  var script=document.createElement('script');
+  script.src='https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.3/dist/umd/supabase.min.js';
+  script.onload=function() {
+    sb=window.supabase.createClient(
+      'https://nwnxhnwnffqzccwrbklv.supabase.co',
+      'sb_publishable_1ZS8klug8sZMU_yrIRndqA_sfvTioMj'
+    );
+    sb.auth.onAuthStateChange(async function(event,session) {
+      currentUser=session?session.user:null;
+      if (currentUser) {
+        try { var r=await sb.from('profiles').select('is_pro').eq('id',currentUser.id).single(); isPro=r.data&&r.data.is_pro===true; } catch(e){isPro=false;}
+        updateProUI(); showUserNav();
+        if (document.getElementById('auth-modal').classList.contains('open')) { closeAuth(); showApp(); }
+      } else { isPro=false; updateProUI(); showGuestNav(); }
+    });
+  };
+  script.onerror=function(){console.warn('Supabase CDN failed - auth disabled');};
+  document.body.appendChild(script);
+})();
+</script>
+</body>
+</html>
