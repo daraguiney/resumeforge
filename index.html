@@ -3,12 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ResumeForge</title>
+<title>ResumeForge — Build Resumes That Get Interviews</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{--ink:#0f0e0c;--paper:#faf8f3;--cream:#f2ede2;--gold:#c9a84c;--gold-light:#e8d49e;--rust:#b85c38;--sage:#4a6741;--muted:#7a7165;--border:#ddd8cc}
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);min-height:100vh}
+
+/* ── NAV ── */
 nav{display:flex;align-items:center;justify-content:space-between;padding:1.2rem 2.5rem;border-bottom:1px solid var(--border);background:var(--paper);position:sticky;top:0;z-index:100}
 .logo{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:900;letter-spacing:-.02em;color:var(--ink);cursor:pointer}.logo span{color:var(--gold)}
 nav .nav-links{display:flex;gap:2rem;align-items:center}
@@ -16,12 +18,14 @@ nav a{color:var(--muted);text-decoration:none;font-size:.9rem;font-weight:500;cu
 .btn-primary{background:var(--ink);color:var(--paper);border:none;padding:.65rem 1.4rem;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:.9rem;font-weight:600;cursor:pointer;transition:background .2s}.btn-primary:hover{background:var(--rust)}
 .btn-gold{background:var(--gold);color:var(--ink);border:none;padding:.75rem 1.8rem;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:1rem;font-weight:700;cursor:pointer;transition:background .2s}.btn-gold:hover{background:#b8933c}
 .btn-outline{background:transparent;color:var(--ink);border:1.5px solid var(--border);padding:.65rem 1.4rem;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:.9rem;font-weight:500;cursor:pointer;transition:border-color .2s}.btn-outline:hover{border-color:var(--ink)}
+
+/* ── HERO ── */
 .hero{display:grid;grid-template-columns:1fr 1fr;gap:4rem;max-width:1200px;margin:0 auto;padding:5rem 2.5rem 4rem;align-items:center}
 .hero-tag{display:inline-block;background:var(--cream);border:1px solid var(--border);color:var(--muted);font-size:.78rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:.35rem .9rem;border-radius:100px;margin-bottom:1.5rem}
 .hero h1{font-family:'Playfair Display',serif;font-size:3.8rem;font-weight:900;line-height:1.05;letter-spacing:-.02em;margin-bottom:1.4rem}
 .hero h1 em{font-style:italic;color:var(--rust)}
 .hero p{font-size:1.1rem;color:var(--muted);line-height:1.7;margin-bottom:2rem;max-width:460px}
-.hero-cta{display:flex;gap:1rem;align-items:center}.hero-note{font-size:.8rem;color:var(--muted);margin-top:.8rem}
+.hero-cta{display:flex;gap:1rem;align-items:center;flex-wrap:wrap}.hero-note{font-size:.8rem;color:var(--muted);margin-top:.8rem}
 .resume-preview{background:white;border-radius:12px;box-shadow:0 4px 40px rgba(0,0,0,.12);padding:2rem;font-size:.78rem;position:relative;animation:floatCard 4s ease-in-out infinite}
 @keyframes floatCard{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
 .resume-preview::before{content:'PREVIEW';position:absolute;top:-10px;right:20px;background:var(--gold);color:var(--ink);font-size:.65rem;font-weight:700;letter-spacing:.1em;padding:.2rem .6rem;border-radius:4px}
@@ -31,7 +35,9 @@ nav a{color:var(--muted);text-decoration:none;font-size:.9rem;font-weight:500;cu
 .rp-job-title{font-weight:600}.rp-job-co{color:var(--muted);font-size:.7rem;margin-bottom:.3rem}
 .rp-bullet{color:var(--muted);padding-left:1rem;position:relative;margin-bottom:.2rem;font-size:.71rem}.rp-bullet::before{content:'--';position:absolute;left:0;color:var(--gold)}
 .rp-skills{display:flex;flex-wrap:wrap;gap:.4rem}.rp-skill{background:var(--cream);border:1px solid var(--border);padding:.2rem .6rem;border-radius:4px;font-size:.68rem}
-.stats-bar{background:var(--ink);color:var(--paper);padding:.8rem 2.5rem;display:flex;justify-content:center;gap:4rem}
+
+/* ── STATS / FEATURES / PRICING ── */
+.stats-bar{background:var(--ink);color:var(--paper);padding:.8rem 2.5rem;display:flex;justify-content:center;gap:4rem;flex-wrap:wrap}
 .stat{text-align:center}.stat .num{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:900;color:var(--gold)}.stat .label{font-size:.72rem;color:#aaa;letter-spacing:.05em}
 .features{max-width:1100px;margin:5rem auto;padding:0 2.5rem}.features-header{text-align:center;margin-bottom:3rem}
 .features-header h2{font-family:'Playfair Display',serif;font-size:2.5rem;font-weight:900;margin-bottom:.8rem}
@@ -55,6 +61,8 @@ nav a{color:var(--muted);text-decoration:none;font-size:.9rem;font-weight:500;cu
 .pricing-features{list-style:none;margin-bottom:1.8rem}
 .pricing-features li{padding:.45rem 0;font-size:.86rem;border-bottom:1px solid var(--cream);display:flex;align-items:center;gap:.6rem}
 .check{color:var(--sage);font-weight:700}.cross{color:#ccc}
+
+/* ── APP ── */
 #app{display:none}
 .app-layout{display:grid;grid-template-columns:340px 1fr;min-height:calc(100vh - 65px)}
 .sidebar{background:var(--cream);border-right:1px solid var(--border);padding:1.5rem;overflow-y:auto;max-height:calc(100vh - 65px)}
@@ -65,7 +73,7 @@ nav a{color:var(--muted);text-decoration:none;font-size:.9rem;font-weight:500;cu
 .form-group input:focus,.form-group textarea:focus{outline:none;border-color:var(--gold)}
 .form-group textarea{resize:vertical;min-height:80px}
 .section-toggle{display:flex;align-items:center;justify-content:space-between;padding:.6rem 0;cursor:pointer;font-weight:600;font-size:.88rem;user-select:none;transition:color .2s}.section-toggle:hover{color:var(--rust)}
-.section-toggle .arrow{transition:transform .2s;display:inline-block}
+.section-toggle .arrow{transition:transform .25s;display:inline-block}
 .section-collapsed .arrow{transform:rotate(-90deg)}
 .add-btn{background:none;border:1.5px dashed var(--border);border-radius:6px;padding:.5rem;width:100%;font-size:.82rem;color:var(--muted);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s}.add-btn:hover{border-color:var(--gold);color:var(--ink)}
 .entry-card{background:white;border:1px solid var(--border);border-radius:8px;padding:.8rem;margin-bottom:.6rem;position:relative}
@@ -81,10 +89,13 @@ nav a{color:var(--muted);text-decoration:none;font-size:.9rem;font-weight:500;cu
 .pro-tag{background:var(--gold);color:var(--ink);font-size:.65rem;font-weight:800;padding:.1rem .45rem;border-radius:4px}
 .signout-link{color:var(--muted);cursor:pointer;font-size:.75rem;transition:color .2s}.signout-link:hover{color:var(--rust)}
 .preview-pane{background:#e8e4dc;padding:2rem;overflow-y:auto;display:flex;flex-direction:column;align-items:center}
-.preview-toolbar{width:100%;max-width:680px;display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem}
+.preview-toolbar{width:100%;max-width:680px;display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;flex-wrap:wrap;gap:.5rem}
 .preview-toolbar h4{font-size:.85rem;font-weight:600;color:var(--muted)}
+.preview-toolbar-actions{display:flex;gap:.7rem;flex-wrap:wrap}
 .tabs{display:flex;border-bottom:1px solid var(--border);margin-bottom:1.5rem;width:100%;max-width:680px}
 .tab{padding:.6rem 1.4rem;cursor:pointer;font-size:.85rem;font-weight:600;color:var(--muted);border-bottom:2px solid transparent;transition:all .2s}.tab.active{color:var(--ink);border-bottom-color:var(--ink)}
+
+/* ── DOC ── */
 .doc{background:white;width:100%;max-width:680px;min-height:900px;padding:3rem 3.5rem;box-shadow:0 4px 30px rgba(0,0,0,.15);border-radius:4px;font-family:Georgia,serif;font-size:.82rem;line-height:1.5;color:#1a1a1a}
 .doc-name{font-size:2rem;font-weight:700;margin-bottom:.2rem}
 .doc-title{color:var(--rust);font-size:.9rem;font-weight:600;margin-bottom:.5rem;font-family:'DM Sans',sans-serif}
@@ -92,8 +103,8 @@ nav a{color:var(--muted);text-decoration:none;font-size:.9rem;font-weight:500;cu
 .doc-divider{border:none;border-top:2px solid #1a1a1a;margin-bottom:1.2rem}
 .doc-section{margin-bottom:1.5rem}
 .doc-section-title{font-family:'DM Sans',sans-serif;font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--rust);margin-bottom:.8rem}
-.doc-entry{margin-bottom:1rem}.doc-entry-header{display:flex;justify-content:space-between}
-.doc-entry-title{font-weight:700;font-size:.88rem}.doc-entry-date{font-size:.72rem;color:var(--muted);font-family:'DM Mono',monospace}
+.doc-entry{margin-bottom:1rem}.doc-entry-header{display:flex;justify-content:space-between;align-items:baseline}
+.doc-entry-title{font-weight:700;font-size:.88rem}.doc-entry-date{font-size:.72rem;color:var(--muted);font-family:'DM Mono',monospace;white-space:nowrap;margin-left:.5rem}
 .doc-entry-sub{font-size:.8rem;color:var(--muted);font-style:italic;margin-bottom:.4rem}
 .doc-entry-bullets{list-style:none;padding:0}
 .doc-entry-bullets li{position:relative;padding-left:1.2rem;margin-bottom:.3rem;font-size:.8rem;color:#333}
@@ -101,31 +112,52 @@ nav a{color:var(--muted);text-decoration:none;font-size:.9rem;font-weight:500;cu
 .doc-skills-grid{display:flex;flex-wrap:wrap;gap:.5rem}
 .doc-skill{background:#f5f2ea;padding:.25rem .7rem;border-radius:3px;font-size:.75rem;font-family:'DM Sans',sans-serif}
 .doc-summary{font-size:.83rem;line-height:1.7;color:#333;font-style:italic}
-/* TEMPLATE VARIANTS */
-.tpl-modern .doc-name{color:var(--rust)}.tpl-modern .doc-divider{border-top-color:var(--rust)}.tpl-modern .doc-section-title{color:var(--ink);border-bottom:1px solid var(--border);padding-bottom:.3rem}
-.tpl-executive .doc-name{font-size:2.3rem;text-align:center;letter-spacing:.04em}.tpl-executive .doc-title{text-align:center}.tpl-executive .doc-contact{text-align:center}.tpl-executive .doc-divider{border-top:3px double #1a1a1a}
-.tpl-minimal .doc-name{font-family:'DM Sans',sans-serif;font-weight:300;letter-spacing:.05em}.tpl-minimal .doc-divider{display:none}.tpl-minimal .doc-section-title{color:var(--muted);border-top:1px solid var(--border);padding-top:.6rem;margin-top:1.2rem}
-/* BOLD template — band is built into the doc HTML, shown/hidden via JS */
-.doc-band{background:var(--ink);color:white;padding:1.5rem 3.5rem;margin:-3rem -3.5rem 2rem;display:none}
-.doc-band .doc-name{color:white}.doc-band .doc-title{color:var(--gold)}.doc-band .doc-contact{color:#bbb}
+
+/* ── TEMPLATE VARIANTS ── */
+/* Classic: default styles above */
+.tpl-modern .doc-name{color:var(--rust)}
+.tpl-modern .doc-divider{border-top-color:var(--rust)}
+.tpl-modern .doc-section-title{color:var(--ink);border-bottom:1px solid var(--border);padding-bottom:.3rem}
+
+.tpl-executive .doc-name{font-size:2.3rem;text-align:center;letter-spacing:.04em}
+.tpl-executive .doc-title{text-align:center}
+.tpl-executive .doc-contact{text-align:center}
+.tpl-executive .doc-divider{border-top:3px double #1a1a1a}
+
+.tpl-minimal .doc-name{font-family:'DM Sans',sans-serif;font-weight:300;letter-spacing:.05em}
+.tpl-minimal .doc-divider{display:none}
+.tpl-minimal .doc-section-title{color:var(--muted);border-top:1px solid var(--border);padding-top:.6rem;margin-top:1.2rem}
+
+/* Bold: a header band that sits above the content */
+.doc-band{display:none;background:var(--ink);color:white;padding:1.5rem 3.5rem;margin:-3rem -3.5rem 2rem}
+.doc-band .band-name{font-family:Georgia,serif;font-size:2rem;font-weight:700;color:white;margin-bottom:.2rem}
+.doc-band .band-title{color:var(--gold);font-size:.9rem;font-weight:600;margin-bottom:.4rem;font-family:'DM Sans',sans-serif}
+.doc-band .band-contact{font-family:'DM Mono',monospace;font-size:.72rem;color:#bbb}
 .tpl-bold .doc-band{display:block}
+.tpl-bold #d-name,.tpl-bold #d-title,.tpl-bold #d-contact{display:none}
 .tpl-bold .doc-section-title{background:var(--cream);display:inline-block;padding:.15rem .6rem;border-left:3px solid var(--gold);color:var(--ink)}
-.tpl-bold #d-name, .tpl-bold #d-title, .tpl-bold #d-contact{display:none}
-.tpl-compact .doc{font-size:.76rem;line-height:1.4}.tpl-compact .doc-name{font-size:1.6rem}.tpl-compact .doc-section{margin-bottom:1rem}.tpl-compact .doc-entry{margin-bottom:.6rem}
-/* MODALS */
-.modal-backdrop{display:none;position:fixed;inset:0;background:rgba(15,14,12,.75);z-index:999;align-items:center;justify-content:center}.modal-backdrop.open{display:flex}
-.modal{background:var(--paper);border-radius:16px;padding:2.5rem;max-width:480px;width:90%;text-align:center;position:relative}
+
+.tpl-compact .doc{font-size:.76rem;line-height:1.4}
+.tpl-compact .doc-name{font-size:1.6rem}
+.tpl-compact .doc-section{margin-bottom:1rem}
+.tpl-compact .doc-entry{margin-bottom:.6rem}
+
+/* ── MODALS ── */
+.modal-backdrop{display:none;position:fixed;inset:0;background:rgba(15,14,12,.75);z-index:999;align-items:center;justify-content:center}
+.modal-backdrop.open{display:flex}
+.modal{background:var(--paper);border-radius:16px;padding:2.5rem;max-width:480px;width:90%;text-align:center;position:relative;max-height:90vh;overflow-y:auto}
 .modal-close{position:absolute;top:1rem;right:1rem;background:none;border:none;font-size:1.3rem;cursor:pointer;color:var(--muted)}
-.modal h2{font-family:'Playfair Display',serif;font-size:1.8rem;margin-bottom:.7rem}.modal p{color:var(--muted);line-height:1.6;margin-bottom:1.5rem}
+.modal h2{font-family:'Playfair Display',serif;font-size:1.8rem;margin-bottom:.7rem}
+.modal p{color:var(--muted);line-height:1.6;margin-bottom:1.5rem}
 .auth-box{background:var(--paper);border-radius:16px;padding:2.5rem;max-width:420px;width:90%;position:relative}
 .auth-box h2{font-family:'Playfair Display',serif;font-size:1.8rem;margin-bottom:.4rem;text-align:center}
 .auth-sub{color:var(--muted);font-size:.88rem;margin-bottom:1.5rem;text-align:center}
 .auth-error{color:var(--rust);font-size:.82rem;margin-bottom:.8rem;min-height:1.1rem;text-align:center}
-.google-btn{width:100%;padding:.85rem 1rem;border:1.5px solid var(--border);border-radius:8px;background:white;font-family:'DM Sans',sans-serif;font-size:1rem;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:.75rem;transition:all .2s}.google-btn:hover{background:#f8f8f8;border-color:#aaa}
+.google-btn{width:100%;padding:.85rem 1rem;border:1.5px solid var(--border);border-radius:8px;background:white;font-family:'DM Sans',sans-serif;font-size:1rem;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:.75rem;transition:all .2s}.google-btn:hover:not(:disabled){background:#f8f8f8;border-color:#aaa}
+.google-btn:disabled{opacity:.6;cursor:not-allowed}
 .plan-toggle{display:flex;border:1.5px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:1.5rem}
 .plan-toggle button{flex:1;padding:.65rem;font-family:'DM Sans',sans-serif;font-size:.85rem;font-weight:700;border:none;cursor:pointer;transition:all .2s}
 .plan-toggle button.active{background:var(--ink);color:var(--paper)}.plan-toggle button.inactive{background:white;color:var(--muted)}
-/* TEMPLATES MODAL */
 .tpl-modal{background:var(--paper);border-radius:16px;padding:2rem;max-width:700px;width:95%;position:relative;max-height:90vh;overflow-y:auto}
 .templates-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:1.5rem}
 .tpl-card{border:2px solid var(--border);border-radius:10px;padding:.8rem;cursor:pointer;transition:all .2s}
@@ -133,74 +165,96 @@ nav a{color:var(--muted);text-decoration:none;font-size:.9rem;font-weight:500;cu
 .tpl-card.locked{opacity:.65}
 .tpl-thumb{height:95px;border-radius:6px;margin-bottom:.6rem;overflow:hidden;border:1px solid #eee;background:white;padding:7px;position:relative}
 .tpl-card-name{font-size:.82rem;font-weight:700;margin-bottom:.1rem}.tpl-card-tag{font-size:.7rem;color:var(--muted)}
-/* AI generating toast */
-.ai-toast{display:none;position:fixed;bottom:2rem;right:2rem;background:var(--ink);color:var(--paper);padding:.8rem 1.4rem;border-radius:8px;font-size:.85rem;font-weight:600;z-index:9999;animation:slideIn .3s ease}
-@keyframes slideIn{from{transform:translateY(1rem);opacity:0}to{transform:translateY(0);opacity:1}}
-/* Mobile sidebar toggle */
-.mobile-toggle{display:none;position:fixed;bottom:1.5rem;right:1.5rem;z-index:200;width:52px;height:52px;border-radius:50%;background:var(--ink);color:white;border:none;font-size:1.3rem;cursor:pointer;box-shadow:0 4px 16px rgba(0,0,0,.3)}
-/* LOADING */
+
+/* ── TOAST ── */
+.toast{display:none;position:fixed;bottom:2rem;right:2rem;background:var(--ink);color:var(--paper);padding:.8rem 1.4rem;border-radius:8px;font-size:.85rem;font-weight:600;z-index:9998;animation:slideUp .25s ease}
+@keyframes slideUp{from{transform:translateY(1rem);opacity:0}to{transform:translateY(0);opacity:1}}
+
+/* ── MOBILE FAB ── */
+.mobile-fab{display:none;position:fixed;bottom:1.5rem;right:1.5rem;z-index:200;width:52px;height:52px;border-radius:50%;background:var(--ink);color:white;border:none;font-size:1.3rem;cursor:pointer;box-shadow:0 4px 16px rgba(0,0,0,.3);align-items:center;justify-content:center}
+
+/* ── LOADING ── */
 .loading-overlay{position:fixed;inset:0;background:var(--paper);z-index:9999;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1rem;transition:opacity .4s}
 .loading-overlay.fade{opacity:0;pointer-events:none}
 .spinner{width:36px;height:36px;border:3px solid var(--border);border-top-color:var(--gold);border-radius:50%;animation:spin .8s linear infinite}
+.mini-spinner{width:14px;height:14px;border:2px solid rgba(255,255,255,.3);border-top-color:white;border-radius:50%;animation:spin .6s linear infinite;display:inline-block}
 @keyframes spin{to{transform:rotate(360deg)}}
-/* PRINT — only the resume doc */
+
+/* ── PRINT ── */
 @media print{
-  .loading-overlay,nav,#landing,.sidebar,.preview-toolbar,.tabs,.modal-backdrop,.mobile-toggle{display:none!important}
+  .loading-overlay,nav,#landing,.sidebar,.preview-toolbar,.tabs,.modal-backdrop,.mobile-fab,.toast{display:none!important}
   #app{display:block!important}.app-layout{display:block!important}
-  .preview-pane{background:white!important;padding:0!important}
+  .preview-pane{background:white!important;padding:0!important;display:block!important}
   .doc{box-shadow:none!important;border-radius:0!important;min-height:auto!important;max-width:100%!important;width:100%!important}
   #resume-doc{display:block!important}
   #cl-doc{display:none!important}
 }
+
 footer{background:var(--ink);color:#888;text-align:center;padding:2rem;font-size:.82rem}
 footer a{color:var(--gold);text-decoration:none}
 .footer-logo{font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--paper);margin-bottom:.5rem}
-@media(max-width:768px){
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
   .hero{grid-template-columns:1fr;padding:3rem 1.5rem}.resume-preview{display:none}
-  .app-layout{grid-template-columns:1fr;position:relative}
-  .sidebar{position:fixed;left:0;top:65px;bottom:0;width:85%;max-width:340px;z-index:150;transform:translateX(-100%);transition:transform .3s;max-height:calc(100vh - 65px)}
+  .features-grid{grid-template-columns:1fr 1fr}
+  .pricing-grid{grid-template-columns:1fr}
+  nav{padding:1rem 1.5rem}
+}
+@media(max-width:768px){
+  .app-layout{grid-template-columns:1fr}
+  .sidebar{position:fixed;left:0;top:65px;bottom:0;width:85%;max-width:340px;z-index:150;transform:translateX(-110%);transition:transform .3s ease;max-height:calc(100vh - 65px);box-shadow:4px 0 20px rgba(0,0,0,.15)}
   .sidebar.open{transform:translateX(0)}
   .sidebar-backdrop{display:none;position:fixed;inset:0;top:65px;background:rgba(0,0,0,.4);z-index:149}
   .sidebar-backdrop.open{display:block}
-  .mobile-toggle{display:flex;align-items:center;justify-content:center}
+  .mobile-fab{display:flex}
   .preview-pane{padding:1rem}
-  .features-grid,.pricing-grid,.templates-grid{grid-template-columns:1fr}
-  nav{padding:1rem 1.5rem}
-  .stats-bar{gap:1.5rem;flex-wrap:wrap}
+  .features-grid{grid-template-columns:1fr}
+  .templates-grid{grid-template-columns:1fr 1fr}
+  .stats-bar{gap:1.5rem}
+}
+@media(max-width:480px){
+  .hero h1{font-size:2.6rem}
+  .templates-grid{grid-template-columns:1fr}
+  nav .nav-links a{display:none}
 }
 </style>
 </head>
 <body>
 
+<!-- Loading overlay with max-timeout fallback -->
 <div class="loading-overlay" id="loading-overlay">
   <div class="spinner"></div>
   <div style="font-family:'Playfair Display',serif;font-size:1.3rem">Resume<span style="color:var(--gold)">Forge</span></div>
 </div>
 
-<div id="ai-toast" class="ai-toast">✨ Generating with AI...</div>
+<div id="toast" class="toast"></div>
 
 <nav>
   <div class="logo" onclick="goHome()">Resume<span>Forge</span></div>
   <div class="nav-links">
-    <a onclick="scrollToPricing()">Pricing</a>
     <a onclick="scrollToFeatures()">Features</a>
+    <a onclick="scrollToPricing()">Pricing</a>
+    <!-- Guest nav -->
     <div id="nav-guest" style="display:flex;gap:1rem;align-items:center">
       <button class="btn-outline" onclick="openAuth('signin')">Sign In</button>
       <button class="btn-primary" onclick="openAuth('signup')">Build Free</button>
     </div>
-    <div id="nav-user" style="display:none;align-items:center;gap:1rem">
+    <!-- Authed nav -->
+    <div id="nav-user" style="display:none;align-items:center;gap:.8rem">
       <div class="user-chip">
         <div class="user-avatar-init" id="nav-init">?</div>
         <img class="user-avatar" id="nav-avatar" src="" alt="" style="display:none">
         <span id="nav-name" style="font-weight:600;font-size:.85rem"></span>
         <span id="nav-pro-tag" class="pro-tag" style="display:none">PRO</span>
       </div>
-      <button class="btn-primary" onclick="showApp()" style="font-size:.82rem;padding:.5rem 1rem">Open Builder</button>
+      <button class="btn-primary" onclick="showApp()" style="font-size:.82rem;padding:.5rem 1.1rem">Open Builder ↗</button>
       <span class="signout-link" onclick="signOut()">Sign out</span>
     </div>
   </div>
 </nav>
 
+<!-- ════════════════════════════ LANDING ════════════════════════════ -->
 <div id="landing">
   <section class="hero">
     <div>
@@ -208,20 +262,20 @@ footer a{color:var(--gold);text-decoration:none}
       <h1>Resumes that<br>get you the <em>interview</em></h1>
       <p>Build a polished, recruiter-ready resume in minutes. AI-powered bullet points, ATS-optimized formatting, and cover letters tailored to every job.</p>
       <div class="hero-cta">
-        <button class="btn-gold" onclick="openAuth('signup')">Start Building &#8212; It's Free</button>
+        <button class="btn-gold" onclick="openAuth('signup')">Start Building — It's Free</button>
         <button class="btn-outline" onclick="scrollToPricing()">See Pricing</button>
       </div>
-      <p class="hero-note">No credit card required &#183; Free plan includes 1 resume</p>
+      <p class="hero-note">No credit card required · Free plan includes 1 resume</p>
     </div>
     <div class="resume-preview">
       <div class="rp-name">Alexandra Chen</div>
       <div class="rp-title">Senior Product Manager</div>
-      <div class="rp-contact">alex&#64;email.com &#183; (415) 555-0192 &#183; San Francisco, CA</div>
+      <div class="rp-contact">alex@email.com · (415) 555-0192 · San Francisco, CA</div>
       <hr class="rp-divider">
       <div class="rp-section-title">Experience</div>
       <div class="rp-job">
         <div class="rp-job-title">Lead Product Manager</div>
-        <div class="rp-job-co">Stripe &#183; 2021&#8211;Present</div>
+        <div class="rp-job-co">Stripe · 2021–Present</div>
         <div class="rp-bullet">Grew checkout conversion by 18% via A/B-tested UX overhaul</div>
         <div class="rp-bullet">Launched 3 features adding $4.2M ARR in 12 months</div>
       </div>
@@ -232,26 +286,29 @@ footer a{color:var(--gold);text-decoration:none}
       </div>
     </div>
   </section>
+
   <div class="stats-bar">
     <div class="stat"><div class="num">12k+</div><div class="label">Resumes Built</div></div>
     <div class="stat"><div class="num">87%</div><div class="label">Interview Rate</div></div>
-    <div class="stat"><div class="num">4.9&#9733;</div><div class="label">User Rating</div></div>
+    <div class="stat"><div class="num">4.9★</div><div class="label">User Rating</div></div>
     <div class="stat"><div class="num">6</div><div class="label">Templates</div></div>
   </div>
+
   <section class="features" id="features">
     <div class="features-header">
       <h2>Everything you need to land the job</h2>
-      <p>From first draft to final export &#8212; ResumeForge handles the hard parts.</p>
+      <p>From first draft to final export — ResumeForge handles the hard parts.</p>
     </div>
     <div class="features-grid">
-      <div class="feature-card"><div class="feature-icon">&#9997;&#65039;</div><h3>Live Resume Builder</h3><p>Type your info and watch your resume update in real time. No design skills needed.</p><span class="badge badge-free">FREE</span></div>
-      <div class="feature-card"><div class="feature-icon">&#129302;</div><h3>AI Bullet Generator</h3><p>Let AI write strong, quantified bullet points tailored to each role.</p><span class="badge badge-pro">PRO</span></div>
-      <div class="feature-card"><div class="feature-icon">&#128196;</div><h3>Cover Letter Writer</h3><p>Generate a personalized cover letter from any job posting in seconds.</p><span class="badge badge-pro">PRO</span></div>
-      <div class="feature-card"><div class="feature-icon">&#127919;</div><h3>ATS Score Checker</h3><p>See how well your resume passes applicant tracking systems.</p><span class="badge badge-pro">PRO</span></div>
-      <div class="feature-card"><div class="feature-icon">&#128229;</div><h3>PDF Export</h3><p>Download a clean, perfectly formatted PDF ready to send to any employer.</p><span class="badge badge-free">FREE</span></div>
-      <div class="feature-card"><div class="feature-icon">&#127912;</div><h3>6 Templates</h3><p>Classic, Modern, Executive, Minimal, Bold and Compact. Swap with one click.</p><span class="badge badge-pro">PRO</span></div>
+      <div class="feature-card"><div class="feature-icon">✍️</div><h3>Live Resume Builder</h3><p>Type your info and watch your resume update in real time. No design skills needed.</p><span class="badge badge-free">FREE</span></div>
+      <div class="feature-card"><div class="feature-icon">🤖</div><h3>AI Bullet Generator</h3><p>Let AI write strong, quantified bullet points tailored to each role.</p><span class="badge badge-pro">PRO</span></div>
+      <div class="feature-card"><div class="feature-icon">📄</div><h3>Cover Letter Writer</h3><p>Generate a personalized cover letter from any job posting in seconds.</p><span class="badge badge-pro">PRO</span></div>
+      <div class="feature-card"><div class="feature-icon">🎯</div><h3>ATS Score Checker</h3><p>See how well your resume passes applicant tracking systems before you apply.</p><span class="badge badge-pro">PRO</span></div>
+      <div class="feature-card"><div class="feature-icon">📥</div><h3>PDF Export</h3><p>Download a clean, perfectly formatted PDF ready to send to any employer.</p><span class="badge badge-free">FREE</span></div>
+      <div class="feature-card"><div class="feature-icon">🎨</div><h3>6 Templates</h3><p>Classic, Modern, Executive, Minimal, Bold and Compact. Swap with one click.</p><span class="badge badge-pro">PRO</span></div>
     </div>
   </section>
+
   <section class="pricing-section" id="pricing-section">
     <h2>Simple, honest pricing</h2>
     <p class="sub">Start free. Upgrade when you're ready to get serious.</p>
@@ -261,13 +318,13 @@ footer a{color:var(--gold);text-decoration:none}
         <div class="pricing-price">$0</div>
         <div class="pricing-desc">For casual job seekers</div>
         <ul class="pricing-features">
-          <li><span class="check">&#10003;</span> 1 resume</li>
-          <li><span class="check">&#10003;</span> PDF export</li>
-          <li><span class="check">&#10003;</span> Classic template</li>
-          <li><span class="cross">&#10007;</span> AI bullet generator</li>
-          <li><span class="cross">&#10007;</span> Cover letter writer</li>
-          <li><span class="cross">&#10007;</span> ATS score checker</li>
-          <li><span class="cross">&#10007;</span> 5 extra templates</li>
+          <li><span class="check">✓</span> 1 resume</li>
+          <li><span class="check">✓</span> PDF export</li>
+          <li><span class="check">✓</span> Classic template</li>
+          <li><span class="cross">✗</span> AI bullet generator</li>
+          <li><span class="cross">✗</span> Cover letter writer</li>
+          <li><span class="cross">✗</span> ATS score checker</li>
+          <li><span class="cross">✗</span> 5 extra templates</li>
         </ul>
         <button class="btn-outline" style="width:100%" onclick="openAuth('signup')">Get Started Free</button>
       </div>
@@ -276,76 +333,83 @@ footer a{color:var(--gold);text-decoration:none}
         <div class="pricing-price">$9<sub>/mo</sub></div>
         <div class="pricing-desc">For serious job seekers</div>
         <ul class="pricing-features">
-          <li><span class="check">&#10003;</span> Unlimited resumes</li>
-          <li><span class="check">&#10003;</span> PDF export</li>
-          <li><span class="check">&#10003;</span> All 6 templates</li>
-          <li><span class="check">&#10003;</span> AI bullet generator</li>
-          <li><span class="check">&#10003;</span> Cover letter writer</li>
-          <li><span class="check">&#10003;</span> ATS score checker</li>
-          <li><span class="check">&#10003;</span> Priority support</li>
+          <li><span class="check">✓</span> Unlimited resumes</li>
+          <li><span class="check">✓</span> PDF export</li>
+          <li><span class="check">✓</span> All 6 templates</li>
+          <li><span class="check">✓</span> AI bullet generator</li>
+          <li><span class="check">✓</span> Cover letter writer</li>
+          <li><span class="check">✓</span> ATS score checker</li>
+          <li><span class="check">✓</span> Priority support</li>
         </ul>
         <button class="btn-gold" style="width:100%" onclick="openUpgrade()">Upgrade to Pro</button>
       </div>
     </div>
   </section>
+
   <footer>
     <div class="footer-logo">ResumeForge</div>
-    <p>&#169; 2025 ResumeForge &#183; <a href="#">Privacy</a> &#183; <a href="#">Terms</a></p>
+    <p>© 2025 ResumeForge · <a href="#">Privacy</a> · <a href="#">Terms</a></p>
   </footer>
 </div>
 
-<!-- APP -->
+<!-- ════════════════════════════ APP ════════════════════════════ -->
 <div id="app">
   <div class="app-layout">
-    <!-- Mobile sidebar backdrop -->
     <div class="sidebar-backdrop" id="sidebar-backdrop" onclick="closeMobileSidebar()"></div>
     <div class="sidebar" id="sidebar">
-      <div id="pro-banner" class="pro-banner">&#9889; You're on Pro &#8212; all features unlocked!</div>
+      <div id="pro-banner" class="pro-banner">⚡ You're on Pro — all features unlocked!</div>
       <div class="sidebar-tabs">
         <div class="sidebar-tab active" onclick="switchSidebarTab('resume',this)">Resume</div>
         <div class="sidebar-tab" onclick="switchSidebarTab('coverletter',this)">Cover Letter</div>
       </div>
+
+      <!-- ── RESUME SIDEBAR ── -->
       <div id="sidebar-resume">
         <h3>Personal Info</h3>
         <div class="form-group"><label>Full Name</label><input type="text" id="f-name" value="Alexandra Chen" oninput="updateDoc()"></div>
         <div class="form-group"><label>Job Title</label><input type="text" id="f-title" value="Senior Product Manager" oninput="updateDoc()"></div>
-        <div class="form-group"><label>Email</label><input type="text" id="f-email" value="alex@email.com" oninput="updateDoc()"></div>
-        <div class="form-group"><label>Phone</label><input type="text" id="f-phone" value="(415) 555-0192" oninput="updateDoc()"></div>
+        <div class="form-group"><label>Email</label><input type="email" id="f-email" value="alex@email.com" oninput="updateDoc()"></div>
+        <div class="form-group"><label>Phone</label><input type="tel" id="f-phone" value="(415) 555-0192" oninput="updateDoc()"></div>
         <div class="form-group"><label>Location</label><input type="text" id="f-location" value="San Francisco, CA" oninput="updateDoc()"></div>
         <div class="form-group"><label>LinkedIn / Portfolio</label><input type="text" id="f-link" value="linkedin.com/in/alexchen" oninput="updateDoc()"></div>
         <div class="form-group">
           <label>Professional Summary</label>
-          <button class="ai-btn" onclick="aiAction('summary')">&#10024; Write with AI &#128274; PRO</button>
+          <button class="ai-btn" onclick="aiGate('summary')">✨ Write with AI 🔒 PRO</button>
           <textarea id="f-summary" oninput="updateDoc()">Results-driven Product Manager with 7+ years building B2B SaaS products. Track record of shipping features that drive measurable revenue growth and improve user retention at scale.</textarea>
         </div>
+
         <div style="border-top:1px solid var(--border);padding-top:1rem;margin-bottom:1rem">
-          <div class="section-toggle" id="toggle-exp" onclick="toggleSection('exp-body','toggle-exp')">Experience <span class="arrow">&#9660;</span></div>
+          <div class="section-toggle" id="toggle-exp" onclick="toggleSection('exp-body','toggle-exp')">Experience <span class="arrow">▼</span></div>
           <div id="exp-body">
-            <button class="ai-btn" onclick="aiAction('bullets')">&#10024; AI Bullet Points &#128274; PRO</button>
+            <button class="ai-btn" onclick="aiGate('bullets')">✨ AI Bullet Points 🔒 PRO</button>
             <div id="exp-entries"></div>
             <button class="add-btn" onclick="addEntry('exp')">+ Add Experience</button>
           </div>
         </div>
+
         <div style="border-top:1px solid var(--border);padding-top:1rem;margin-bottom:1rem">
-          <div class="section-toggle" id="toggle-edu" onclick="toggleSection('edu-body','toggle-edu')">Education <span class="arrow">&#9660;</span></div>
+          <div class="section-toggle" id="toggle-edu" onclick="toggleSection('edu-body','toggle-edu')">Education <span class="arrow">▼</span></div>
           <div id="edu-body">
             <div id="edu-entries"></div>
             <button class="add-btn" onclick="addEntry('edu')">+ Add Education</button>
           </div>
         </div>
-        <div style="border-top:1px solid var(--border);padding-top:1rem;margin-bottom:1rem">
-          <div class="section-toggle" id="toggle-skills" onclick="toggleSection('skills-body','toggle-skills')">Skills <span class="arrow">&#9660;</span></div>
+
+        <div style="border-top:1px solid var(--border);padding-top:1rem;margin-bottom:3rem">
+          <div class="section-toggle" id="toggle-skills" onclick="toggleSection('skills-body','toggle-skills')">Skills <span class="arrow">▼</span></div>
           <div id="skills-body">
             <div class="form-group"><label>Skills (comma separated)</label><textarea id="f-skills" oninput="updateDoc()">Product Strategy, SQL, Figma, Go-to-Market, Agile, User Research, Jira, Roadmapping</textarea></div>
           </div>
         </div>
       </div>
+
+      <!-- ── COVER LETTER SIDEBAR ── -->
       <div id="sidebar-coverletter" style="display:none">
         <h3>Cover Letter</h3>
         <div class="form-group"><label>Company Name</label><input type="text" id="cl-company" value="Stripe" oninput="updateCL()"></div>
         <div class="form-group"><label>Hiring Manager</label><input type="text" id="cl-manager" value="Hiring Team" oninput="updateCL()"></div>
-        <div class="form-group"><label>Job Title Applying For</label><input type="text" id="cl-job" value="Head of Product" oninput="updateCL()"></div>
-        <button class="ai-btn" onclick="aiAction('coverletter')">&#10024; Generate with AI &#128274; PRO</button>
+        <div class="form-group"><label>Role You're Applying For</label><input type="text" id="cl-job" value="Head of Product" oninput="updateCL()"></div>
+        <button class="ai-btn" onclick="aiGate('coverletter')">✨ Generate with AI 🔒 PRO</button>
         <div class="form-group"><label>Your Letter</label>
           <textarea id="cl-body" oninput="updateCL()" style="min-height:300px">Dear Hiring Team,
 
@@ -356,32 +420,38 @@ Alexandra Chen</textarea>
         </div>
       </div>
     </div>
+
+    <!-- ── PREVIEW PANE ── -->
     <div class="preview-pane">
       <div class="tabs">
-        <div class="tab active" onclick="switchPreview('resume',this)">&#128196; Resume</div>
-        <div class="tab" onclick="switchPreview('cl',this)">&#9993; Cover Letter</div>
+        <div class="tab active" onclick="switchPreview('resume',this)">📄 Resume</div>
+        <div class="tab" onclick="switchPreview('cl',this)">✉️ Cover Letter</div>
       </div>
       <div class="preview-toolbar">
-        <h4>Live Preview &#183; <span id="tpl-label" style="color:var(--gold);font-weight:700">Classic</span></h4>
-        <div style="display:flex;gap:.7rem;flex-wrap:wrap">
-          <button class="btn-outline" style="font-size:.8rem" onclick="openTemplates()">&#127912; Templates</button>
-          <button class="btn-outline" style="font-size:.8rem" onclick="aiAction('ats')">&#128202; ATS Score</button>
-          <button class="btn-primary" style="font-size:.8rem" id="pdf-btn" onclick="downloadPDF()">&#8659; Download PDF</button>
+        <h4>Live Preview · <span id="tpl-label" style="color:var(--gold);font-weight:700">Classic</span></h4>
+        <div class="preview-toolbar-actions">
+          <button class="btn-outline" style="font-size:.8rem" onclick="openTemplates()">🎨 Templates</button>
+          <button class="btn-outline" style="font-size:.8rem" onclick="openATSModal()">📊 ATS Score</button>
+          <button class="btn-primary" style="font-size:.8rem" id="pdf-btn" onclick="downloadPDF()">↓ Download PDF</button>
         </div>
       </div>
-      <!-- RESUME DOC -->
+
+      <!-- Resume Document -->
       <div class="doc" id="resume-doc">
-        <!-- Bold template header band (always in DOM, shown/hidden by CSS) -->
+        <!-- Bold template band — always in DOM, shown via CSS on .tpl-bold -->
         <div class="doc-band" id="d-band">
-          <div class="doc-name" id="d-band-name"></div>
-          <div class="doc-title" id="d-band-title"></div>
-          <div class="doc-contact" id="d-band-contact"></div>
+          <div class="band-name" id="d-band-name"></div>
+          <div class="band-title" id="d-band-title"></div>
+          <div class="band-contact" id="d-band-contact"></div>
         </div>
         <div class="doc-name" id="d-name">Alexandra Chen</div>
         <div class="doc-title" id="d-title">Senior Product Manager</div>
-        <div class="doc-contact" id="d-contact">alex&#64;email.com &#183; (415) 555-0192 &#183; San Francisco, CA</div>
+        <div class="doc-contact" id="d-contact">alex@email.com · (415) 555-0192 · San Francisco, CA</div>
         <hr class="doc-divider">
-        <div class="doc-section"><div class="doc-section-title">Summary</div><div class="doc-summary" id="d-summary"></div></div>
+        <div class="doc-section" id="summary-section">
+          <div class="doc-section-title">Summary</div>
+          <div class="doc-summary" id="d-summary"></div>
+        </div>
         <hr class="doc-divider">
         <div class="doc-section"><div class="doc-section-title">Experience</div><div id="d-exp"></div></div>
         <hr class="doc-divider">
@@ -389,429 +459,597 @@ Alexandra Chen</textarea>
         <hr class="doc-divider">
         <div class="doc-section"><div class="doc-section-title">Skills</div><div class="doc-skills-grid" id="d-skills"></div></div>
       </div>
-      <!-- COVER LETTER DOC -->
+
+      <!-- Cover Letter Document -->
       <div class="doc" id="cl-doc" style="display:none">
         <div style="margin-bottom:2rem">
           <div class="doc-name" id="cl-d-name">Alexandra Chen</div>
-          <div class="doc-contact" id="cl-d-contact">alex&#64;email.com &#183; (415) 555-0192</div>
+          <div class="doc-contact" id="cl-d-contact">alex@email.com · (415) 555-0192</div>
         </div>
-        <div style="margin-bottom:2rem"><div id="cl-d-to" style="font-size:.85rem;line-height:1.8;color:#333">Hiring Team<br>Stripe</div></div>
+        <div style="margin-bottom:2rem">
+          <div id="cl-d-to" style="font-size:.85rem;line-height:1.8;color:#333">Hiring Team<br>Stripe</div>
+        </div>
         <div id="cl-d-body" style="font-size:.84rem;line-height:1.9;color:#333;white-space:pre-wrap"></div>
       </div>
     </div>
   </div>
-  <!-- Mobile FAB -->
-  <button class="mobile-toggle" id="mobile-toggle" onclick="toggleMobileSidebar()" title="Edit Resume">✏️</button>
+  <button class="mobile-fab" id="mobile-fab" onclick="toggleMobileSidebar()">✏️</button>
 </div>
 
-<!-- AUTH MODAL -->
+<!-- ════ AUTH MODAL ════ -->
 <div class="modal-backdrop" id="auth-modal">
   <div class="auth-box">
-    <button class="modal-close" onclick="closeAuth()">&#10005;</button>
-    <div style="font-size:2.5rem;text-align:center;margin-bottom:1rem">&#128196;</div>
+    <button class="modal-close" onclick="closeAuth()">✕</button>
+    <div style="font-size:2.5rem;text-align:center;margin-bottom:1rem">📄</div>
     <h2 id="auth-title">Get started free</h2>
-    <p class="auth-sub">Build your resume in minutes. No credit card needed.</p>
+    <p class="auth-sub" id="auth-subtitle">Build your resume in minutes. No credit card needed.</p>
     <div class="auth-error" id="auth-error"></div>
     <button class="google-btn" onclick="handleGoogleSignIn()" id="google-btn">
       <svg width="20" height="20" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20H24v8h11.3C33.6 33.1 29.3 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.1 7.9 2.9l5.7-5.7C34.1 6.5 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20c11 0 20-8 20-20 0-1.3-.1-2.7-.4-4z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.5 15.1 18.9 12 24 12c3.1 0 5.8 1.1 7.9 2.9l5.7-5.7C34.1 6.5 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-1.9 13.5-5l-6.2-5.2C29.4 35.6 26.8 36 24 36c-5.2 0-9.6-2.9-11.3-7.1l-6.5 5C9.5 40.1 16.3 44 24 44z"/><path fill="#1976D2" d="M43.6 20H24v8h11.3c-.9 2.4-2.5 4.4-4.6 5.8l6.2 5.2C40.8 35.4 44 30.1 44 24c0-1.3-.1-2.7-.4-4z"/></svg>
       Continue with Google
     </button>
-    <p style="font-size:.75rem;color:var(--muted);text-align:center;margin-top:.8rem">By continuing you agree to our Terms &#38; Privacy Policy</p>
+    <p style="font-size:.75rem;color:var(--muted);text-align:center;margin-top:.8rem">By continuing you agree to our <a href="#" style="color:var(--gold)">Terms</a> &amp; <a href="#" style="color:var(--gold)">Privacy Policy</a></p>
   </div>
 </div>
 
-<!-- TEMPLATES MODAL -->
+<!-- ════ TEMPLATES MODAL ════ -->
 <div class="modal-backdrop" id="templates-modal">
   <div class="tpl-modal">
-    <button class="modal-close" onclick="closeTemplates()">&#10005;</button>
+    <button class="modal-close" onclick="closeTemplates()">✕</button>
     <h2 style="font-family:'Playfair Display',serif;font-size:1.8rem;margin-bottom:.4rem">Choose a Template</h2>
-    <p style="color:var(--muted);margin-bottom:1.5rem;font-size:.88rem">Free users get Classic. <span id="tpl-pro-hint" style="color:var(--gold);font-weight:700;cursor:pointer" onclick="closeTemplates();openUpgrade()">Upgrade to Pro for all 6 &#8594;</span></p>
+    <p style="color:var(--muted);margin-bottom:1.5rem;font-size:.88rem">Free users get Classic. <span id="tpl-pro-hint" style="color:var(--gold);font-weight:700;cursor:pointer" onclick="closeTemplates();openUpgrade()">Upgrade to Pro for all 6 →</span></p>
     <div class="templates-grid" id="templates-grid"></div>
     <button class="btn-gold" style="width:100%" onclick="applySelectedTemplate()">Apply Template</button>
   </div>
 </div>
 
-<!-- UPGRADE MODAL -->
+<!-- ════ UPGRADE MODAL ════ -->
 <div class="modal-backdrop" id="upgrade-modal">
   <div class="modal">
-    <button class="modal-close" onclick="closeUpgrade()">&#10005;</button>
-    <div style="font-size:3rem;margin-bottom:1rem">&#9889;</div>
+    <button class="modal-close" onclick="closeUpgrade()">✕</button>
+    <div style="font-size:3rem;margin-bottom:1rem">⚡</div>
     <h2>Unlock Pro Features</h2>
-    <p>AI bullet points, cover letter generator, ATS scoring, all 6 templates &#38; unlimited resumes.</p>
+    <p>AI bullet points, cover letter generator, ATS scoring, all 6 templates &amp; unlimited resumes.</p>
     <div class="plan-toggle">
-      <button class="active" id="toggle-monthly" onclick="showPlan('monthly')">Monthly &#8212; $9</button>
-      <button class="inactive" id="toggle-annual" onclick="showPlan('annual')">Annual &#8212; $59 &#160;<span style="background:var(--gold);color:var(--ink);font-size:.65rem;font-weight:800;padding:.1rem .4rem;border-radius:4px">SAVE 39%</span></button>
+      <button class="active" id="toggle-monthly" onclick="showPlan('monthly')">Monthly — $9</button>
+      <button class="inactive" id="toggle-annual" onclick="showPlan('annual')">Annual — $59 &nbsp;<span style="background:var(--gold);color:var(--ink);font-size:.65rem;font-weight:800;padding:.1rem .4rem;border-radius:4px">SAVE 39%</span></button>
     </div>
     <div id="plan-monthly">
-      <button class="btn-gold" style="width:100%;font-size:1rem;padding:1rem" onclick="window.open('https://buy.stripe.com/test_bJe4gybv04sQ5z7fQNcs801','_blank')">Start Monthly &#8212; 7-Day Free Trial &#8594;</button>
-      <p style="font-size:.78rem;color:var(--muted);margin-top:.6rem">$9/month after trial &#183; Cancel anytime</p>
+      <button class="btn-gold" style="width:100%;font-size:1rem;padding:1rem" onclick="window.open('https://buy.stripe.com/test_bJe4gybv04sQ5z7fQNcs801','_blank')">Start Monthly — 7-Day Free Trial →</button>
+      <p style="font-size:.78rem;color:var(--muted);margin-top:.6rem">$9/month after trial · Cancel anytime</p>
     </div>
     <div id="plan-annual" style="display:none">
-      <button class="btn-gold" style="width:100%;font-size:1rem;padding:1rem" onclick="window.open('https://buy.stripe.com/test_6oU00ibv0f7u3qZcEBcs800','_blank')">Start Annual &#8212; 7-Day Free Trial &#8594;</button>
-      <p style="font-size:.78rem;color:var(--muted);margin-top:.6rem">$59/year after trial &#183; Cancel anytime</p>
+      <button class="btn-gold" style="width:100%;font-size:1rem;padding:1rem" onclick="window.open('https://buy.stripe.com/test_6oU00ibv0f7u3qZcEBcs800','_blank')">Start Annual — 7-Day Free Trial →</button>
+      <p style="font-size:.78rem;color:var(--muted);margin-top:.6rem">$59/year after trial · Cancel anytime</p>
     </div>
     <div style="background:var(--cream);border-radius:8px;padding:.9rem;margin-top:1rem;text-align:left">
-      <p style="font-size:.8rem;font-weight:600;margin-bottom:.3rem">&#10003; After payment &#8212; activate Pro instantly:</p>
-      <p style="font-size:.78rem;color:var(--muted)">Email your receipt to <strong>support&#64;resumeforge.io</strong> and we'll upgrade you within minutes.</p>
+      <p style="font-size:.8rem;font-weight:600;margin-bottom:.3rem">✓ After payment — activate Pro instantly:</p>
+      <p style="font-size:.78rem;color:var(--muted)">Email your receipt to <strong>support@resumeforge.io</strong> and we'll upgrade you within minutes.</p>
     </div>
-    <p style="font-size:.75rem;color:var(--muted);margin-top:.8rem">7-day free trial &#183; Powered by Stripe &#128274;</p>
+    <p style="font-size:.75rem;color:var(--muted);margin-top:.8rem">7-day free trial · Powered by Stripe 🔒</p>
   </div>
 </div>
 
-<!-- ATS MODAL -->
+<!-- ════ ATS MODAL ════ -->
 <div class="modal-backdrop" id="ats-modal">
   <div class="modal">
-    <button class="modal-close" onclick="document.getElementById('ats-modal').classList.remove('open')">&#10005;</button>
-    <div style="font-size:3rem;margin-bottom:1rem">&#128202;</div>
+    <button class="modal-close" onclick="document.getElementById('ats-modal').classList.remove('open')">✕</button>
+    <div style="font-size:3rem;margin-bottom:.5rem">📊</div>
     <h2>ATS Score Checker</h2>
-    <p>Paste a job description below and we'll score your resume against it for keyword match and formatting.</p>
-    <textarea id="ats-jd" style="width:100%;min-height:120px;padding:.7rem;border:1.5px solid var(--border);border-radius:6px;font-family:'DM Sans',sans-serif;font-size:.85rem;margin-bottom:1rem;resize:vertical" placeholder="Paste job description here..."></textarea>
-    <button class="btn-gold" style="width:100%" onclick="runATS()">&#128202; Analyze My Resume &#128274; PRO</button>
+    <p>Paste the job description and we'll analyze your resume for keyword match, formatting, and ATS compatibility.</p>
+    <textarea id="ats-jd" style="width:100%;min-height:130px;padding:.75rem;border:1.5px solid var(--border);border-radius:8px;font-family:'DM Sans',sans-serif;font-size:.85rem;resize:vertical;margin-bottom:1rem" placeholder="Paste the job description here..."></textarea>
+    <button class="btn-gold" style="width:100%;padding:.85rem" onclick="runATS()">📊 Analyze My Resume 🔒 PRO</button>
   </div>
 </div>
 
 <script>
-var currentUser=null,isPro=false,sb=null,currentTemplate='classic',pendingTemplate='classic';
-var TEMPLATES=[
-  {id:'classic',name:'Classic',tag:'Clean & Professional',free:true},
-  {id:'modern',name:'Modern',tag:'Contemporary Style',free:false},
-  {id:'executive',name:'Executive',tag:'Senior Roles',free:false},
-  {id:'minimal',name:'Minimal',tag:'Less is More',free:false},
-  {id:'bold',name:'Bold',tag:'Stand Out',free:false},
-  {id:'compact',name:'Compact',tag:'Fits More Content',free:false}
+/* ═══════════════════════════════════════════════
+   STATE
+═══════════════════════════════════════════════ */
+var currentUser = null;
+var isPro = false;
+var sb = null;
+var currentTemplate = 'classic';
+var pendingTemplate = 'classic';
+var currentPreviewTab = 'resume';
+var sectionState = {};
+
+var TEMPLATES = [
+  {id:'classic',  name:'Classic',   tag:'Clean & Professional', free:true},
+  {id:'modern',   name:'Modern',    tag:'Contemporary Style',   free:false},
+  {id:'executive',name:'Executive', tag:'Senior Roles',         free:false},
+  {id:'minimal',  name:'Minimal',   tag:'Less is More',         free:false},
+  {id:'bold',     name:'Bold',      tag:'Stand Out',            free:false},
+  {id:'compact',  name:'Compact',   tag:'Fits More Content',    free:false}
 ];
 
-/* ─── NAV / APP ROUTING ─── */
-function goHome(){
-  document.getElementById('landing').style.display='block';
-  document.getElementById('app').style.display='none';
+/* ═══════════════════════════════════════════════
+   ROUTING
+═══════════════════════════════════════════════ */
+function goHome() {
+  document.getElementById('landing').style.display = 'block';
+  document.getElementById('app').style.display = 'none';
 }
-function showApp(){
-  document.getElementById('landing').style.display='none';
-  document.getElementById('app').style.display='block';
+function showApp() {
+  document.getElementById('landing').style.display = 'none';
+  document.getElementById('app').style.display = 'block';
   updateProUI();
   updateDoc();
   updateCL();
 }
-function scrollToPricing(){goHome();setTimeout(function(){document.getElementById('pricing-section').scrollIntoView({behavior:'smooth'});},50);}
-function scrollToFeatures(){goHome();setTimeout(function(){document.getElementById('features').scrollIntoView({behavior:'smooth'});},50);}
+function scrollToPricing() { goHome(); setTimeout(function(){ document.getElementById('pricing-section').scrollIntoView({behavior:'smooth'}); }, 50); }
+function scrollToFeatures() { goHome(); setTimeout(function(){ document.getElementById('features').scrollIntoView({behavior:'smooth'}); }, 50); }
 
-/* ─── AUTH ─── */
-function openAuth(mode){
-  document.getElementById('auth-error').textContent='';
-  document.getElementById('auth-title').textContent=mode==='signin'?'Welcome back':'Get started free';
+/* ═══════════════════════════════════════════════
+   AUTH
+═══════════════════════════════════════════════ */
+function openAuth(mode) {
+  document.getElementById('auth-error').textContent = '';
+  var isSignin = mode === 'signin';
+  document.getElementById('auth-title').textContent = isSignin ? 'Welcome back' : 'Get started free';
+  document.getElementById('auth-subtitle').textContent = isSignin
+    ? 'Sign in to continue building your resume.'
+    : 'Build your resume in minutes. No credit card needed.';
+  resetGoogleBtn();
   document.getElementById('auth-modal').classList.add('open');
 }
-function closeAuth(){document.getElementById('auth-modal').classList.remove('open');}
-function handleGoogleSignIn(){
-  var btn=document.getElementById('google-btn'),err=document.getElementById('auth-error');
-  err.textContent='';
-  if(!sb){err.textContent='Auth not ready. Please wait a moment and try again.';return;}
-  btn.innerHTML='<div style="width:16px;height:16px;border:2px solid #ccc;border-top-color:#333;border-radius:50%;animation:spin .6s linear infinite;margin-right:.5rem"></div>Redirecting to Google...';
-  btn.disabled=true;
+function closeAuth() { document.getElementById('auth-modal').classList.remove('open'); }
+function resetGoogleBtn() {
+  var btn = document.getElementById('google-btn');
+  btn.disabled = false;
+  btn.innerHTML = '<svg width="20" height="20" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20H24v8h11.3C33.6 33.1 29.3 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.1 7.9 2.9l5.7-5.7C34.1 6.5 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20c11 0 20-8 20-20 0-1.3-.1-2.7-.4-4z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.5 15.1 18.9 12 24 12c3.1 0 5.8 1.1 7.9 2.9l5.7-5.7C34.1 6.5 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-1.9 13.5-5l-6.2-5.2C29.4 35.6 26.8 36 24 36c-5.2 0-9.6-2.9-11.3-7.1l-6.5 5C9.5 40.1 16.3 44 24 44z"/><path fill="#1976D2" d="M43.6 20H24v8h11.3c-.9 2.4-2.5 4.4-4.6 5.8l6.2 5.2C40.8 35.4 44 30.1 44 24c0-1.3-.1-2.7-.4-4z"/></svg>Continue with Google';
+}
+function handleGoogleSignIn() {
+  var btn = document.getElementById('google-btn');
+  var err = document.getElementById('auth-error');
+  err.textContent = '';
+  if (!sb) { err.textContent = 'Auth not ready — please wait a moment and try again.'; return; }
+  btn.disabled = true;
+  btn.innerHTML = '<span class="mini-spinner"></span>&nbsp;Redirecting to Google...';
   sb.auth.signInWithOAuth({
-    provider:'google',
-    options:{redirectTo:window.location.origin+window.location.pathname}
-  }).then(function(r){
-    if(r.error){
-      err.textContent=r.error.message||'Sign-in failed. Please try again.';
-      btn.innerHTML='<svg width="20" height="20" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20H24v8h11.3C33.6 33.1 29.3 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.1 7.9 2.9l5.7-5.7C34.1 6.5 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20c11 0 20-8 20-20 0-1.3-.1-2.7-.4-4z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.5 15.1 18.9 12 24 12c3.1 0 5.8 1.1 7.9 2.9l5.7-5.7C34.1 6.5 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-1.9 13.5-5l-6.2-5.2C29.4 35.6 26.8 36 24 36c-5.2 0-9.6-2.9-11.3-7.1l-6.5 5C9.5 40.1 16.3 44 24 44z"/><path fill="#1976D2" d="M43.6 20H24v8h11.3c-.9 2.4-2.5 4.4-4.6 5.8l6.2 5.2C40.8 35.4 44 30.1 44 24c0-1.3-.1-2.7-.4-4z"/></svg>Continue with Google';
-      btn.disabled=false;
+    provider: 'google',
+    options: { redirectTo: window.location.origin + window.location.pathname }
+  }).then(function(r) {
+    if (r.error) {
+      err.textContent = r.error.message || 'Sign-in failed. Please try again.';
+      resetGoogleBtn();
     }
+    // On success, browser navigates away — no further action needed here
+  }).catch(function(e) {
+    err.textContent = 'An unexpected error occurred. Please try again.';
+    resetGoogleBtn();
   });
 }
-function signOut(){if(sb)sb.auth.signOut();currentUser=null;isPro=false;showGuestNav();goHome();}
-function showUserNav(){
-  document.getElementById('nav-guest').style.display='none';
-  document.getElementById('nav-user').style.display='flex';
-  var m=currentUser.user_metadata||{};
-  var name=m.full_name||m.name||(currentUser.email?currentUser.email.split('@')[0]:'User');
-  document.getElementById('nav-name').textContent=name;
-  var av=m.avatar_url||m.picture||'';
-  if(av){
-    var img=document.getElementById('nav-avatar');
-    img.src=av;img.style.display='block';
-    document.getElementById('nav-init').style.display='none';
+function signOut() {
+  if (sb) sb.auth.signOut();
+  currentUser = null; isPro = false;
+  showGuestNav();
+  goHome();
+  showToast('Signed out successfully.');
+}
+function showUserNav() {
+  document.getElementById('nav-guest').style.display = 'none';
+  document.getElementById('nav-user').style.display = 'flex';
+  var m = currentUser.user_metadata || {};
+  var name = m.full_name || m.name || (currentUser.email ? currentUser.email.split('@')[0] : 'User');
+  document.getElementById('nav-name').textContent = name;
+  var av = m.avatar_url || m.picture || '';
+  if (av) {
+    var img = document.getElementById('nav-avatar');
+    img.src = av; img.style.display = 'block';
+    document.getElementById('nav-init').style.display = 'none';
   } else {
-    document.getElementById('nav-init').textContent=name.charAt(0).toUpperCase();
-    document.getElementById('nav-init').style.display='flex';
-    document.getElementById('nav-avatar').style.display='none';
+    document.getElementById('nav-init').textContent = name.charAt(0).toUpperCase();
+    document.getElementById('nav-init').style.display = 'flex';
+    document.getElementById('nav-avatar').style.display = 'none';
   }
 }
-function showGuestNav(){document.getElementById('nav-guest').style.display='flex';document.getElementById('nav-user').style.display='none';}
-
-/* ─── PRO UI ─── */
-function updateProUI(){
-  document.getElementById('pro-banner').style.display=isPro?'block':'none';
-  document.getElementById('nav-pro-tag').style.display=isPro?'inline':'none';
-  var h=document.getElementById('tpl-pro-hint');if(h)h.style.display=isPro?'none':'inline';
+function showGuestNav() {
+  document.getElementById('nav-guest').style.display = 'flex';
+  document.getElementById('nav-user').style.display = 'none';
 }
 
-/* ─── PRO GATING ─── */
-function aiAction(type){
-  if(!currentUser){openAuth('signup');return;}
-  if(!isPro){openUpgrade();return;}
-  // If Pro, show toast (real AI integration would go here)
-  showToast('✨ Generating with AI...');
-}
-function runATS(){
-  if(!isPro){closeModal('ats-modal');openUpgrade();return;}
-  showToast('📊 Analyzing your resume...');
-}
-function closeModal(id){document.getElementById(id).classList.remove('open');}
-function showToast(msg){
-  var t=document.getElementById('ai-toast');
-  t.textContent=msg;t.style.display='block';
-  setTimeout(function(){t.style.display='none';},2500);
+/* ═══════════════════════════════════════════════
+   PRO UI
+═══════════════════════════════════════════════ */
+function updateProUI() {
+  document.getElementById('pro-banner').style.display = isPro ? 'block' : 'none';
+  document.getElementById('nav-pro-tag').style.display = isPro ? 'inline' : 'none';
+  var hint = document.getElementById('tpl-pro-hint');
+  if (hint) hint.style.display = isPro ? 'none' : 'inline';
 }
 
-/* ─── UPGRADE / MODALS ─── */
-function openUpgrade(){
-  if(!currentUser){openAuth('signup');return;}
+/* ═══════════════════════════════════════════════
+   PRO GATING
+═══════════════════════════════════════════════ */
+function aiGate(feature) {
+  if (!currentUser) { openAuth('signup'); return; }
+  if (!isPro) { openUpgrade(); return; }
+  // Pro user: show toast (wire up real AI calls here)
+  var msgs = {
+    summary: '✨ Generating summary...',
+    bullets: '✨ Generating bullet points...',
+    coverletter: '✨ Generating cover letter...'
+  };
+  showToast(msgs[feature] || '✨ Generating with AI...');
+}
+function runATS() {
+  if (!currentUser) { document.getElementById('ats-modal').classList.remove('open'); openAuth('signup'); return; }
+  if (!isPro) { document.getElementById('ats-modal').classList.remove('open'); openUpgrade(); return; }
+  showToast('📊 Analyzing resume against job description...');
+}
+function openATSModal() {
+  if (!currentUser) { openAuth('signup'); return; }
+  document.getElementById('ats-modal').classList.add('open');
+}
+
+/* ═══════════════════════════════════════════════
+   UPGRADE / PLAN
+═══════════════════════════════════════════════ */
+function openUpgrade() {
+  if (!currentUser) { openAuth('signup'); return; }
   document.getElementById('upgrade-modal').classList.add('open');
 }
-function closeUpgrade(){document.getElementById('upgrade-modal').classList.remove('open');}
-function showPlan(p){
-  document.getElementById('plan-monthly').style.display=p==='monthly'?'block':'none';
-  document.getElementById('plan-annual').style.display=p==='annual'?'block':'none';
-  document.getElementById('toggle-monthly').className=p==='monthly'?'active':'inactive';
-  document.getElementById('toggle-annual').className=p==='annual'?'active':'inactive';
+function closeUpgrade() { document.getElementById('upgrade-modal').classList.remove('open'); }
+function showPlan(p) {
+  document.getElementById('plan-monthly').style.display = p === 'monthly' ? 'block' : 'none';
+  document.getElementById('plan-annual').style.display = p === 'annual' ? 'block' : 'none';
+  document.getElementById('toggle-monthly').className = p === 'monthly' ? 'active' : 'inactive';
+  document.getElementById('toggle-annual').className = p === 'annual' ? 'active' : 'inactive';
 }
 
-/* ─── TEMPLATES ─── */
-function openTemplates(){renderTemplatesGrid();document.getElementById('templates-modal').classList.add('open');}
-function closeTemplates(){document.getElementById('templates-modal').classList.remove('open');}
-function renderTemplatesGrid(){
-  var g=document.getElementById('templates-grid');g.innerHTML='';
-  pendingTemplate=currentTemplate;
-  TEMPLATES.forEach(function(t){
-    var locked=!t.free&&!isPro,sel=t.id===currentTemplate;
-    var c=document.createElement('div');
-    c.className='tpl-card'+(sel?' selected':'')+(locked?' locked':'');
-    c.dataset.id=t.id;
-    var thumb='<div class="tpl-thumb">';
-    if(t.id==='bold'){thumb+='<div style="background:#0f0e0c;color:white;margin:-7px -7px 5px;padding:5px 7px;font-size:6.5px;font-weight:700">Alexandra Chen</div><div style="font-size:5px;color:#c9a84c;margin-bottom:4px">Senior Product Manager</div>';}
-    else if(t.id==='executive'){thumb+='<div style="font-size:6.5px;font-weight:700;text-align:center;margin-bottom:2px">Alexandra Chen</div><div style="font-size:4.5px;color:#b85c38;text-align:center;margin-bottom:3px">Senior Product Manager</div><div style="border-top:2px double #1a1a1a;margin-bottom:3px"></div>';}
-    else if(t.id==='minimal'){thumb+='<div style="font-size:7px;font-weight:300;letter-spacing:1px;margin-bottom:2px">Alexandra Chen</div><div style="font-size:4.5px;color:#7a7165;margin-bottom:4px">Senior Product Manager</div>';}
-    else{thumb+='<div style="font-size:6.5px;font-weight:700;color:'+(t.id==='modern'?'#b85c38':'#0f0e0c')+';margin-bottom:2px">Alexandra Chen</div><div style="font-size:4.5px;color:#b85c38;margin-bottom:3px">Senior Product Manager</div><div style="border-top:1.5px solid '+(t.id==='modern'?'#b85c38':'#1a1a1a')+';margin-bottom:3px"></div>';}
-    thumb+='<div style="font-size:3.8px;text-transform:uppercase;color:#999;letter-spacing:.5px;margin-bottom:2px">Experience</div>';
-    thumb+='<div style="font-size:3.8px;color:#333;margin-bottom:1px">Lead PM &#183; Stripe &#183; 2021-Present</div>';
-    thumb+='<div style="font-size:3.4px;color:#777">Grew conversion by 18%</div>';
-    if(t.id==='compact'){thumb+='<div style="font-size:3.4px;color:#777">Led 6 PMs, $4.2M ARR</div><div style="font-size:3.8px;text-transform:uppercase;color:#999;letter-spacing:.5px;margin-top:3px;margin-bottom:1px">Education</div><div style="font-size:3.4px;color:#333">B.S. CS &#183; UC Berkeley</div>';}
-    thumb+='</div>';
-    c.innerHTML=thumb+'<div class="tpl-card-name">'+t.name+(locked?' &#128274;':'')+(sel?' <span style="color:var(--gold)">&#10003;</span>':'')+'</div><div class="tpl-card-tag">'+t.tag+'</div>';
-    if(locked){c.onclick=function(){closeTemplates();openUpgrade();};}
-    else{c.onclick=(function(id){return function(){selectPendingTemplate(id);};}(t.id));}
+/* ═══════════════════════════════════════════════
+   TEMPLATES
+═══════════════════════════════════════════════ */
+function openTemplates() { renderTemplatesGrid(); document.getElementById('templates-modal').classList.add('open'); }
+function closeTemplates() { document.getElementById('templates-modal').classList.remove('open'); }
+function renderTemplatesGrid() {
+  var g = document.getElementById('templates-grid');
+  g.innerHTML = '';
+  pendingTemplate = currentTemplate;
+  TEMPLATES.forEach(function(t) {
+    var locked = !t.free && !isPro;
+    var sel = t.id === currentTemplate;
+    var c = document.createElement('div');
+    c.className = 'tpl-card' + (sel ? ' selected' : '') + (locked ? ' locked' : '');
+    c.dataset.id = t.id;
+    var thumb = '<div class="tpl-thumb">';
+    if (t.id === 'bold') {
+      thumb += '<div style="background:#0f0e0c;color:white;margin:-7px -7px 5px;padding:5px 7px;font-size:6.5px;font-weight:700">Alexandra Chen</div><div style="font-size:5px;color:#c9a84c;margin-bottom:4px">Senior Product Manager</div>';
+    } else if (t.id === 'executive') {
+      thumb += '<div style="font-size:6.5px;font-weight:700;text-align:center;margin-bottom:2px">Alexandra Chen</div><div style="font-size:4.5px;color:#b85c38;text-align:center;margin-bottom:3px">Senior Product Manager</div><div style="border-top:2px double #1a1a1a;margin-bottom:3px"></div>';
+    } else if (t.id === 'minimal') {
+      thumb += '<div style="font-size:7px;font-weight:300;letter-spacing:1px;margin-bottom:2px">Alexandra Chen</div><div style="font-size:4.5px;color:#7a7165;margin-bottom:4px">Senior Product Manager</div>';
+    } else {
+      thumb += '<div style="font-size:6.5px;font-weight:700;color:' + (t.id === 'modern' ? '#b85c38' : '#0f0e0c') + ';margin-bottom:2px">Alexandra Chen</div><div style="font-size:4.5px;color:#b85c38;margin-bottom:3px">Senior Product Manager</div><div style="border-top:1.5px solid ' + (t.id === 'modern' ? '#b85c38' : '#1a1a1a') + ';margin-bottom:3px"></div>';
+    }
+    thumb += '<div style="font-size:3.8px;text-transform:uppercase;color:#999;letter-spacing:.5px;margin-bottom:2px">Experience</div>';
+    thumb += '<div style="font-size:3.8px;color:#333;margin-bottom:1px">Lead PM · Stripe · 2021-Present</div>';
+    thumb += '<div style="font-size:3.4px;color:#777">Grew conversion by 18%</div>';
+    if (t.id === 'compact') { thumb += '<div style="font-size:3.4px;color:#777">Led 6 PMs, $4.2M ARR</div>'; }
+    thumb += '</div>';
+    c.innerHTML = thumb
+      + '<div class="tpl-card-name">' + t.name + (locked ? ' 🔒' : '') + (sel ? ' <span style="color:var(--gold)">✓</span>' : '') + '</div>'
+      + '<div class="tpl-card-tag">' + t.tag + '</div>';
+    if (locked) {
+      c.onclick = function() { closeTemplates(); openUpgrade(); };
+    } else {
+      c.onclick = (function(id) { return function() { selectPendingTemplate(id); }; }(t.id));
+    }
     g.appendChild(c);
   });
 }
-function selectPendingTemplate(id){
-  pendingTemplate=id;
-  document.querySelectorAll('.tpl-card').forEach(function(c){c.classList.toggle('selected',c.dataset.id===id);});
+function selectPendingTemplate(id) {
+  pendingTemplate = id;
+  document.querySelectorAll('.tpl-card').forEach(function(c) { c.classList.toggle('selected', c.dataset.id === id); });
 }
-function applySelectedTemplate(){
-  currentTemplate=pendingTemplate;
-  var doc=document.getElementById('resume-doc');
-  // Remove all tpl- classes, add new one
-  doc.className='doc tpl-'+currentTemplate;
-  var found=TEMPLATES.find(function(t){return t.id===currentTemplate;});
-  document.getElementById('tpl-label').textContent=found?found.name:'Classic';
-  // Update band content for bold template
-  updateDoc();
+function applySelectedTemplate() {
+  currentTemplate = pendingTemplate;
+  var doc = document.getElementById('resume-doc');
+  doc.className = 'doc tpl-' + currentTemplate;
+  var found = TEMPLATES.find(function(t) { return t.id === currentTemplate; });
+  document.getElementById('tpl-label').textContent = found ? found.name : 'Classic';
+  updateDoc(); // re-sync band content for bold
   closeTemplates();
 }
 
-/* ─── PDF DOWNLOAD ─── */
-function downloadPDF(){
-  var btn=document.getElementById('pdf-btn');
-  btn.textContent='Preparing PDF...';btn.disabled=true;
-  // Ensure resume is showing for print
-  document.getElementById('resume-doc').style.display='block';
-  document.getElementById('cl-doc').style.display='none';
-  setTimeout(function(){
+/* ═══════════════════════════════════════════════
+   PDF DOWNLOAD
+═══════════════════════════════════════════════ */
+function downloadPDF() {
+  var btn = document.getElementById('pdf-btn');
+  btn.innerHTML = '<span class="mini-spinner"></span> Preparing...';
+  btn.disabled = true;
+  // Always print the resume doc, not the cover letter
+  var wasShowingCL = (currentPreviewTab === 'cl');
+  document.getElementById('resume-doc').style.display = 'block';
+  document.getElementById('cl-doc').style.display = 'none';
+  setTimeout(function() {
     window.print();
-    // Restore cover letter visibility if it was open
-    switchPreview(currentPreviewTab,null,true);
-    btn.innerHTML='&#8659; Download PDF';btn.disabled=false;
-  },300);
+    // Restore whatever was showing
+    if (wasShowingCL) {
+      document.getElementById('resume-doc').style.display = 'none';
+      document.getElementById('cl-doc').style.display = 'block';
+    }
+    btn.innerHTML = '↓ Download PDF';
+    btn.disabled = false;
+  }, 350);
 }
 
-/* ─── SECTION TOGGLES ─── */
-var sectionState={};
-function toggleSection(bodyId,toggleId){
-  var body=document.getElementById(bodyId);
-  var toggle=document.getElementById(toggleId);
-  var isOpen=sectionState[bodyId]!==false;
-  if(isOpen){
-    body.style.display='none';
+/* ═══════════════════════════════════════════════
+   SECTION TOGGLES
+═══════════════════════════════════════════════ */
+function toggleSection(bodyId, toggleId) {
+  var body = document.getElementById(bodyId);
+  var toggle = document.getElementById(toggleId);
+  var isOpen = sectionState[bodyId] !== false; // default open
+  if (isOpen) {
+    body.style.display = 'none';
     toggle.classList.add('section-collapsed');
-    sectionState[bodyId]=false;
+    sectionState[bodyId] = false;
   } else {
-    body.style.display='block';
+    body.style.display = 'block';
     toggle.classList.remove('section-collapsed');
-    sectionState[bodyId]=true;
+    sectionState[bodyId] = true;
   }
 }
 
-/* ─── ENTRIES ─── */
-var entries={exp:[],edu:[]},expId=0,eduId=0;
-entries.exp=[
-  {id:++expId,title:'Lead Product Manager',company:'Stripe',dates:'2021-Present',bullets:'Grew checkout conversion by 18% via A/B-tested UX overhaul\nLed team of 6 PMs across payments and identity products\nLaunched 3 enterprise features, adding $4.2M ARR in 12 months'},
-  {id:++expId,title:'Product Manager',company:'Notion',dates:'2019-2021',bullets:'Shipped collaborative database feature used by 500k+ teams\nReduced churn by 22% via onboarding redesign'}
+/* ═══════════════════════════════════════════════
+   ENTRIES
+═══════════════════════════════════════════════ */
+var entries = { exp: [], edu: [] };
+var expId = 0, eduId = 0;
+entries.exp = [
+  { id: ++expId, title: 'Lead Product Manager', company: 'Stripe', dates: '2021–Present', bullets: 'Grew checkout conversion by 18% via A/B-tested UX overhaul\nLed team of 6 PMs across payments and identity products\nLaunched 3 enterprise features, adding $4.2M ARR in 12 months' },
+  { id: ++expId, title: 'Product Manager', company: 'Notion', dates: '2019–2021', bullets: 'Shipped collaborative database feature used by 500k+ teams\nReduced churn by 22% via onboarding redesign' }
 ];
-entries.edu=[{id:++eduId,title:'B.S. Computer Science',company:'UC Berkeley',dates:'2015-2019',bullets:''}];
-function addEntry(type){var id=type==='exp'?++expId:++eduId;entries[type].push({id:id,title:'',company:'',dates:'',bullets:''});renderEntries(type);updateDoc();}
-function removeEntry(type,id){entries[type]=entries[type].filter(function(e){return e.id!==id;});renderEntries(type);updateDoc();}
-function esc(s){return(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
-function renderEntries(type){
-  var c=document.getElementById(type+'-entries');c.innerHTML='';
-  entries[type].forEach(function(e){
-    var d=document.createElement('div');d.className='entry-card';
-    d.innerHTML='<button class="remove-btn" onclick="removeEntry(\''+type+'\','+e.id+')">&#10005;</button>'+
-      '<div class="form-group" style="margin-bottom:.5rem"><label>Title / Degree</label><input type="text" value="'+esc(e.title)+'" oninput="entries[\''+type+'\'].find(function(x){return x.id=='+e.id+'}).title=this.value;updateDoc()"></div>'+
-      '<div class="form-group" style="margin-bottom:.5rem"><label>Company / School</label><input type="text" value="'+esc(e.company)+'" oninput="entries[\''+type+'\'].find(function(x){return x.id=='+e.id+'}).company=this.value;updateDoc()"></div>'+
-      '<div class="form-group" style="margin-bottom:.5rem"><label>Dates</label><input type="text" value="'+esc(e.dates)+'" oninput="entries[\''+type+'\'].find(function(x){return x.id=='+e.id+'}).dates=this.value;updateDoc()"></div>'+
-      (type==='exp'?'<div class="form-group" style="margin-bottom:0"><label>Bullet Points (one per line)</label><textarea oninput="entries[\''+type+'\'].find(function(x){return x.id=='+e.id+'}).bullets=this.value;updateDoc()">'+esc(e.bullets)+'</textarea></div>':'');
+entries.edu = [
+  { id: ++eduId, title: 'B.S. Computer Science', company: 'UC Berkeley', dates: '2015–2019', bullets: '' }
+];
+
+function addEntry(type) {
+  var id = type === 'exp' ? ++expId : ++eduId;
+  entries[type].push({ id: id, title: '', company: '', dates: '', bullets: '' });
+  renderEntries(type);
+  updateDoc();
+}
+function removeEntry(type, id) {
+  entries[type] = entries[type].filter(function(e) { return e.id !== id; });
+  renderEntries(type);
+  updateDoc();
+}
+function esc(s) {
+  return (s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function renderEntries(type) {
+  var c = document.getElementById(type + '-entries');
+  c.innerHTML = '';
+  entries[type].forEach(function(e) {
+    var d = document.createElement('div');
+    d.className = 'entry-card';
+    d.innerHTML =
+      '<button class="remove-btn" title="Remove" onclick="removeEntry(\'' + type + '\',' + e.id + ')">✕</button>' +
+      '<div class="form-group" style="margin-bottom:.5rem"><label>Title / Degree</label><input type="text" value="' + esc(e.title) + '" oninput="entries[\'' + type + '\'].find(function(x){return x.id==' + e.id + '}).title=this.value;updateDoc()"></div>' +
+      '<div class="form-group" style="margin-bottom:.5rem"><label>Company / School</label><input type="text" value="' + esc(e.company) + '" oninput="entries[\'' + type + '\'].find(function(x){return x.id==' + e.id + '}).company=this.value;updateDoc()"></div>' +
+      '<div class="form-group" style="margin-bottom:.5rem"><label>Dates</label><input type="text" value="' + esc(e.dates) + '" oninput="entries[\'' + type + '\'].find(function(x){return x.id==' + e.id + '}).dates=this.value;updateDoc()"></div>' +
+      (type === 'exp' ? '<div class="form-group" style="margin-bottom:0"><label>Bullet Points (one per line)</label><textarea oninput="entries[\'' + type + '\'].find(function(x){return x.id==' + e.id + '}).bullets=this.value;updateDoc()">' + esc(e.bullets) + '</textarea></div>' : '');
     c.appendChild(d);
   });
 }
 
-/* ─── DOC UPDATE ─── */
-function v(id){var el=document.getElementById(id);return el?el.value:'';}
-function updateDoc(){
-  var name=v('f-name')||'Your Name',title=v('f-title'),contact=[v('f-email'),v('f-phone'),v('f-location'),v('f-link')].filter(Boolean).join(' · ');
-  // Main doc fields
-  document.getElementById('d-name').textContent=name;
-  document.getElementById('d-title').textContent=title;
-  document.getElementById('d-contact').textContent=contact;
-  document.getElementById('d-summary').textContent=v('f-summary');
-  // Bold template band (always kept in sync)
-  document.getElementById('d-band-name').textContent=name;
-  document.getElementById('d-band-title').textContent=title;
-  document.getElementById('d-band-contact').textContent=contact;
+/* ═══════════════════════════════════════════════
+   DOC UPDATE
+═══════════════════════════════════════════════ */
+function val(id) { var el = document.getElementById(id); return el ? el.value : ''; }
+function updateDoc() {
+  var name = val('f-name') || 'Your Name';
+  var title = val('f-title');
+  var contact = [val('f-email'), val('f-phone'), val('f-location'), val('f-link')].filter(Boolean).join(' · ');
+  var summary = val('f-summary');
+
+  // Main doc header
+  document.getElementById('d-name').textContent = name;
+  document.getElementById('d-title').textContent = title;
+  document.getElementById('d-contact').textContent = contact;
+  document.getElementById('d-summary').textContent = summary;
+
+  // Bold template band — always kept in sync
+  document.getElementById('d-band-name').textContent = name;
+  document.getElementById('d-band-title').textContent = title;
+  document.getElementById('d-band-contact').textContent = contact;
+
+  // Hide summary section if empty
+  var summarySection = document.getElementById('summary-section');
+  if (summarySection) summarySection.style.display = summary.trim() ? '' : 'none';
+
   // Experience
-  var expHtml='';
-  entries.exp.forEach(function(e){
-    var bl=e.bullets.split('\n').filter(function(b){return b.trim();});
-    expHtml+='<div class="doc-entry"><div class="doc-entry-header"><span class="doc-entry-title">'+esc(e.title)+'</span><span class="doc-entry-date">'+esc(e.dates)+'</span></div><div class="doc-entry-sub">'+esc(e.company)+'</div>'+(bl.length?'<ul class="doc-entry-bullets">'+bl.map(function(b){return'<li>'+esc(b)+'</li>';}).join('')+'</ul>':'')+'</div>';
+  var expHtml = '';
+  entries.exp.forEach(function(e) {
+    var bl = e.bullets.split('\n').filter(function(b) { return b.trim(); });
+    expHtml += '<div class="doc-entry">'
+      + '<div class="doc-entry-header"><span class="doc-entry-title">' + esc(e.title) + '</span><span class="doc-entry-date">' + esc(e.dates) + '</span></div>'
+      + '<div class="doc-entry-sub">' + esc(e.company) + '</div>'
+      + (bl.length ? '<ul class="doc-entry-bullets">' + bl.map(function(b) { return '<li>' + esc(b) + '</li>'; }).join('') + '</ul>' : '')
+      + '</div>';
   });
-  document.getElementById('d-exp').innerHTML=expHtml;
+  document.getElementById('d-exp').innerHTML = expHtml;
+
   // Education
-  var eduHtml='';
-  entries.edu.forEach(function(e){eduHtml+='<div class="doc-entry"><div class="doc-entry-header"><span class="doc-entry-title">'+esc(e.title)+'</span><span class="doc-entry-date">'+esc(e.dates)+'</span></div><div class="doc-entry-sub">'+esc(e.company)+'</div></div>';});
-  document.getElementById('d-edu').innerHTML=eduHtml;
+  var eduHtml = '';
+  entries.edu.forEach(function(e) {
+    eduHtml += '<div class="doc-entry">'
+      + '<div class="doc-entry-header"><span class="doc-entry-title">' + esc(e.title) + '</span><span class="doc-entry-date">' + esc(e.dates) + '</span></div>'
+      + '<div class="doc-entry-sub">' + esc(e.company) + '</div>'
+      + '</div>';
+  });
+  document.getElementById('d-edu').innerHTML = eduHtml;
+
   // Skills
-  var sk=v('f-skills').split(',').map(function(s){return s.trim();}).filter(Boolean);
-  document.getElementById('d-skills').innerHTML=sk.map(function(s){return'<span class="doc-skill">'+esc(s)+'</span>';}).join('');
-}
-function updateCL(){
-  document.getElementById('cl-d-name').textContent=v('f-name')||'Your Name';
-  document.getElementById('cl-d-contact').textContent=[v('f-email'),v('f-phone')].filter(Boolean).join(' · ');
-  document.getElementById('cl-d-to').innerHTML=esc(v('cl-manager'))+'<br>'+esc(v('cl-company'));
-  document.getElementById('cl-d-body').textContent=v('cl-body');
+  var sk = val('f-skills').split(',').map(function(s) { return s.trim(); }).filter(Boolean);
+  document.getElementById('d-skills').innerHTML = sk.map(function(s) { return '<span class="doc-skill">' + esc(s) + '</span>'; }).join('');
 }
 
-/* ─── TAB SWITCHING ─── */
-var currentPreviewTab='resume';
-function switchPreview(type,el,silent){
-  currentPreviewTab=type;
-  if(!silent){
-    document.querySelectorAll('.tabs .tab').forEach(function(t){t.classList.remove('active');});
-    if(el)el.classList.add('active');
-  }
-  document.getElementById('resume-doc').style.display=type==='resume'?'block':'none';
-  document.getElementById('cl-doc').style.display=type==='cl'?'block':'none';
-  // Sync sidebar tabs
-  if(!silent){
-    var sidebarTarget=type==='cl'?'coverletter':'resume';
-    document.querySelectorAll('.sidebar-tab').forEach(function(t){t.classList.remove('active');});
-    var stabs=document.querySelectorAll('.sidebar-tab');
-    if(type==='cl'&&stabs[1])stabs[1].classList.add('active');
-    else if(stabs[0])stabs[0].classList.add('active');
-    document.getElementById('sidebar-resume').style.display=type==='resume'?'block':'none';
-    document.getElementById('sidebar-coverletter').style.display=type==='cl'?'block':'none';
-  }
+function updateCL() {
+  document.getElementById('cl-d-name').textContent = val('f-name') || 'Your Name';
+  document.getElementById('cl-d-contact').textContent = [val('f-email'), val('f-phone')].filter(Boolean).join(' · ');
+  document.getElementById('cl-d-to').innerHTML = esc(val('cl-manager')) + '<br>' + esc(val('cl-company'));
+  document.getElementById('cl-d-body').textContent = val('cl-body');
 }
-function switchSidebarTab(type,el){
-  document.querySelectorAll('.sidebar-tab').forEach(function(t){t.classList.remove('active');});
+
+/* ═══════════════════════════════════════════════
+   TAB SWITCHING (synced)
+═══════════════════════════════════════════════ */
+function switchPreview(type, el) {
+  currentPreviewTab = type;
+  document.querySelectorAll('.tabs .tab').forEach(function(t) { t.classList.remove('active'); });
+  if (el) el.classList.add('active');
+  document.getElementById('resume-doc').style.display = type === 'resume' ? 'block' : 'none';
+  document.getElementById('cl-doc').style.display = type === 'cl' ? 'block' : 'none';
+  // Sync sidebar
+  var sType = type === 'cl' ? 'coverletter' : 'resume';
+  document.querySelectorAll('.sidebar-tab').forEach(function(t) { t.classList.remove('active'); });
+  var stabs = document.querySelectorAll('.sidebar-tab');
+  if (sType === 'coverletter' && stabs[1]) stabs[1].classList.add('active');
+  else if (stabs[0]) stabs[0].classList.add('active');
+  document.getElementById('sidebar-resume').style.display = sType === 'resume' ? 'block' : 'none';
+  document.getElementById('sidebar-coverletter').style.display = sType === 'coverletter' ? 'block' : 'none';
+}
+function switchSidebarTab(type, el) {
+  document.querySelectorAll('.sidebar-tab').forEach(function(t) { t.classList.remove('active'); });
   el.classList.add('active');
-  document.getElementById('sidebar-resume').style.display=type==='resume'?'block':'none';
-  document.getElementById('sidebar-coverletter').style.display=type==='coverletter'?'block':'none';
-  // Sync preview tabs
-  var previewType=type==='coverletter'?'cl':'resume';
-  document.querySelectorAll('.tabs .tab').forEach(function(t){t.classList.remove('active');});
-  var ptabs=document.querySelectorAll('.tabs .tab');
-  if(previewType==='cl'&&ptabs[1])ptabs[1].classList.add('active');
-  else if(ptabs[0])ptabs[0].classList.add('active');
-  document.getElementById('resume-doc').style.display=previewType==='resume'?'block':'none';
-  document.getElementById('cl-doc').style.display=previewType==='cl'?'block':'none';
-  currentPreviewTab=previewType;
+  document.getElementById('sidebar-resume').style.display = type === 'resume' ? 'block' : 'none';
+  document.getElementById('sidebar-coverletter').style.display = type === 'coverletter' ? 'block' : 'none';
+  // Sync preview
+  var pType = type === 'coverletter' ? 'cl' : 'resume';
+  currentPreviewTab = pType;
+  document.querySelectorAll('.tabs .tab').forEach(function(t) { t.classList.remove('active'); });
+  var ptabs = document.querySelectorAll('.tabs .tab');
+  if (pType === 'cl' && ptabs[1]) ptabs[1].classList.add('active');
+  else if (ptabs[0]) ptabs[0].classList.add('active');
+  document.getElementById('resume-doc').style.display = pType === 'resume' ? 'block' : 'none';
+  document.getElementById('cl-doc').style.display = pType === 'cl' ? 'block' : 'none';
 }
 
-/* ─── ATS MODAL ─── */
-function openATSModal(){document.getElementById('ats-modal').classList.add('open');}
-
-/* ─── MOBILE SIDEBAR ─── */
-function toggleMobileSidebar(){
-  var sidebar=document.getElementById('sidebar');
-  var backdrop=document.getElementById('sidebar-backdrop');
-  var isOpen=sidebar.classList.contains('open');
-  if(isOpen){closeMobileSidebar();}
-  else{sidebar.classList.add('open');backdrop.classList.add('open');}
+/* ═══════════════════════════════════════════════
+   MOBILE SIDEBAR
+═══════════════════════════════════════════════ */
+function toggleMobileSidebar() {
+  var sidebar = document.getElementById('sidebar');
+  if (sidebar.classList.contains('open')) closeMobileSidebar();
+  else { sidebar.classList.add('open'); document.getElementById('sidebar-backdrop').classList.add('open'); }
 }
-function closeMobileSidebar(){
+function closeMobileSidebar() {
   document.getElementById('sidebar').classList.remove('open');
   document.getElementById('sidebar-backdrop').classList.remove('open');
 }
+// Close mobile sidebar when switching to preview on mobile
+document.querySelectorAll('.tabs .tab').forEach(function(tab) {
+  tab.addEventListener('click', function() { if (window.innerWidth <= 768) closeMobileSidebar(); });
+});
 
-/* ─── LOADING ─── */
-function hideLoader(){var ol=document.getElementById('loading-overlay');ol.classList.add('fade');setTimeout(function(){ol.style.display='none';},450);}
+/* ═══════════════════════════════════════════════
+   TOAST
+═══════════════════════════════════════════════ */
+var toastTimer;
+function showToast(msg, duration) {
+  clearTimeout(toastTimer);
+  var t = document.getElementById('toast');
+  t.textContent = msg;
+  t.style.display = 'block';
+  toastTimer = setTimeout(function() { t.style.display = 'none'; }, duration || 2800);
+}
 
-/* ─── INIT ─── */
-renderEntries('exp');renderEntries('edu');updateDoc();updateCL();
+/* ═══════════════════════════════════════════════
+   LOADING
+═══════════════════════════════════════════════ */
+function hideLoader() {
+  var ol = document.getElementById('loading-overlay');
+  ol.classList.add('fade');
+  setTimeout(function() { ol.style.display = 'none'; }, 450);
+}
+// Max-timeout: if Supabase doesn't respond in 5s, hide loader anyway
+var loaderTimeout = setTimeout(function() { hideLoader(); }, 5000);
 
-/* ─── SUPABASE ─── */
-(function(){
-  var s=document.createElement('script');
-  s.src='https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.3/dist/umd/supabase.min.js';
-  s.onload=function(){
-    try{
-      sb=window.supabase.createClient(
+/* ═══════════════════════════════════════════════
+   INIT
+═══════════════════════════════════════════════ */
+renderEntries('exp');
+renderEntries('edu');
+updateDoc();
+updateCL();
+
+/* ═══════════════════════════════════════════════
+   SUPABASE — loaded async
+═══════════════════════════════════════════════ */
+(function() {
+  var s = document.createElement('script');
+  s.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.3/dist/umd/supabase.min.js';
+  s.onload = function() {
+    try {
+      // ── IMPORTANT: paste your real anon/publishable key from Supabase dashboard ──
+      // Both the new sb_publishable_... format and the legacy eyJ... JWT format work.
+      sb = window.supabase.createClient(
         'https://nwnxhnwnffqzccwrbklv.supabase.co',
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im53bnhobndmZnF6Y2N3cmJrbHYiLCJyb2xlIjoiYW5vbiIsImlhdCI6MTcxNTAwMDAwMCwiZXhwIjoyMDMwNTYwMDAwfQ.PLACEHOLDER_REPLACE_WITH_REAL_ANON_KEY',
-        {auth:{detectSessionInUrl:true,persistSession:true,flowType:'pkce'}}
+        'sb_publishable_1ZS8klug8sZMU_yrIRndqA_sfvTioMj', // ← your original key (correct format)
+        { auth: { detectSessionInUrl: true, persistSession: true, flowType: 'pkce' } }
       );
-      sb.auth.onAuthStateChange(function(event,session){
+
+      sb.auth.onAuthStateChange(function(event, session) {
+        clearTimeout(loaderTimeout);
         hideLoader();
-        if(session&&session.user){
-          currentUser=session.user;
-          // Pre-fill name from Google profile if still default
-          var m=currentUser.user_metadata||{};
-          var rn=m.full_name||m.name||'';
-          if(rn){var nf=document.getElementById('f-name');if(nf&&(nf.value===''||nf.value==='Alexandra Chen')){nf.value=rn;updateDoc();}}
-          // Check pro status
-          sb.from('profiles').select('is_pro').eq('id',currentUser.id).single().then(function(r){
-            isPro=!!(r.data&&r.data.is_pro);
-            updateProUI();
-          });
+
+        if (session && session.user) {
+          currentUser = session.user;
+
+          // Pre-fill name from Google profile
+          var m = currentUser.user_metadata || {};
+          var rn = m.full_name || m.name || '';
+          if (rn) {
+            var nf = document.getElementById('f-name');
+            if (nf && (nf.value === '' || nf.value === 'Alexandra Chen')) {
+              nf.value = rn; updateDoc();
+            }
+          }
+
+          // Check pro status — handle table-not-found gracefully
+          sb.from('profiles')
+            .select('is_pro')
+            .eq('id', currentUser.id)
+            .maybeSingle() // returns null instead of error if no row
+            .then(function(r) {
+              isPro = !!(r.data && r.data.is_pro);
+              updateProUI();
+            })
+            .catch(function() {
+              isPro = false; updateProUI(); // profiles table may not exist yet
+            });
+
           showUserNav();
           closeAuth();
-          // Detect OAuth callback — Supabase PKCE puts session in URL params, not hash
-          var url=new URL(window.location.href);
-          var hasCode=url.searchParams.has('code');
-          var hasToken=window.location.hash&&window.location.hash.indexOf('access_token')>-1;
-          if(hasCode||hasToken){
-            window.history.replaceState(null,'',window.location.pathname);
+
+          // Detect OAuth callback: PKCE uses ?code= param, implicit uses #access_token hash
+          var url = new URL(window.location.href);
+          var isOAuthCallback = url.searchParams.has('code') || (window.location.hash && window.location.hash.indexOf('access_token') > -1);
+          if (isOAuthCallback) {
+            window.history.replaceState(null, '', window.location.pathname);
             showApp();
           }
         } else {
-          currentUser=null;isPro=false;showGuestNav();
-          hideLoader();
+          currentUser = null; isPro = false;
+          showGuestNav();
         }
       });
-    }catch(e){hideLoader();console.warn('Supabase init error',e);}
+    } catch(e) {
+      clearTimeout(loaderTimeout);
+      hideLoader();
+      console.warn('Supabase init error:', e);
+    }
   };
-  s.onerror=function(){hideLoader();console.warn('Supabase CDN failed');};
+  s.onerror = function() {
+    clearTimeout(loaderTimeout);
+    hideLoader();
+    console.warn('Supabase CDN failed to load. Auth unavailable.');
+  };
   document.body.appendChild(s);
 })();
 </script>
