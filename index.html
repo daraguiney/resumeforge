@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -64,8 +65,8 @@ nav a{color:var(--muted);text-decoration:none;font-size:.9rem;font-weight:500;cu
 
 /* ── APP ── */
 #app{display:none}
-.app-layout{display:grid;grid-template-columns:340px 1fr;height:calc(100vh - 65px);overflow:hidden}
-.sidebar{background:var(--cream);border-right:1px solid var(--border);padding:1.5rem;overflow-y:auto;height:100%}
+.app-layout{display:grid;grid-template-columns:340px 1fr;min-height:calc(100vh - 65px)}
+.sidebar{background:var(--cream);border-right:1px solid var(--border);padding:1.5rem;overflow-y:auto;max-height:calc(100vh - 65px)}
 .sidebar h3{font-family:'Playfair Display',serif;font-size:1.1rem;margin-bottom:1.2rem;padding-bottom:.7rem;border-bottom:1px solid var(--border)}
 .form-group{margin-bottom:1rem}
 .form-group label{display:block;font-size:.78rem;font-weight:600;color:var(--muted);letter-spacing:.05em;text-transform:uppercase;margin-bottom:.4rem}
@@ -88,16 +89,15 @@ nav a{color:var(--muted);text-decoration:none;font-size:.9rem;font-weight:500;cu
 .user-avatar-init{width:26px;height:26px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:800;color:var(--ink);flex-shrink:0}
 .pro-tag{background:var(--gold);color:var(--ink);font-size:.65rem;font-weight:800;padding:.1rem .45rem;border-radius:4px}
 .signout-link{color:var(--muted);cursor:pointer;font-size:.75rem;transition:color .2s}.signout-link:hover{color:var(--rust)}
-.preview-pane{background:#e8e4dc;padding:1.5rem 2rem;overflow-y:auto;height:100%;display:flex;flex-direction:column;align-items:center}
-.preview-inner{width:100%;max-width:760px;display:flex;flex-direction:column;align-items:center}
-.preview-toolbar{width:100%;display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:.5rem}
+.preview-pane{background:#e8e4dc;padding:2rem;overflow-y:auto;display:flex;flex-direction:column;align-items:center}
+.preview-toolbar{width:100%;max-width:680px;display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;flex-wrap:wrap;gap:.5rem}
 .preview-toolbar h4{font-size:.85rem;font-weight:600;color:var(--muted)}
 .preview-toolbar-actions{display:flex;gap:.7rem;flex-wrap:wrap}
-.tabs{display:flex;border-bottom:1px solid var(--border);margin-bottom:1.5rem;width:100%;background:transparent}
+.tabs{display:flex;border-bottom:1px solid var(--border);margin-bottom:1.5rem;width:100%;max-width:680px}
 .tab{padding:.6rem 1.4rem;cursor:pointer;font-size:.85rem;font-weight:600;color:var(--muted);border-bottom:2px solid transparent;transition:all .2s}.tab.active{color:var(--ink);border-bottom-color:var(--ink)}
 
 /* ── DOC ── */
-.doc{background:white;width:100%;max-width:700px;min-height:900px;padding:3rem 3.5rem;box-shadow:0 2px 24px rgba(0,0,0,.13);border-radius:4px;font-family:Georgia,serif;font-size:.82rem;line-height:1.5;color:#1a1a1a;margin-bottom:2rem}
+.doc{background:white;width:100%;max-width:680px;min-height:900px;padding:3rem 3.5rem;box-shadow:0 4px 30px rgba(0,0,0,.15);border-radius:4px;font-family:Georgia,serif;font-size:.82rem;line-height:1.5;color:#1a1a1a}
 .doc-name{font-size:2rem;font-weight:700;margin-bottom:.2rem}
 .doc-title{color:var(--rust);font-size:.9rem;font-weight:600;margin-bottom:.5rem;font-family:'DM Sans',sans-serif}
 .doc-contact{font-family:'DM Mono',monospace;font-size:.72rem;color:var(--muted);margin-bottom:1.5rem}
@@ -183,12 +183,10 @@ nav a{color:var(--muted);text-decoration:none;font-size:.9rem;font-weight:500;cu
 
 /* ── PRINT ── */
 @media print{
-  .loading-overlay,nav,#landing,.sidebar,.preview-toolbar,.tabs,.modal-backdrop,.mobile-fab,.toast,.sidebar-backdrop{display:none!important}
-  #app{display:block!important}
-  .app-layout{display:block!important;height:auto!important;overflow:visible!important}
-  .preview-pane{background:white!important;padding:0!important;display:block!important;overflow:visible!important;height:auto!important}
-  .preview-inner{max-width:100%!important;display:block!important}
-  .doc{box-shadow:none!important;border-radius:0!important;min-height:auto!important;max-width:100%!important;width:100%!important;padding:1.5rem!important;margin:0!important}
+  .loading-overlay,nav,#landing,.sidebar,.preview-toolbar,.tabs,.modal-backdrop,.mobile-fab,.toast{display:none!important}
+  #app{display:block!important}.app-layout{display:block!important}
+  .preview-pane{background:white!important;padding:0!important;display:block!important}
+  .doc{box-shadow:none!important;border-radius:0!important;min-height:auto!important;max-width:100%!important;width:100%!important}
   #resume-doc{display:block!important}
   #cl-doc{display:none!important}
 }
@@ -205,14 +203,13 @@ footer a{color:var(--gold);text-decoration:none}
   nav{padding:1rem 1.5rem}
 }
 @media(max-width:768px){
-  .app-layout{grid-template-columns:1fr;height:calc(100vh - 65px)}
-  .sidebar{position:fixed;left:0;top:65px;bottom:0;width:85%;max-width:340px;z-index:150;transform:translateX(-110%);transition:transform .3s ease;height:calc(100vh - 65px);box-shadow:4px 0 20px rgba(0,0,0,.15)}
+  .app-layout{grid-template-columns:1fr}
+  .sidebar{position:fixed;left:0;top:65px;bottom:0;width:85%;max-width:340px;z-index:150;transform:translateX(-110%);transition:transform .3s ease;max-height:calc(100vh - 65px);box-shadow:4px 0 20px rgba(0,0,0,.15)}
   .sidebar.open{transform:translateX(0)}
   .sidebar-backdrop{display:none;position:fixed;inset:0;top:65px;background:rgba(0,0,0,.4);z-index:149}
   .sidebar-backdrop.open{display:block}
   .mobile-fab{display:flex}
   .preview-pane{padding:1rem}
-  .doc{padding:2rem 1.5rem}
   .features-grid{grid-template-columns:1fr}
   .templates-grid{grid-template-columns:1fr 1fr}
   .stats-bar{gap:1.5rem}
@@ -221,7 +218,6 @@ footer a{color:var(--gold);text-decoration:none}
   .hero h1{font-size:2.6rem}
   .templates-grid{grid-template-columns:1fr}
   nav .nav-links a{display:none}
-  .preview-toolbar{flex-direction:column;align-items:flex-start}
 }
 </style>
 </head>
@@ -243,7 +239,7 @@ footer a{color:var(--gold);text-decoration:none}
     <!-- Guest nav -->
     <div id="nav-guest" style="display:flex;gap:1rem;align-items:center">
       <button class="btn-outline" onclick="openAuth('signin')">Sign In</button>
-      <button class="btn-primary" onclick="startBuilding()">Build Free</button>
+      <button class="btn-primary" onclick="openAuth('signup')">Build Free</button>
     </div>
     <!-- Authed nav -->
     <div id="nav-user" style="display:none;align-items:center;gap:.8rem">
@@ -267,7 +263,7 @@ footer a{color:var(--gold);text-decoration:none}
       <h1>Resumes that<br>get you the <em>interview</em></h1>
       <p>Build a polished, recruiter-ready resume in minutes. AI-powered bullet points, ATS-optimized formatting, and cover letters tailored to every job.</p>
       <div class="hero-cta">
-        <button class="btn-gold" onclick="startBuilding()">Start Building — It's Free</button>
+        <button class="btn-gold" onclick="openAuth('signup')">Start Building — It's Free</button>
         <button class="btn-outline" onclick="scrollToPricing()">See Pricing</button>
       </div>
       <p class="hero-note">No credit card required · Free plan includes 1 resume</p>
@@ -275,7 +271,7 @@ footer a{color:var(--gold);text-decoration:none}
     <div class="resume-preview">
       <div class="rp-name">Alexandra Chen</div>
       <div class="rp-title">Senior Product Manager</div>
-      <div class="rp-contact"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="27464b425f67424a464e4b0944484a">[email&#160;protected]</a> · (415) 555-0192 · San Francisco, CA</div>
+      <div class="rp-contact">alex@email.com · (415) 555-0192 · San Francisco, CA</div>
       <hr class="rp-divider">
       <div class="rp-section-title">Experience</div>
       <div class="rp-job">
@@ -331,7 +327,7 @@ footer a{color:var(--gold);text-decoration:none}
           <li><span class="cross">✗</span> ATS score checker</li>
           <li><span class="cross">✗</span> 5 extra templates</li>
         </ul>
-        <button class="btn-outline" style="width:100%" onclick="startBuilding()">Get Started Free</button>
+        <button class="btn-outline" style="width:100%" onclick="openAuth('signup')">Get Started Free</button>
       </div>
       <div class="pricing-card featured">
         <div class="pricing-name">Pro</div>
@@ -428,7 +424,6 @@ Alexandra Chen</textarea>
 
     <!-- ── PREVIEW PANE ── -->
     <div class="preview-pane">
-      <div class="preview-inner">
       <div class="tabs">
         <div class="tab active" onclick="switchPreview('resume',this)">📄 Resume</div>
         <div class="tab" onclick="switchPreview('cl',this)">✉️ Cover Letter</div>
@@ -452,7 +447,7 @@ Alexandra Chen</textarea>
         </div>
         <div class="doc-name" id="d-name">Alexandra Chen</div>
         <div class="doc-title" id="d-title">Senior Product Manager</div>
-        <div class="doc-contact" id="d-contact"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="bedfd2dbc6fedbd3dfd7d290ddd1d3">[email&#160;protected]</a> · (415) 555-0192 · San Francisco, CA</div>
+        <div class="doc-contact" id="d-contact">alex@email.com · (415) 555-0192 · San Francisco, CA</div>
         <hr class="doc-divider">
         <div class="doc-section" id="summary-section">
           <div class="doc-section-title">Summary</div>
@@ -470,15 +465,14 @@ Alexandra Chen</textarea>
       <div class="doc" id="cl-doc" style="display:none">
         <div style="margin-bottom:2rem">
           <div class="doc-name" id="cl-d-name">Alexandra Chen</div>
-          <div class="doc-contact" id="cl-d-contact"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="43222f263b03262e222a2f6d202c2e">[email&#160;protected]</a> · (415) 555-0192</div>
+          <div class="doc-contact" id="cl-d-contact">alex@email.com · (415) 555-0192</div>
         </div>
         <div style="margin-bottom:2rem">
           <div id="cl-d-to" style="font-size:.85rem;line-height:1.8;color:#333">Hiring Team<br>Stripe</div>
         </div>
         <div id="cl-d-body" style="font-size:.84rem;line-height:1.9;color:#333;white-space:pre-wrap"></div>
       </div>
-      </div><!-- /preview-inner -->
-    </div><!-- /preview-pane -->
+    </div>
   </div>
   <button class="mobile-fab" id="mobile-fab" onclick="toggleMobileSidebar()">✏️</button>
 </div>
@@ -531,7 +525,7 @@ Alexandra Chen</textarea>
     </div>
     <div style="background:var(--cream);border-radius:8px;padding:.9rem;margin-top:1rem;text-align:left">
       <p style="font-size:.8rem;font-weight:600;margin-bottom:.3rem">✓ After payment — activate Pro instantly:</p>
-      <p style="font-size:.78rem;color:var(--muted)">Email your receipt to <strong><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="5f2c2a2f2f302d2b1f2d3a2c2a323a39302d383a713630">[email&#160;protected]</a></strong> and we'll upgrade you within minutes.</p>
+      <p style="font-size:.78rem;color:var(--muted)">Email your receipt to <strong>support@resumeforge.io</strong> and we'll upgrade you within minutes.</p>
     </div>
     <p style="font-size:.75rem;color:var(--muted);margin-top:.8rem">7-day free trial · Powered by Stripe 🔒</p>
   </div>
@@ -549,7 +543,7 @@ Alexandra Chen</textarea>
   </div>
 </div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 /* ═══════════════════════════════════════════════
    STATE
 ═══════════════════════════════════════════════ */
@@ -583,11 +577,6 @@ function showApp() {
   updateProUI();
   updateDoc();
   updateCL();
-}
-// Smart CTA — goes straight to builder if already logged in
-function startBuilding() {
-  if (currentUser) { showApp(); }
-  else { openAuth('signup'); }
 }
 function scrollToPricing() { goHome(); setTimeout(function(){ document.getElementById('pricing-section').scrollIntoView({behavior:'smooth'}); }, 50); }
 function scrollToFeatures() { goHome(); setTimeout(function(){ document.getElementById('features').scrollIntoView({behavior:'smooth'}); }, 50); }
@@ -1042,4 +1031,28 @@ updateCL();
           // Detect OAuth callback: PKCE uses ?code= param, implicit uses #access_token hash
           var url = new URL(window.location.href);
           var isOAuthCallback = url.searchParams.has('code') || (window.location.hash && window.location.hash.indexOf('access_token') > -1);
-          if (
+          if (isOAuthCallback) {
+            window.history.replaceState(null, '', window.location.pathname);
+            showApp();
+          }
+        } else {
+          currentUser = null; isPro = false;
+          showGuestNav();
+        }
+      });
+    } catch(e) {
+      clearTimeout(loaderTimeout);
+      hideLoader();
+      console.warn('Supabase init error:', e);
+    }
+  };
+  s.onerror = function() {
+    clearTimeout(loaderTimeout);
+    hideLoader();
+    console.warn('Supabase CDN failed to load. Auth unavailable.');
+  };
+  document.body.appendChild(s);
+})();
+</script>
+</body>
+</html>
