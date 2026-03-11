@@ -15,6 +15,7 @@ const supabase = createClient(
 const ALLOWED_ORIGINS = [
   'https://resumeforge.com',
   'https://www.resumeforge.com',
+  'https://resumeforge-delta.vercel.app',
   'http://localhost',
   'http://127.0.0.1',
 ]
