@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ResumeForge — Build Resumes That Get Interviews</title>
-<!-- ResumeForge v2.0 — Optimized: localStorage, ATS scoring, keyboard shortcuts, SEO -->
 <meta name="description" content="Build a polished, ATS-optimized resume in minutes. AI-powered bullet points, cover letter generator, and 6 professional templates. Free plan available.">
 <meta name="keywords" content="resume builder, ATS resume, AI resume, cover letter generator, job application, resume templates">
 <meta property="og:title" content="ResumeForge — Build Resumes That Get Interviews">
@@ -22,11 +21,45 @@ body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);m
 /* ── NAV ── */
 nav{display:flex;align-items:center;justify-content:space-between;padding:1.2rem 2.5rem;border-bottom:1px solid var(--border);background:var(--paper);position:sticky;top:0;z-index:100}
 .logo{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:900;letter-spacing:-.02em;color:var(--ink);cursor:pointer}.logo span{color:var(--gold)}
-nav .nav-links{display:flex;gap:2rem;align-items:center}
-nav a{color:var(--muted);text-decoration:none;font-size:.9rem;font-weight:500;cursor:pointer}nav a:hover{color:var(--ink)}
+nav .nav-links{display:flex;gap:1.5rem;align-items:center}
+nav a{color:var(--muted);text-decoration:none;font-size:.9rem;font-weight:500;cursor:pointer;transition:color .15s}nav a:hover{color:var(--ink)}
 .btn-primary{background:var(--ink);color:var(--paper);border:none;padding:.65rem 1.4rem;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:.9rem;font-weight:600;cursor:pointer;transition:background .2s}.btn-primary:hover{background:var(--rust)}
+.btn-primary-sm{background:var(--ink);color:var(--paper);border:none;padding:.5rem 1.1rem;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:600;cursor:pointer;transition:background .2s;white-space:nowrap}.btn-primary-sm:hover{background:var(--rust)}
 .btn-gold{background:var(--gold);color:var(--ink);border:none;padding:.75rem 1.8rem;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:1rem;font-weight:700;cursor:pointer;transition:background .2s}.btn-gold:hover{background:#b8933c}
+.btn-gold-sm{background:var(--gold);color:var(--ink);border:none;padding:.5rem 1.1rem;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:700;cursor:pointer;transition:background .2s;display:inline-flex;align-items:center;gap:.3rem;white-space:nowrap}.btn-gold-sm:hover{background:#b8933c}
 .btn-outline{background:transparent;color:var(--ink);border:1.5px solid var(--border);padding:.65rem 1.4rem;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:.9rem;font-weight:500;cursor:pointer;transition:border-color .2s}.btn-outline:hover{border-color:var(--ink)}
+
+/* ── ACCOUNT DROPDOWN ── */
+.account-dropdown-wrap{position:relative}
+.account-chip{display:flex;align-items:center;gap:.45rem;background:var(--cream);border:1px solid var(--border);border-radius:100px;padding:.3rem .7rem .3rem .35rem;cursor:pointer;transition:all .2s;font-family:'DM Sans',sans-serif;border:none}
+.account-chip:hover{background:#ece8df;border-color:var(--gold)}
+.chip-name{font-size:.82rem;font-weight:600;color:var(--ink)}
+.chip-caret{font-size:.6rem;color:var(--muted);margin-left:.05rem;transition:transform .2s}
+.account-chip.open .chip-caret{transform:rotate(180deg)}
+.user-avatar{width:26px;height:26px;border-radius:50%;object-fit:cover}
+.user-avatar-init{width:26px;height:26px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:800;color:var(--ink);flex-shrink:0}
+.pro-tag{background:var(--gold);color:var(--ink);font-size:.62rem;font-weight:800;padding:.1rem .42rem;border-radius:4px;letter-spacing:.03em}
+
+.account-menu{display:none;position:absolute;right:0;top:calc(100% + 10px);background:white;border:1px solid var(--border);border-radius:14px;box-shadow:0 12px 40px rgba(0,0,0,.13),0 2px 8px rgba(0,0,0,.06);min-width:260px;z-index:400;overflow:hidden}
+.account-menu.open{display:block;animation:menuIn .15s ease}
+@keyframes menuIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
+.account-menu-header{padding:1rem 1.2rem;background:var(--cream);border-bottom:1px solid var(--border)}
+.menu-avatar-row{display:flex;align-items:center;gap:.7rem;margin-bottom:.65rem}
+.menu-avatar-init{width:38px;height:38px;border-radius:50%;background:var(--gold);color:var(--ink);display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:800;flex-shrink:0}
+.menu-avatar-img{width:38px;height:38px;border-radius:50%;object-fit:cover}
+.menu-name{font-weight:700;font-size:.9rem;margin-bottom:.12rem}
+.menu-email{font-size:.75rem;color:var(--muted)}
+.menu-plan-badge{display:inline-flex;align-items:center;gap:.25rem;font-size:.67rem;font-weight:800;letter-spacing:.05em;text-transform:uppercase;padding:.18rem .65rem;border-radius:100px;margin-top:.5rem}
+.menu-plan-free{background:#e9e6de;color:var(--muted)}
+.menu-plan-pro{background:var(--gold-light);color:#7a5c1a}
+.account-menu-body{padding:.4rem}
+.account-menu-item{display:flex;align-items:center;gap:.55rem;width:100%;padding:.6rem .8rem;border:none;background:none;font-family:'DM Sans',sans-serif;font-size:.86rem;font-weight:500;color:var(--ink);cursor:pointer;border-radius:7px;text-align:left;transition:background .15s;white-space:nowrap}
+.account-menu-item:hover{background:var(--cream)}
+.account-menu-item.highlight{background:linear-gradient(135deg,#fef9ee,#fdf3d0);color:#7a5c1a;font-weight:700}
+.account-menu-item.highlight:hover{background:var(--gold-light)}
+.account-menu-item.danger{color:var(--rust)}
+.account-menu-item.danger:hover{background:#fdf0ec}
+.menu-divider{height:1px;background:var(--border);margin:.3rem .8rem}
 
 /* ── HERO ── */
 .hero{display:grid;grid-template-columns:1fr 1fr;gap:4rem;max-width:1200px;margin:0 auto;padding:5rem 2.5rem 4rem;align-items:center}
@@ -91,11 +124,16 @@ nav a{color:var(--muted);text-decoration:none;font-size:.9rem;font-weight:500;cu
 .sidebar-tab{padding:.5rem 1rem;cursor:pointer;font-size:.82rem;font-weight:600;color:var(--muted);border-bottom:2px solid transparent;transition:all .2s}
 .sidebar-tab.active{color:var(--ink);border-bottom-color:var(--rust)}
 .ai-btn{display:flex;align-items:center;gap:.5rem;background:linear-gradient(135deg,#f8f0e0,#fdf6e8);border:1.5px solid var(--gold);border-radius:6px;padding:.6rem 1rem;font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:600;cursor:pointer;color:#7a5c1a;width:100%;margin-bottom:.8rem;transition:background .2s}.ai-btn:hover{background:var(--gold-light)}
-.pro-banner{display:none;background:linear-gradient(135deg,#fef9ee,#fdf3d0);border:1.5px solid var(--gold);border-radius:8px;padding:.7rem 1rem;font-size:.82rem;color:#7a5c1a;font-weight:600;margin-bottom:1rem}
+
+/* ── PRO BANNER (sidebar) ── */
+.pro-banner{display:none;background:linear-gradient(135deg,#fef9ee,#fdf3d0);border:1.5px solid var(--gold);border-radius:8px;padding:.75rem 1rem;margin-bottom:1rem}
+.pro-banner-inner{display:flex;align-items:center;justify-content:space-between;gap:.5rem}
+.pro-banner-text .pro-banner-title{font-size:.84rem;font-weight:700;color:#7a5c1a}
+.pro-banner-text .pro-banner-sub{font-size:.72rem;color:#9a7a2a;margin-top:.1rem}
+.pro-banner-manage{background:none;border:1px solid var(--gold);border-radius:5px;padding:.28rem .65rem;font-size:.72rem;font-weight:700;color:#7a5c1a;cursor:pointer;font-family:'DM Sans',sans-serif;transition:background .15s;white-space:nowrap;flex-shrink:0}
+.pro-banner-manage:hover{background:var(--gold-light)}
+
 .user-chip{display:flex;align-items:center;gap:.6rem;background:var(--cream);border:1px solid var(--border);border-radius:100px;padding:.35rem .9rem;font-size:.8rem}
-.user-avatar{width:26px;height:26px;border-radius:50%;object-fit:cover}
-.user-avatar-init{width:26px;height:26px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:800;color:var(--ink);flex-shrink:0}
-.pro-tag{background:var(--gold);color:var(--ink);font-size:.65rem;font-weight:800;padding:.1rem .45rem;border-radius:4px}
 .signout-link{color:var(--muted);cursor:pointer;font-size:.75rem;transition:color .2s}.signout-link:hover{color:var(--rust)}
 .preview-pane{background:#e8e4dc;padding:2rem;overflow-y:auto;display:flex;flex-direction:column;align-items:center}
 .preview-toolbar{width:100%;max-width:680px;display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;flex-wrap:wrap;gap:.5rem}
@@ -123,21 +161,16 @@ nav a{color:var(--muted);text-decoration:none;font-size:.9rem;font-weight:500;cu
 .doc-summary{font-size:.83rem;line-height:1.7;color:#333;font-style:italic}
 
 /* ── TEMPLATE VARIANTS ── */
-/* Classic: default styles above */
 .tpl-modern .doc-name{color:var(--rust)}
 .tpl-modern .doc-divider{border-top-color:var(--rust)}
 .tpl-modern .doc-section-title{color:var(--ink);border-bottom:1px solid var(--border);padding-bottom:.3rem}
-
 .tpl-executive .doc-name{font-size:2.3rem;text-align:center;letter-spacing:.04em}
 .tpl-executive .doc-title{text-align:center}
 .tpl-executive .doc-contact{text-align:center}
 .tpl-executive .doc-divider{border-top:3px double #1a1a1a}
-
 .tpl-minimal .doc-name{font-family:'DM Sans',sans-serif;font-weight:300;letter-spacing:.05em}
 .tpl-minimal .doc-divider{display:none}
 .tpl-minimal .doc-section-title{color:var(--muted);border-top:1px solid var(--border);padding-top:.6rem;margin-top:1.2rem}
-
-/* Bold: a header band that sits above the content */
 .doc-band{display:none;background:var(--ink);color:white;padding:1.5rem 3.5rem;margin:-3rem -3.5rem 2rem}
 .doc-band .band-name{font-family:Georgia,serif;font-size:2rem;font-weight:700;color:white;margin-bottom:.2rem}
 .doc-band .band-title{color:var(--gold);font-size:.9rem;font-weight:600;margin-bottom:.4rem;font-family:'DM Sans',sans-serif}
@@ -145,7 +178,6 @@ nav a{color:var(--muted);text-decoration:none;font-size:.9rem;font-weight:500;cu
 .tpl-bold .doc-band{display:block}
 .tpl-bold #d-name,.tpl-bold #d-title,.tpl-bold #d-contact{display:none}
 .tpl-bold .doc-section-title{background:var(--cream);display:inline-block;padding:.15rem .6rem;border-left:3px solid var(--gold);color:var(--ink)}
-
 .tpl-compact .doc{font-size:.76rem;line-height:1.4}
 .tpl-compact .doc-name{font-size:1.6rem}
 .tpl-compact .doc-section{margin-bottom:1rem}
@@ -155,7 +187,7 @@ nav a{color:var(--muted);text-decoration:none;font-size:.9rem;font-weight:500;cu
 .modal-backdrop{display:none;position:fixed;inset:0;background:rgba(15,14,12,.75);z-index:999;align-items:center;justify-content:center}
 .modal-backdrop.open{display:flex}
 .modal{background:var(--paper);border-radius:16px;padding:2.5rem;max-width:480px;width:90%;text-align:center;position:relative;max-height:90vh;overflow-y:auto}
-.modal-close{position:absolute;top:1rem;right:1rem;background:none;border:none;font-size:1.3rem;cursor:pointer;color:var(--muted)}
+.modal-close{position:absolute;top:1rem;right:1rem;background:none;border:none;font-size:1.3rem;cursor:pointer;color:var(--muted);width:32px;height:32px;border-radius:6px;display:flex;align-items:center;justify-content:center;transition:background .15s}.modal-close:hover{background:var(--cream)}
 .modal h2{font-family:'Playfair Display',serif;font-size:1.8rem;margin-bottom:.7rem}
 .modal p{color:var(--muted);line-height:1.6;margin-bottom:1.5rem}
 .auth-box{background:var(--paper);border-radius:16px;padding:2.5rem;max-width:420px;width:90%;position:relative}
@@ -176,7 +208,7 @@ nav a{color:var(--muted);text-decoration:none;font-size:.9rem;font-weight:500;cu
 .tpl-card-name{font-size:.82rem;font-weight:700;margin-bottom:.1rem}.tpl-card-tag{font-size:.7rem;color:var(--muted)}
 
 /* ── TOAST ── */
-.toast{display:none;position:fixed;bottom:2rem;right:2rem;background:var(--ink);color:var(--paper);padding:.8rem 1.4rem;border-radius:8px;font-size:.85rem;font-weight:600;z-index:9998;animation:slideUp .25s ease}
+.toast{display:none;position:fixed;bottom:2rem;right:2rem;background:var(--ink);color:var(--paper);padding:.8rem 1.4rem;border-radius:8px;font-size:.85rem;font-weight:600;z-index:9998;animation:slideUp .25s ease;max-width:360px;line-height:1.4}
 @keyframes slideUp{from{transform:translateY(1rem);opacity:0}to{transform:translateY(0);opacity:1}}
 
 /* ── MOBILE FAB ── */
@@ -199,15 +231,16 @@ nav a{color:var(--muted);text-decoration:none;font-size:.9rem;font-weight:500;cu
   #cl-doc{display:none!important}
 }
 
-
 /* ── AUTOSAVE ── */
 .autosave-ind{display:flex;align-items:center;gap:.35rem;font-size:.72rem;color:var(--sage);opacity:0;transition:opacity .4s;font-weight:600}
 .autosave-dot{width:6px;height:6px;border-radius:50%;background:var(--sage)}
+
 /* ── PROGRESS BAR ── */
 .resume-progress{margin-bottom:1.2rem}
 .resume-progress-label{display:flex;justify-content:space-between;font-size:.72rem;color:var(--muted);margin-bottom:.3rem}
 .resume-progress-bar{height:4px;background:var(--border);border-radius:2px;overflow:hidden}
 .resume-progress-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--rust));border-radius:2px;transition:width .4s ease}
+
 /* ── ATS RESULTS ── */
 .ats-score-ring{font-family:'Playfair Display',serif;font-size:3.5rem;font-weight:900;line-height:1}
 .ats-breakdown{background:var(--cream);border-radius:8px;padding:.8rem 1rem;margin-top:1rem;text-align:left;font-size:.83rem}
@@ -237,17 +270,20 @@ footer a{color:var(--gold);text-decoration:none}
   .features-grid{grid-template-columns:1fr}
   .templates-grid{grid-template-columns:1fr 1fr}
   .stats-bar{gap:1.5rem}
+  .account-menu{position:fixed;right:.75rem;top:70px;left:.75rem;min-width:unset}
+  .chip-name{display:none}
 }
 @media(max-width:480px){
   .hero h1{font-size:2.6rem}
   .templates-grid{grid-template-columns:1fr}
   nav .nav-links a{display:none}
+  #nav-back-home{display:none!important}
 }
 </style>
 </head>
 <body>
 
-<!-- Loading overlay with max-timeout fallback -->
+<!-- Loading overlay -->
 <div class="loading-overlay" id="loading-overlay">
   <div class="spinner"></div>
   <div style="font-family:'Playfair Display',serif;font-size:1.3rem">Resume<span style="color:var(--gold)">Forge</span></div>
@@ -255,26 +291,54 @@ footer a{color:var(--gold);text-decoration:none}
 
 <div id="toast" class="toast"></div>
 
+<!-- ════════════════════ NAV ════════════════════ -->
 <nav>
   <div class="logo" onclick="goHome()">Resume<span>Forge</span></div>
   <div class="nav-links">
-    <a onclick="scrollToFeatures()">Features</a>
-    <a onclick="scrollToPricing()">Pricing</a>
+    <a id="nav-back-home" onclick="goHome()" style="display:none">← Home</a>
+    <a id="nav-features-link" onclick="scrollToFeatures()">Features</a>
+    <a id="nav-pricing-link" onclick="scrollToPricing()">Pricing</a>
+
     <!-- Guest nav -->
-    <div id="nav-guest" style="display:flex;gap:1rem;align-items:center">
+    <div id="nav-guest" style="display:flex;gap:.75rem;align-items:center">
       <button class="btn-outline" onclick="openAuth('signin')">Sign In</button>
-      <button class="btn-primary" onclick="openAuth('signup')">Build Free</button>
+      <button class="btn-primary" onclick="openAuth('signup')">Start Free →</button>
     </div>
+
     <!-- Authed nav -->
     <div id="nav-user" style="display:none;align-items:center;gap:.8rem">
-      <div class="user-chip">
-        <div class="user-avatar-init" id="nav-init">?</div>
-        <img class="user-avatar" id="nav-avatar" src="" alt="" style="display:none">
-        <span id="nav-name" style="font-weight:600;font-size:.85rem"></span>
-        <span id="nav-pro-tag" class="pro-tag" style="display:none">PRO</span>
+      <button class="btn-primary-sm" onclick="showApp()">Open Builder ↗</button>
+      <button id="nav-upgrade-btn" class="btn-gold-sm" onclick="openUpgrade()" style="display:none">⚡ Upgrade</button>
+      <div class="account-dropdown-wrap">
+        <button class="account-chip" id="account-chip-btn" onclick="toggleAccountMenu(event)">
+          <div class="user-avatar-init" id="nav-init">?</div>
+          <img class="user-avatar" id="nav-avatar" src="" alt="" style="display:none">
+          <span class="chip-name" id="nav-name"></span>
+          <span id="nav-pro-tag" class="pro-tag" style="display:none">PRO</span>
+          <span class="chip-caret">▾</span>
+        </button>
+        <div class="account-menu" id="account-menu">
+          <div class="account-menu-header">
+            <div class="menu-avatar-row">
+              <div class="menu-avatar-init" id="menu-init">?</div>
+              <img class="menu-avatar-img" id="menu-avatar-img" src="" alt="" style="display:none">
+              <div>
+                <div class="menu-name" id="menu-name"></div>
+                <div class="menu-email" id="menu-email"></div>
+              </div>
+            </div>
+            <span class="menu-plan-badge menu-plan-free" id="menu-plan-badge">Free Plan</span>
+          </div>
+          <div class="account-menu-body">
+            <button id="menu-upgrade-btn" class="account-menu-item highlight" onclick="closeAccountMenu();openUpgrade()">⚡ Upgrade to Pro</button>
+            <button id="menu-manage-btn" class="account-menu-item" style="display:none" onclick="closeAccountMenu();openPortal()">⚙ Manage Subscription</button>
+            <div class="menu-divider"></div>
+            <button class="account-menu-item" onclick="closeAccountMenu();showApp()">✏ Open Builder</button>
+            <div class="menu-divider"></div>
+            <button class="account-menu-item danger" onclick="closeAccountMenu();signOut()">Sign Out</button>
+          </div>
+        </div>
       </div>
-      <button class="btn-primary" onclick="showApp()" style="font-size:.82rem;padding:.5rem 1.1rem">Open Builder ↗</button>
-      <span class="signout-link" onclick="signOut()">Sign out</span>
     </div>
   </div>
 </nav>
@@ -351,7 +415,7 @@ footer a{color:var(--gold);text-decoration:none}
           <li><span class="cross">✗</span> ATS score checker</li>
           <li><span class="cross">✗</span> 5 extra templates</li>
         </ul>
-        <button class="btn-outline" style="width:100%" onclick="openAuth('signup')">Get Started Free</button>
+        <button id="pricing-free-btn" class="btn-outline" style="width:100%" onclick="openAuth('signup')">Get Started Free</button>
       </div>
       <div class="pricing-card featured">
         <div class="pricing-name">Pro</div>
@@ -382,8 +446,22 @@ footer a{color:var(--gold);text-decoration:none}
   <div class="app-layout">
     <div class="sidebar-backdrop" id="sidebar-backdrop" onclick="closeMobileSidebar()"></div>
     <div class="sidebar" id="sidebar">
-      <div class="resume-progress" id="resume-progress" style="display:none"><div class="resume-progress-label"><span>Resume Complete</span><span id="progress-pct">0%</span></div><div class="resume-progress-bar"><div class="resume-progress-fill" id="progress-fill" style="width:0%"></div></div></div>
-      <div id="pro-banner" class="pro-banner">⚡ You're on Pro — all features unlocked!</div>
+      <div class="resume-progress" id="resume-progress" style="display:none">
+        <div class="resume-progress-label"><span>Resume Complete</span><span id="progress-pct">0%</span></div>
+        <div class="resume-progress-bar"><div class="resume-progress-fill" id="progress-fill" style="width:0%"></div></div>
+      </div>
+
+      <!-- Pro banner with Manage button -->
+      <div id="pro-banner" class="pro-banner">
+        <div class="pro-banner-inner">
+          <div class="pro-banner-text">
+            <div class="pro-banner-title">⚡ Pro Plan Active</div>
+            <div class="pro-banner-sub">All features unlocked</div>
+          </div>
+          <button class="pro-banner-manage" onclick="openPortal()">Manage</button>
+        </div>
+      </div>
+
       <div class="sidebar-tabs">
         <div class="sidebar-tab active" onclick="switchSidebarTab('resume',this)">Resume</div>
         <div class="sidebar-tab" onclick="switchSidebarTab('coverletter',this)">Cover Letter</div>
@@ -465,7 +543,6 @@ Alexandra Chen</textarea>
 
       <!-- Resume Document -->
       <div class="doc" id="resume-doc">
-        <!-- Bold template band — always in DOM, shown via CSS on .tpl-bold -->
         <div class="doc-band" id="d-band">
           <div class="band-name" id="d-band-name"></div>
           <div class="band-title" id="d-band-title"></div>
@@ -576,6 +653,7 @@ Alexandra Chen</textarea>
 ═══════════════════════════════════════════════ */
 var currentUser = null;
 var isPro = false;
+var stripeCustomerId = null;
 var sb = null;
 var currentTemplate = 'classic';
 var pendingTemplate = 'classic';
@@ -667,25 +745,22 @@ function runATS() {
   var jd = document.getElementById('ats-jd').value.trim();
   if (!jd) { showToast('Please paste a job description first.'); return; }
 
-  // Collect resume text
   var resumeText = [val('f-name'), val('f-title'), val('f-summary'), val('f-skills')].join(' ');
   entries.exp.forEach(function(e) { resumeText += ' ' + e.title + ' ' + e.company + ' ' + e.bullets; });
   entries.edu.forEach(function(e) { resumeText += ' ' + e.title + ' ' + e.company; });
   resumeText = resumeText.toLowerCase();
 
-  // Extract keywords from JD (words appearing 2+ times, > 3 chars, not stop words)
   var stop = {the:1,a:1,an:1,and:1,or:1,in:1,of:1,for:1,to:1,with:1,at:1,by:1,from:1,on:1,as:1,is:1,are:1,be:1,we:1,you:1,your:1,will:1,our:1,this:1,that:1,have:1,has:1,can:1,not:1,all:1,any:1,but:1,its:1,who:1,their:1};
   var jdWords = jd.toLowerCase().split(/\W+/).filter(function(w){ return w.length > 3 && !stop[w]; });
   var freq = {};
   jdWords.forEach(function(w){ freq[w] = (freq[w]||0) + 1; });
   var keywords = Object.keys(freq).filter(function(w){ return freq[w] >= 2; });
-  if (keywords.length === 0) keywords = Object.keys(freq).slice(0, 20); // fallback
+  if (keywords.length === 0) keywords = Object.keys(freq).slice(0, 20);
 
   var matched = keywords.filter(function(kw){ return resumeText.indexOf(kw) > -1; });
   var missing = keywords.filter(function(kw){ return resumeText.indexOf(kw) === -1; }).slice(0, 10);
   var kwScore = keywords.length ? Math.round((matched.length / keywords.length) * 100) : 75;
 
-  // Completeness score
   var complete = 0;
   if (val('f-name').trim()) complete += 15;
   if (val('f-title').trim()) complete += 10;
@@ -695,7 +770,6 @@ function runATS() {
   if (entries.edu.length >= 1) complete += 10;
   if (val('f-skills').split(',').filter(Boolean).length >= 4) complete += 15;
 
-  // Content length
   var words = resumeText.split(/\s+/).filter(Boolean).length;
   var lengthScore = words < 80 ? 40 : words < 200 ? 65 : words < 600 ? 90 : 70;
 
@@ -703,7 +777,7 @@ function runATS() {
   var color = overall >= 75 ? 'var(--sage)' : overall >= 50 ? 'var(--gold)' : 'var(--rust)';
   var grade = overall >= 85 ? 'Excellent' : overall >= 70 ? 'Good' : overall >= 50 ? 'Needs Work' : 'Weak Match';
 
-  var missingHtml = missing.length ? '<div class="ats-missing">Missing keywords: <strong>' + missing.join(', ') + '</strong></div>' : '';
+  var missingHtml = missing.length ? '<div class="ats-missing">Missing keywords: <strong>' + missing.map(function(kw){ return esc(kw); }).join(', ') + '</strong></div>' : '';
   var html = '<div style="text-align:center;padding:1rem 0">'
     + '<div class="ats-score-ring" style="color:' + color + '">' + overall + '</div>'
     + '<div style="font-size:.8rem;color:var(--muted);margin:.2rem 0">/ 100</div>'
@@ -738,14 +812,13 @@ function resetATS() {
    KEYBOARD SHORTCUTS
 ═══════════════════════════════════════════════ */
 document.addEventListener('keydown', function(e) {
-  // Escape: close any open modal
   if (e.key === 'Escape') {
     ['auth-modal','templates-modal','upgrade-modal','ats-modal'].forEach(function(id) {
       document.getElementById(id).classList.remove('open');
     });
+    closeAccountMenu();
     return;
   }
-  // Cmd/Ctrl + P: download PDF (override print)
   if ((e.metaKey || e.ctrlKey) && e.key === 'p') {
     var app = document.getElementById('app');
     if (app && app.style.display !== 'none') {
@@ -753,7 +826,6 @@ document.addEventListener('keydown', function(e) {
       downloadPDF();
     }
   }
-  // Cmd/Ctrl + S: show autosave toast
   if ((e.metaKey || e.ctrlKey) && e.key === 's') {
     e.preventDefault();
     saveToStorage();
@@ -767,15 +839,27 @@ document.addEventListener('keydown', function(e) {
 function goHome() {
   document.getElementById('landing').style.display = 'block';
   document.getElementById('app').style.display = 'none';
+  closeAccountMenu();
+  // Nav: show Features + Pricing (if not pro), hide Back
+  document.getElementById('nav-back-home').style.display = 'none';
+  document.getElementById('nav-features-link').style.display = 'inline';
+  document.getElementById('nav-pricing-link').style.display = isPro ? 'none' : 'inline';
 }
+
 function showApp() {
   document.getElementById('landing').style.display = 'none';
   document.getElementById('app').style.display = 'block';
+  closeAccountMenu();
+  // Nav: hide Features + Pricing, show Back
+  document.getElementById('nav-back-home').style.display = 'inline';
+  document.getElementById('nav-features-link').style.display = 'none';
+  document.getElementById('nav-pricing-link').style.display = 'none';
   updateProUI();
   updateDoc();
   updateCL();
   updateProgress();
 }
+
 function scrollToPricing() { goHome(); setTimeout(function(){ document.getElementById('pricing-section').scrollIntoView({behavior:'smooth'}); }, 50); }
 function scrollToFeatures() { goHome(); setTimeout(function(){ document.getElementById('features').scrollIntoView({behavior:'smooth'}); }, 50); }
 
@@ -813,49 +897,138 @@ function handleGoogleSignIn() {
       err.textContent = r.error.message || 'Sign-in failed. Please try again.';
       resetGoogleBtn();
     }
-    // On success, browser navigates away — no further action needed here
-  }).catch(function(e) {
+  }).catch(function() {
     err.textContent = 'An unexpected error occurred. Please try again.';
     resetGoogleBtn();
   });
 }
 function signOut() {
   if (sb) sb.auth.signOut();
-  currentUser = null; isPro = false;
+  currentUser = null; isPro = false; stripeCustomerId = null;
   showGuestNav();
   goHome();
   showToast('Signed out successfully.');
 }
+
 function showUserNav() {
   document.getElementById('nav-guest').style.display = 'none';
   document.getElementById('nav-user').style.display = 'flex';
   var m = currentUser.user_metadata || {};
-  var name = m.full_name || m.name || (currentUser.email ? currentUser.email.split('@')[0] : 'User');
-  document.getElementById('nav-name').textContent = name;
+  var fullName = m.full_name || m.name || (currentUser.email ? currentUser.email.split('@')[0] : 'User');
+  var firstName = fullName.split(' ')[0];
+  var init = fullName.charAt(0).toUpperCase();
   var av = m.avatar_url || m.picture || '';
+
+  // Nav chip
+  document.getElementById('nav-name').textContent = firstName;
+
+  // Avatar — nav chip
   if (av) {
-    var img = document.getElementById('nav-avatar');
-    img.src = av; img.style.display = 'block';
+    var navImg = document.getElementById('nav-avatar');
+    navImg.src = av; navImg.style.display = 'block';
     document.getElementById('nav-init').style.display = 'none';
   } else {
-    document.getElementById('nav-init').textContent = name.charAt(0).toUpperCase();
+    document.getElementById('nav-init').textContent = init;
     document.getElementById('nav-init').style.display = 'flex';
     document.getElementById('nav-avatar').style.display = 'none';
   }
+
+  // Account menu header
+  document.getElementById('menu-name').textContent = fullName;
+  document.getElementById('menu-email').textContent = currentUser.email || '';
+
+  // Avatar — menu
+  if (av) {
+    var menuImg = document.getElementById('menu-avatar-img');
+    menuImg.src = av; menuImg.style.display = 'block';
+    document.getElementById('menu-init').style.display = 'none';
+  } else {
+    document.getElementById('menu-init').textContent = init;
+    document.getElementById('menu-init').style.display = 'flex';
+    document.getElementById('menu-avatar-img').style.display = 'none';
+  }
 }
+
 function showGuestNav() {
   document.getElementById('nav-guest').style.display = 'flex';
   document.getElementById('nav-user').style.display = 'none';
 }
 
 /* ═══════════════════════════════════════════════
+   ACCOUNT DROPDOWN
+═══════════════════════════════════════════════ */
+function toggleAccountMenu(e) {
+  if (e) e.stopPropagation();
+  var menu = document.getElementById('account-menu');
+  var chip = document.getElementById('account-chip-btn');
+  var isOpen = menu.classList.contains('open');
+  if (isOpen) {
+    menu.classList.remove('open');
+    chip.classList.remove('open');
+  } else {
+    menu.classList.add('open');
+    chip.classList.add('open');
+  }
+}
+function closeAccountMenu() {
+  document.getElementById('account-menu').classList.remove('open');
+  document.getElementById('account-chip-btn').classList.remove('open');
+}
+
+// Close dropdown on outside click
+document.addEventListener('click', function(e) {
+  var wrap = document.querySelector('.account-dropdown-wrap');
+  if (wrap && !wrap.contains(e.target)) closeAccountMenu();
+});
+
+/* ═══════════════════════════════════════════════
    PRO UI
 ═══════════════════════════════════════════════ */
 function updateProUI() {
-  document.getElementById('pro-banner').style.display = isPro ? 'block' : 'none';
-  document.getElementById('nav-pro-tag').style.display = isPro ? 'inline' : 'none';
+  var pro = isPro;
+  var hasSub = !!(stripeCustomerId);
+
+  // Sidebar pro banner
+  document.getElementById('pro-banner').style.display = pro ? 'block' : 'none';
+
+  // Nav
+  document.getElementById('nav-pro-tag').style.display = pro ? 'inline' : 'none';
+  document.getElementById('nav-upgrade-btn').style.display = pro ? 'none' : 'inline-flex';
+
+  // Account menu items
+  document.getElementById('menu-upgrade-btn').style.display = pro ? 'none' : 'flex';
+  document.getElementById('menu-manage-btn').style.display = (pro && hasSub) ? 'flex' : 'none';
+
+  // Plan badge in account menu
+  var badge = document.getElementById('menu-plan-badge');
+  if (badge) {
+    badge.className = 'menu-plan-badge ' + (pro ? 'menu-plan-pro' : 'menu-plan-free');
+    badge.textContent = pro ? '⚡ Pro Plan' : 'Free Plan';
+  }
+
+  // Hide pricing section and nav link for pro users
+  var pricingSection = document.getElementById('pricing-section');
+  if (pricingSection) pricingSection.style.display = pro ? 'none' : 'block';
+  var pricingLink = document.getElementById('nav-pricing-link');
+  if (pricingLink) {
+    // Only show pricing link if on landing AND not pro
+    var isInApp = document.getElementById('app').style.display !== 'none';
+    if (!isInApp) pricingLink.style.display = pro ? 'none' : 'inline';
+  }
+
+  // Templates modal hint
   var hint = document.getElementById('tpl-pro-hint');
-  if (hint) hint.style.display = isPro ? 'none' : 'inline';
+  if (hint) hint.style.display = pro ? 'none' : 'inline';
+
+  // Update free pricing card CTA for logged-in free users
+  var freePricingBtn = document.getElementById('pricing-free-btn');
+  if (freePricingBtn && currentUser && !pro) {
+    freePricingBtn.textContent = 'Open Builder →';
+    freePricingBtn.onclick = showApp;
+  } else if (freePricingBtn && !currentUser) {
+    freePricingBtn.textContent = 'Get Started Free';
+    freePricingBtn.onclick = function(){ openAuth('signup'); };
+  }
 }
 
 /* ═══════════════════════════════════════════════
@@ -864,7 +1037,6 @@ function updateProUI() {
 function aiGate(feature) {
   if (!currentUser) { openAuth('signup'); return; }
   if (!isPro) { openUpgrade(); return; }
-  // Pro user: show toast (wire up real AI calls here)
   var msgs = {
     summary: '✨ Generating summary...',
     bullets: '✨ Generating bullet points...',
@@ -872,7 +1044,6 @@ function aiGate(feature) {
   };
   showToast(msgs[feature] || '✨ Generating with AI...');
 }
-// runATS() — defined above with full ATS scoring
 function openATSModal() {
   if (!currentUser) { openAuth('signup'); return; }
   document.getElementById('ats-modal').classList.add('open');
@@ -891,6 +1062,49 @@ function showPlan(p) {
   document.getElementById('plan-annual').style.display = p === 'annual' ? 'block' : 'none';
   document.getElementById('toggle-monthly').className = p === 'monthly' ? 'active' : 'inactive';
   document.getElementById('toggle-annual').className = p === 'annual' ? 'active' : 'inactive';
+}
+
+/* ═══════════════════════════════════════════════
+   SUBSCRIPTION MANAGEMENT (Stripe Portal)
+═══════════════════════════════════════════════ */
+var SUPABASE_URL = 'https://nwnxhnwnffqzccwrbklv.supabase.co';
+
+function openPortal() {
+  if (!currentUser || !sb) return;
+  // Only attempt if we have a stripe customer ID on file
+  if (!stripeCustomerId) {
+    showToast('No active subscription found. Email support@resumeforge.com for help.', 5000);
+    return;
+  }
+  showToast('Opening subscription portal...');
+  sb.auth.getSession().then(function(res) {
+    if (!res.data || !res.data.session) {
+      showToast('Please sign in again to manage your subscription.', 4000);
+      return;
+    }
+    var token = res.data.session.access_token;
+    // Use origin + pathname only — no query params that could contain OAuth codes
+    var returnUrl = window.location.origin + window.location.pathname;
+    fetch(SUPABASE_URL + '/functions/v1/create-portal-session', {
+      method: 'POST',
+      headers: {
+        'Authorization': 'Bearer ' + token,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ returnUrl: returnUrl })
+    })
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      if (data.url) {
+        window.open(data.url, '_blank');
+      } else {
+        throw new Error(data.error || 'No portal URL');
+      }
+    })
+    .catch(function() {
+      showToast('Unable to open portal. Email support@resumeforge.com to manage your subscription.', 5000);
+    });
+  });
 }
 
 /* ═══════════════════════════════════════════════
@@ -944,7 +1158,7 @@ function applySelectedTemplate() {
   doc.className = 'doc tpl-' + currentTemplate;
   var found = TEMPLATES.find(function(t) { return t.id === currentTemplate; });
   document.getElementById('tpl-label').textContent = found ? found.name : 'Classic';
-  updateDoc(); // re-sync band content for bold
+  updateDoc();
   closeTemplates();
 }
 
@@ -955,13 +1169,11 @@ function downloadPDF() {
   var btn = document.getElementById('pdf-btn');
   btn.innerHTML = '<span class="mini-spinner"></span> Preparing...';
   btn.disabled = true;
-  // Always print the resume doc, not the cover letter
   var wasShowingCL = (currentPreviewTab === 'cl');
   document.getElementById('resume-doc').style.display = 'block';
   document.getElementById('cl-doc').style.display = 'none';
   setTimeout(function() {
     window.print();
-    // Restore whatever was showing
     if (wasShowingCL) {
       document.getElementById('resume-doc').style.display = 'none';
       document.getElementById('cl-doc').style.display = 'block';
@@ -977,7 +1189,7 @@ function downloadPDF() {
 function toggleSection(bodyId, toggleId) {
   var body = document.getElementById(bodyId);
   var toggle = document.getElementById(toggleId);
-  var isOpen = sectionState[bodyId] !== false; // default open
+  var isOpen = sectionState[bodyId] !== false;
   if (isOpen) {
     body.style.display = 'none';
     toggle.classList.add('section-collapsed');
@@ -1044,22 +1256,18 @@ function updateDoc() {
   var contact = [val('f-email'), val('f-phone'), val('f-location'), val('f-link')].filter(Boolean).join(' · ');
   var summary = val('f-summary');
 
-  // Main doc header
   document.getElementById('d-name').textContent = name;
   document.getElementById('d-title').textContent = title;
   document.getElementById('d-contact').textContent = contact;
   document.getElementById('d-summary').textContent = summary;
 
-  // Bold template band — always kept in sync
   document.getElementById('d-band-name').textContent = name;
   document.getElementById('d-band-title').textContent = title;
   document.getElementById('d-band-contact').textContent = contact;
 
-  // Hide summary section if empty
   var summarySection = document.getElementById('summary-section');
   if (summarySection) summarySection.style.display = summary.trim() ? '' : 'none';
 
-  // Experience
   var expHtml = '';
   entries.exp.forEach(function(e) {
     var bl = e.bullets.split('\n').filter(function(b) { return b.trim(); });
@@ -1071,7 +1279,6 @@ function updateDoc() {
   });
   document.getElementById('d-exp').innerHTML = expHtml;
 
-  // Education
   var eduHtml = '';
   entries.edu.forEach(function(e) {
     eduHtml += '<div class="doc-entry">'
@@ -1081,7 +1288,6 @@ function updateDoc() {
   });
   document.getElementById('d-edu').innerHTML = eduHtml;
 
-  // Skills
   var sk = val('f-skills').split(',').map(function(s) { return s.trim(); }).filter(Boolean);
   document.getElementById('d-skills').innerHTML = sk.map(function(s) { return '<span class="doc-skill">' + esc(s) + '</span>'; }).join('');
   updateProgress();
@@ -1105,7 +1311,6 @@ function switchPreview(type, el) {
   if (el) el.classList.add('active');
   document.getElementById('resume-doc').style.display = type === 'resume' ? 'block' : 'none';
   document.getElementById('cl-doc').style.display = type === 'cl' ? 'block' : 'none';
-  // Sync sidebar
   var sType = type === 'cl' ? 'coverletter' : 'resume';
   document.querySelectorAll('.sidebar-tab').forEach(function(t) { t.classList.remove('active'); });
   var stabs = document.querySelectorAll('.sidebar-tab');
@@ -1119,7 +1324,6 @@ function switchSidebarTab(type, el) {
   el.classList.add('active');
   document.getElementById('sidebar-resume').style.display = type === 'resume' ? 'block' : 'none';
   document.getElementById('sidebar-coverletter').style.display = type === 'coverletter' ? 'block' : 'none';
-  // Sync preview
   var pType = type === 'coverletter' ? 'cl' : 'resume';
   currentPreviewTab = pType;
   document.querySelectorAll('.tabs .tab').forEach(function(t) { t.classList.remove('active'); });
@@ -1142,7 +1346,6 @@ function closeMobileSidebar() {
   document.getElementById('sidebar').classList.remove('open');
   document.getElementById('sidebar-backdrop').classList.remove('open');
 }
-// Close mobile sidebar when switching to preview on mobile
 document.querySelectorAll('.tabs .tab').forEach(function(tab) {
   tab.addEventListener('click', function() { if (window.innerWidth <= 768) closeMobileSidebar(); });
 });
@@ -1167,7 +1370,6 @@ function hideLoader() {
   ol.classList.add('fade');
   setTimeout(function() { ol.style.display = 'none'; }, 450);
 }
-// Max-timeout: if Supabase doesn't respond in 5s, hide loader anyway
 var loaderTimeout = setTimeout(function() { hideLoader(); }, 5000);
 
 /* ═══════════════════════════════════════════════
@@ -1176,7 +1378,6 @@ var loaderTimeout = setTimeout(function() { hideLoader(); }, 5000);
 loadFromStorage();
 renderEntries('exp');
 renderEntries('edu');
-// Restore template class
 if (currentTemplate !== 'classic') {
   var doc = document.getElementById('resume-doc');
   if (doc) doc.className = 'doc tpl-' + currentTemplate;
@@ -1191,10 +1392,7 @@ updateCL();
    STRIPE CHECKOUT
 ═══════════════════════════════════════════════ */
 function openStripeCheckout(baseUrl) {
-  if (!currentUser) {
-    showAuth();
-    return;
-  }
+  if (!currentUser) { openAuth('signup'); return; }
   var url = baseUrl + '?client_reference_id=' + encodeURIComponent(currentUser.id);
   window.open(url, '_blank');
 }
@@ -1207,11 +1405,9 @@ function openStripeCheckout(baseUrl) {
   s.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.3/dist/umd/supabase.min.js';
   s.onload = function() {
     try {
-      // ── IMPORTANT: paste your real anon/publishable key from Supabase dashboard ──
-      // Both the new sb_publishable_... format and the legacy eyJ... JWT format work.
       sb = window.supabase.createClient(
-        'https://nwnxhnwnffqzccwrbklv.supabase.co',
-        'sb_publishable_1ZS8klug8sZMU_yrIRndqA_sfvTioMj', // ← your original key (correct format)
+        SUPABASE_URL,
+        'sb_publishable_1ZS8klug8sZMU_yrIRndqA_sfvTioMj',
         { auth: { detectSessionInUrl: true, persistSession: true, flowType: 'pkce' } }
       );
 
@@ -1232,23 +1428,23 @@ function openStripeCheckout(baseUrl) {
             }
           }
 
-          // Check pro status — handle table-not-found gracefully
+          // Check pro status and fetch stripe_customer_id
           sb.from('profiles')
-            .select('is_pro')
+            .select('is_pro, stripe_customer_id')
             .eq('id', currentUser.id)
-            .maybeSingle() // returns null instead of error if no row
+            .maybeSingle()
             .then(function(r) {
               isPro = !!(r.data && r.data.is_pro);
+              stripeCustomerId = (r.data && r.data.stripe_customer_id) || null;
               updateProUI();
             })
             .catch(function() {
-              isPro = false; updateProUI(); // profiles table may not exist yet
+              isPro = false; stripeCustomerId = null; updateProUI();
             });
 
           showUserNav();
           closeAuth();
 
-          // Detect OAuth callback: PKCE uses ?code= param, implicit uses #access_token hash
           var url = new URL(window.location.href);
           var isOAuthCallback = url.searchParams.has('code') || (window.location.hash && window.location.hash.indexOf('access_token') > -1);
           if (isOAuthCallback) {
@@ -1256,7 +1452,7 @@ function openStripeCheckout(baseUrl) {
             showApp();
           }
         } else {
-          currentUser = null; isPro = false;
+          currentUser = null; isPro = false; stripeCustomerId = null;
           showGuestNav();
         }
       });
