@@ -1325,12 +1325,18 @@ function parseResumeText(text) {
       headers: { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' },
       body: JSON.stringify({ feature: 'parse', data: { text: text } })
     })
-    .then(function(r) { return r.json(); })
-    .then(function(result) {
-      if (result.error) { setUploadStatus('Error: ' + result.error, true); return; }
+    .then(function(r) {
+      return r.text().then(function(body) { return { ok: r.ok, status: r.status, body: body }; });
+    })
+    .then(function(res) {
+      if (!res.ok) {
+        var errMsg = 'Server error ' + res.status;
+        try { var j = JSON.parse(res.body); errMsg = j.error || j.message || errMsg; } catch(e) {}
+        setUploadStatus('Error: ' + errMsg, true);
+        return;
+      }
       try {
-        // Strip markdown code fences if present
-        var raw = (result.text || '').trim().replace(/^```(?:json)?\n?/, '').replace(/\n?```$/, '');
+        var raw = res.body.trim().replace(/^```(?:json)?\n?/, '').replace(/\n?```$/, '').trim();
         var parsed = JSON.parse(raw);
         populateFromParsed(parsed);
         setUploadStatus('Resume imported! Review and adjust as needed.');
@@ -1339,7 +1345,7 @@ function parseResumeText(text) {
         setUploadStatus('Could not parse AI response. Please try again.', true);
       }
     })
-    .catch(function() { setUploadStatus('Network error. Please try again.', true); });
+    .catch(function(err) { setUploadStatus('Network error. Please try again.', true); });
   });
 }
 
