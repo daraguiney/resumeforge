@@ -1041,12 +1041,72 @@ function updateProUI() {
 function aiGate(feature) {
   if (!currentUser) { openAuth('signup'); return; }
   if (!isPro) { openUpgrade(); return; }
-  var msgs = {
-    summary: '✨ Generating summary...',
-    bullets: '✨ Generating bullet points...',
-    coverletter: '✨ Generating cover letter...'
-  };
-  showToast(msgs[feature] || '✨ Generating with AI...');
+
+  var labels = { summary: 'summary', bullets: 'bullet points', coverletter: 'cover letter' };
+  showToast('✨ Generating ' + (labels[feature] || 'content') + '...');
+
+  sb.auth.getSession().then(function(res) {
+    if (!res.data || !res.data.session) {
+      showToast('Please sign in again.', 3000);
+      return;
+    }
+    var token = res.data.session.access_token;
+
+    var data = {};
+    if (feature === 'summary') {
+      data = {
+        name: val('f-name'), title: val('f-title'), skills: val('f-skills'),
+        experience: entries.exp.map(function(e) { return { title: e.title, company: e.company }; })
+      };
+    } else if (feature === 'bullets') {
+      data = { experience: entries.exp.map(function(e) { return { title: e.title, company: e.company }; }) };
+    } else if (feature === 'coverletter') {
+      data = {
+        name: val('f-name'), role: val('cl-job'), company: val('cl-company'),
+        manager: val('cl-manager'), summary: val('f-summary'),
+        experience: entries.exp.map(function(e) { return { title: e.title, company: e.company }; })
+      };
+    }
+
+    fetch(SUPABASE_URL + '/functions/v1/ai-assist', {
+      method: 'POST',
+      headers: { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ feature: feature, data: data })
+    })
+    .then(function(r) { return r.json(); })
+    .then(function(result) {
+      if (result.error) { showToast('AI error: ' + result.error, 4000); return; }
+      var text = result.text.trim();
+      if (feature === 'summary') {
+        document.getElementById('f-summary').value = text;
+        updateDoc(); saveToStorage();
+        showToast('✨ Summary ready!');
+      } else if (feature === 'bullets') {
+        aiParseBullets(text);
+        renderEntries('exp'); updateDoc(); saveToStorage();
+        showToast('✨ Bullet points ready!');
+      } else if (feature === 'coverletter') {
+        document.getElementById('cl-body').value = text;
+        updateCL(); saveToStorage();
+        showToast('✨ Cover letter ready!');
+      }
+    })
+    .catch(function() { showToast('Failed to generate. Please try again.', 4000); });
+  });
+}
+
+function aiParseBullets(text) {
+  // Split on --- separator, assign groups to entries in order
+  var groups = text.split(/\n---\n|\n---$|^---\n/m).map(function(g) { return g.trim(); }).filter(Boolean);
+  entries.exp.forEach(function(entry, i) {
+    var group = groups[i];
+    if (!group) return;
+    var bullets = group.split('\n')
+      .filter(function(l) { return /^[•\-\*]/.test(l.trim()); })
+      .map(function(l) { return l.replace(/^[•\-\*]\s*/, '').trim(); })
+      .filter(Boolean).join('\n');
+    if (bullets) entry.bullets = bullets;
+  });
 }
 function openATSModal() {
   if (!currentUser) { openAuth('signup'); return; }
