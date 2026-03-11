@@ -89,9 +89,10 @@ serve(async (req) => {
     // Validate returnUrl to prevent open redirect
     const returnUrl = sanitizeReturnUrl(body.returnUrl || req.headers.get('origin'))
 
-    // Create Stripe Customer Portal session
+    // Create Stripe Customer Portal session using the configured portal
     const session = await stripe.billingPortal.sessions.create({
       customer: profile.stripe_customer_id,
+      configuration: 'bpc_1T9puCCKzWnyU2tPS9a409mj',
       return_url: returnUrl,
     })
 
