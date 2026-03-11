@@ -1337,7 +1337,11 @@ function parseResumeText(text) {
       }
       try {
         var raw = res.body.trim().replace(/^```(?:json)?\n?/, '').replace(/\n?```$/, '').trim();
+        // Find first { to handle any leading text the model might add
+        var jsonStart = raw.indexOf('{');
+        if (jsonStart > 0) raw = raw.slice(jsonStart);
         var parsed = JSON.parse(raw);
+        console.log('[ResumeForge] Parsed resume:', JSON.stringify(parsed, null, 2));
         populateFromParsed(parsed);
         setUploadStatus('Resume imported! Review and adjust as needed.');
         showToast('Resume imported successfully!');
@@ -1350,28 +1354,51 @@ function parseResumeText(text) {
 }
 
 function populateFromParsed(parsed) {
-  function setField(id, v) { var el = document.getElementById(id); if (el && v) el.value = v; }
-  setField('f-name', parsed.name);
-  setField('f-title', parsed.title);
-  setField('f-email', parsed.email);
-  setField('f-phone', parsed.phone);
-  setField('f-location', parsed.location);
-  setField('f-link', parsed.link);
-  setField('f-summary', parsed.summary);
-  setField('f-skills', parsed.skills);
+  // Support alternate field names the model might use
+  var name     = parsed.name     || parsed.full_name   || '';
+  var title    = parsed.title    || parsed.job_title   || parsed.jobTitle  || '';
+  var email    = parsed.email    || '';
+  var phone    = parsed.phone    || '';
+  var location = parsed.location || parsed.city        || '';
+  var link     = parsed.link     || parsed.linkedin    || parsed.url       || '';
+  var summary  = parsed.summary  || parsed.professional_summary            || '';
+  var skills   = parsed.skills   || (Array.isArray(parsed.skills_list) ? parsed.skills_list.join(', ') : '');
 
-  if (parsed.experience && parsed.experience.length) {
-    entries.exp = parsed.experience.map(function(e) {
-      return { id: ++expId, title: e.title || '', company: e.company || '', dates: e.dates || '', bullets: (e.bullets || '').replace(/\\n/g, '\n') };
+  function setField(id, v) { var el = document.getElementById(id); if (el && v) el.value = v; }
+  setField('f-name',     name);
+  setField('f-title',    title);
+  setField('f-email',    email);
+  setField('f-phone',    phone);
+  setField('f-location', location);
+  setField('f-link',     link);
+  setField('f-summary',  summary);
+  setField('f-skills',   skills);
+
+  var exp = parsed.experience || parsed.work_experience || parsed.work || [];
+  if (exp.length) {
+    entries.exp = exp.map(function(e) {
+      var bullets = e.bullets || e.achievements || e.description || '';
+      if (Array.isArray(bullets)) bullets = bullets.join('\n');
+      return { id: ++expId, title: e.title || e.job_title || '', company: e.company || e.employer || '', dates: e.dates || e.date_range || '', bullets: bullets.replace(/\\n/g, '\n') };
     });
     renderEntries('exp');
   }
-  if (parsed.education && parsed.education.length) {
-    entries.edu = parsed.education.map(function(e) {
-      return { id: ++eduId, title: e.title || '', company: e.company || '', dates: e.dates || '', bullets: '' };
+
+  var edu = parsed.education || [];
+  if (edu.length) {
+    entries.edu = edu.map(function(e) {
+      return { id: ++eduId, title: e.title || e.degree || '', company: e.company || e.school || e.institution || '', dates: e.dates || e.graduation || '', bullets: '' };
     });
     renderEntries('edu');
   }
+
+  var populated = [name, title, email].filter(Boolean).length;
+  if (populated === 0) {
+    showToast('AI couldn\'t extract data — try a cleaner PDF or paste as .txt', 5000);
+  } else {
+    showToast('Imported: ' + (name || 'resume') + (title ? ' · ' + title : ''));
+  }
+
   updateDoc();
   updateCL();
   saveToStorage();
