@@ -1,7 +1,8 @@
 import { serve } from 'https://deno.land/std@0.168.0/http/server.ts'
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
 
-const GEMINI_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-lite:generateContent'
+const GROQ_URL = 'https://api.groq.com/openai/v1/chat/completions'
+const GROQ_MODEL = 'llama-3.3-70b-versatile'
 
 const adminSupabase = createClient(
   Deno.env.get('SUPABASE_URL') ?? '',
@@ -72,6 +73,34 @@ Start with "Dear ${manager || 'Hiring Team'}," and end with "Warm regards,\n${na
 Return only the letter text.`
   }
 
+  if (feature === 'parse') {
+    const { text } = data as { text: string }
+    return `Parse this resume text and extract structured information. Return ONLY valid JSON with no markdown, no code blocks, no explanation — just the raw JSON object.
+
+Required JSON structure:
+{
+  "name": "full name",
+  "title": "most recent job title",
+  "email": "email address",
+  "phone": "phone number",
+  "location": "city, state or country",
+  "link": "linkedin URL or portfolio URL",
+  "summary": "professional summary if present (2-3 sentences max)",
+  "skills": "comma-separated skills list",
+  "experience": [
+    {"title": "job title", "company": "company name", "dates": "date range e.g. Jan 2020 – Present", "bullets": "achievement 1\\nachievement 2\\nachievement 3"}
+  ],
+  "education": [
+    {"title": "degree name", "company": "institution name", "dates": "graduation year or range"}
+  ]
+}
+
+Use empty string "" for any field not found. For experience bullets, separate each point with \\n (newline).
+
+Resume text:
+${(text || '').slice(0, 4000)}`
+  }
+
   return null
 }
 
@@ -98,38 +127,50 @@ serve(async (req) => {
     const { data: { user }, error: userError } = await userSupabase.auth.getUser()
     if (userError || !user) return json({ error: 'Invalid session' }, 401)
 
-    const { data: profile } = await adminSupabase
-      .from('profiles')
-      .select('is_pro')
-      .eq('id', user.id)
-      .single()
+    const body = await req.json().catch(() => ({}))
+    const { feature, data } = body
 
-    if (!profile?.is_pro) return json({ error: 'Pro subscription required' }, 403)
+    // 'parse' is free for all logged-in users; other AI features require Pro
+    if (feature !== 'parse') {
+      const { data: profile } = await adminSupabase
+        .from('profiles')
+        .select('is_pro')
+        .eq('id', user.id)
+        .single()
 
-    const { feature, data } = await req.json()
+      if (!profile?.is_pro) return json({ error: 'Pro subscription required' }, 403)
+    }
+    console.log('ai-assist feature:', feature, 'user:', user.id)
+
     const prompt = buildPrompt(feature, data || {})
-    if (!prompt) return json({ error: 'Unknown feature' }, 400)
+    if (!prompt) return json({ error: 'Unknown feature: ' + feature }, 400)
 
-    const geminiKey = Deno.env.get('GEMINI_API_KEY')
-    if (!geminiKey) return json({ error: 'AI service not configured' }, 500)
+    const groqKey = Deno.env.get('GROQ_API_KEY')
+    if (!groqKey) {
+      console.error('GROQ_API_KEY not set')
+      return json({ error: 'AI service not configured' }, 500)
+    }
 
-    const geminiRes = await fetch(`${GEMINI_URL}?key=${geminiKey}`, {
+    const groqRes = await fetch(GROQ_URL, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Authorization': 'Bearer ' + groqKey, 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        contents: [{ parts: [{ text: prompt }] }],
-        generationConfig: { temperature: 0.7, maxOutputTokens: 1024 },
+        model: GROQ_MODEL,
+        messages: [{ role: 'user', content: prompt }],
+        temperature: 0.7,
+        max_tokens: 1024,
       }),
     })
 
-    if (!geminiRes.ok) {
-      const err = await geminiRes.text()
-      console.error('Gemini error:', err)
-      return json({ error: 'AI generation failed' }, 500)
+    if (!groqRes.ok) {
+      const errText = await groqRes.text()
+      console.error('Groq HTTP error', groqRes.status, errText)
+      return json({ error: 'AI error ' + groqRes.status + ': ' + errText.slice(0, 200) }, 500)
     }
 
-    const geminiData = await geminiRes.json()
-    const text: string = geminiData?.candidates?.[0]?.content?.parts?.[0]?.text || ''
+    const groqData = await groqRes.json()
+    console.log('Groq finish reason:', groqData?.choices?.[0]?.finish_reason)
+    const text: string = groqData?.choices?.[0]?.message?.content || ''
 
     return json({ text })
   } catch (err) {

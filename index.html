@@ -471,6 +471,13 @@ footer a{color:var(--gold);text-decoration:none}
 
       <!-- ── RESUME SIDEBAR ── -->
       <div id="sidebar-resume">
+        <div style="background:linear-gradient(135deg,#f2ede2,#faf8f3);border:1.5px solid var(--border);border-radius:8px;padding:.75rem 1rem;margin-bottom:1.2rem">
+          <div style="font-size:.78rem;font-weight:700;color:var(--ink);margin-bottom:.4rem">📄 Import Existing Resume</div>
+          <div style="font-size:.74rem;color:var(--muted);margin-bottom:.6rem">Upload a PDF or TXT file to auto-fill your resume.</div>
+          <input type="file" id="resume-upload-input" accept=".pdf,.txt" style="display:none" onchange="handleResumeUpload(this)">
+          <button class="btn-outline" style="width:100%;font-size:.8rem;padding:.5rem" onclick="document.getElementById('resume-upload-input').click()">↑ Upload PDF or TXT</button>
+          <div id="upload-status" style="font-size:.74rem;color:var(--muted);margin-top:.4rem;min-height:1rem;line-height:1.4"></div>
+        </div>
         <h3>Personal Info</h3>
         <div class="form-group"><label>Full Name</label><input type="text" id="f-name" value="Alexandra Chen" oninput="updateDoc()"></div>
         <div class="form-group"><label>Job Title</label><input type="text" id="f-title" value="Senior Product Manager" oninput="updateDoc()"></div>
@@ -553,10 +560,12 @@ Alexandra Chen</textarea>
         <div class="doc-name" id="d-name">Alexandra Chen</div>
         <div class="doc-title" id="d-title">Senior Product Manager</div>
         <div class="doc-contact" id="d-contact">alex@email.com · (415) 555-0192 · San Francisco, CA</div>
-        <hr class="doc-divider">
-        <div class="doc-section" id="summary-section">
-          <div class="doc-section-title">Summary</div>
-          <div class="doc-summary" id="d-summary"></div>
+        <div id="summary-wrapper">
+          <hr class="doc-divider">
+          <div class="doc-section" id="summary-section">
+            <div class="doc-section-title">Summary</div>
+            <div class="doc-summary" id="d-summary"></div>
+          </div>
         </div>
         <hr class="doc-divider">
         <div class="doc-section"><div class="doc-section-title">Experience</div><div id="d-exp"></div></div>
@@ -1219,11 +1228,147 @@ function selectPendingTemplate(id) {
 function applySelectedTemplate() {
   currentTemplate = pendingTemplate;
   var doc = document.getElementById('resume-doc');
-  doc.className = 'doc tpl-' + currentTemplate;
+  doc.className = currentTemplate === 'classic' ? 'doc' : 'doc tpl-' + currentTemplate;
   var found = TEMPLATES.find(function(t) { return t.id === currentTemplate; });
   document.getElementById('tpl-label').textContent = found ? found.name : 'Classic';
   updateDoc();
+  saveToStorage();
   closeTemplates();
+}
+
+/* ═══════════════════════════════════════════════
+   RESUME UPLOAD & PARSE
+═══════════════════════════════════════════════ */
+function handleResumeUpload(input) {
+  var file = input.files[0];
+  if (!file) return;
+  input.value = ''; // allow re-selecting same file
+
+  if (!currentUser) {
+    setUploadStatus('Sign in to use AI resume import.', true);
+    return;
+  }
+
+  var ext = file.name.split('.').pop().toLowerCase();
+  setUploadStatus('Reading file...');
+
+  if (ext === 'pdf') {
+    loadPDFJS(function() {
+      extractPDFText(file, function(text) {
+        setUploadStatus('Parsing with AI...');
+        parseResumeText(text);
+      });
+    });
+  } else if (ext === 'txt') {
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      setUploadStatus('Parsing with AI...');
+      parseResumeText(e.target.result);
+    };
+    reader.onerror = function() { setUploadStatus('Failed to read file.', true); };
+    reader.readAsText(file);
+  } else {
+    setUploadStatus('Only PDF and TXT files are supported.', true);
+  }
+}
+
+function setUploadStatus(msg, isError) {
+  var el = document.getElementById('upload-status');
+  if (!el) return;
+  el.textContent = msg;
+  el.style.color = isError ? 'var(--rust)' : 'var(--muted)';
+  if (isError) setTimeout(function() { el.textContent = ''; }, 4000);
+}
+
+function loadPDFJS(callback) {
+  if (window.pdfjsLib) { callback(); return; }
+  var script = document.createElement('script');
+  script.src = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
+  script.onload = function() {
+    window.pdfjsLib.GlobalWorkerOptions.workerSrc =
+      'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    callback();
+  };
+  script.onerror = function() { setUploadStatus('Failed to load PDF reader. Try a .txt file.', true); };
+  document.head.appendChild(script);
+}
+
+function extractPDFText(file, callback) {
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    var typedarray = new Uint8Array(e.target.result);
+    window.pdfjsLib.getDocument({ data: typedarray }).promise.then(function(pdf) {
+      var pagePromises = [];
+      for (var i = 1; i <= Math.min(pdf.numPages, 5); i++) {
+        pagePromises.push(pdf.getPage(i).then(function(page) {
+          return page.getTextContent().then(function(content) {
+            return content.items.map(function(item) { return item.str; }).join(' ');
+          });
+        }));
+      }
+      Promise.all(pagePromises).then(function(pages) {
+        callback(pages.join('\n'));
+      }).catch(function() { setUploadStatus('Could not extract text from PDF.', true); });
+    }).catch(function() { setUploadStatus('Failed to read PDF. Try a .txt file.', true); });
+  };
+  reader.onerror = function() { setUploadStatus('Failed to read file.', true); };
+  reader.readAsArrayBuffer(file);
+}
+
+function parseResumeText(text) {
+  sb.auth.getSession().then(function(res) {
+    var token = res.data && res.data.session ? res.data.session.access_token : null;
+    if (!token) { setUploadStatus('Session expired. Please sign in again.', true); return; }
+
+    fetch(SUPABASE_URL + '/functions/v1/ai-assist', {
+      method: 'POST',
+      headers: { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ feature: 'parse', data: { text: text } })
+    })
+    .then(function(r) { return r.json(); })
+    .then(function(result) {
+      if (result.error) { setUploadStatus('Error: ' + result.error, true); return; }
+      try {
+        // Strip markdown code fences if present
+        var raw = (result.text || '').trim().replace(/^```(?:json)?\n?/, '').replace(/\n?```$/, '');
+        var parsed = JSON.parse(raw);
+        populateFromParsed(parsed);
+        setUploadStatus('Resume imported! Review and adjust as needed.');
+        showToast('Resume imported successfully!');
+      } catch(e) {
+        setUploadStatus('Could not parse AI response. Please try again.', true);
+      }
+    })
+    .catch(function() { setUploadStatus('Network error. Please try again.', true); });
+  });
+}
+
+function populateFromParsed(parsed) {
+  function setField(id, v) { var el = document.getElementById(id); if (el && v) el.value = v; }
+  setField('f-name', parsed.name);
+  setField('f-title', parsed.title);
+  setField('f-email', parsed.email);
+  setField('f-phone', parsed.phone);
+  setField('f-location', parsed.location);
+  setField('f-link', parsed.link);
+  setField('f-summary', parsed.summary);
+  setField('f-skills', parsed.skills);
+
+  if (parsed.experience && parsed.experience.length) {
+    entries.exp = parsed.experience.map(function(e) {
+      return { id: ++expId, title: e.title || '', company: e.company || '', dates: e.dates || '', bullets: (e.bullets || '').replace(/\\n/g, '\n') };
+    });
+    renderEntries('exp');
+  }
+  if (parsed.education && parsed.education.length) {
+    entries.edu = parsed.education.map(function(e) {
+      return { id: ++eduId, title: e.title || '', company: e.company || '', dates: e.dates || '', bullets: '' };
+    });
+    renderEntries('edu');
+  }
+  updateDoc();
+  updateCL();
+  saveToStorage();
 }
 
 /* ═══════════════════════════════════════════════
@@ -1329,8 +1474,8 @@ function updateDoc() {
   document.getElementById('d-band-title').textContent = title;
   document.getElementById('d-band-contact').textContent = contact;
 
-  var summarySection = document.getElementById('summary-section');
-  if (summarySection) summarySection.style.display = summary.trim() ? '' : 'none';
+  var summaryWrapper = document.getElementById('summary-wrapper');
+  if (summaryWrapper) summaryWrapper.style.display = summary.trim() ? '' : 'none';
 
   var expHtml = '';
   entries.exp.forEach(function(e) {
