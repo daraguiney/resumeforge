@@ -990,8 +990,10 @@ function updateProUI() {
   var pro = isPro;
   var hasSub = !!(stripeCustomerId);
 
-  // Sidebar pro banner
+  // Sidebar pro banner — always show if pro, but only show Manage button if we have a customer ID
   document.getElementById('pro-banner').style.display = pro ? 'block' : 'none';
+  var sidebarManageBtn = document.querySelector('.pro-banner-manage');
+  if (sidebarManageBtn) sidebarManageBtn.style.display = (pro && hasSub) ? 'inline-block' : 'none';
 
   // Nav
   document.getElementById('nav-pro-tag').style.display = pro ? 'inline' : 'none';
