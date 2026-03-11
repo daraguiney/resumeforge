@@ -4,116 +4,242 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ResumeForge — Build Resumes That Get Interviews</title>
-<!-- ResumeForge v2.0 — Optimized: localStorage, ATS scoring, keyboard shortcuts, SEO -->
 <meta name="description" content="Build a polished, ATS-optimized resume in minutes. AI-powered bullet points, cover letter generator, and 6 professional templates. Free plan available.">
 <meta name="keywords" content="resume builder, ATS resume, AI resume, cover letter generator, job application, resume templates">
 <meta property="og:title" content="ResumeForge — Build Resumes That Get Interviews">
 <meta property="og:description" content="Build a polished, ATS-optimized resume in minutes. Free plan, 6 templates, AI-powered bullets.">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="ResumeForge — Build Resumes That Get Interviews">
-<meta name="twitter:description" content="Build ATS-optimized resumes in minutes. AI bullet points, cover letter writer, 6 templates.">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-:root{--ink:#0f0e0c;--paper:#faf8f3;--cream:#f2ede2;--gold:#c9a84c;--gold-light:#e8d49e;--rust:#b85c38;--sage:#4a6741;--muted:#7a7165;--border:#ddd8cc}
+/* ── TOKENS ── */
+:root{
+  --ink:#0f0e0c;--paper:#faf8f3;--cream:#f2ede2;
+  --gold:#c9a84c;--gold-l:#e8d49e;--gold-d:#a8893c;
+  --rust:#b85c38;--sage:#4a6741;--muted:#7a7165;
+  --border:#ddd8cc;--border-l:#ede9e0;
+  --sh-sm:0 1px 3px rgba(15,14,12,.07);
+  --sh-md:0 4px 16px rgba(15,14,12,.10);
+  --sh-lg:0 8px 40px rgba(15,14,12,.14);
+  --sh-xl:0 24px 64px rgba(15,14,12,.22);
+  --sh-gold:0 8px 32px rgba(201,168,76,.28);
+  --r-sm:6px;--r-md:10px;--r-lg:16px;--r-xl:24px;
+  --ease:cubic-bezier(.25,.1,.25,1);
+  --ease-out:cubic-bezier(0,0,.2,1);
+}
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);min-height:100vh}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);min-height:100vh;-webkit-font-smoothing:antialiased}
+
+/* ── BUTTONS ── */
+.btn{display:inline-flex;align-items:center;gap:.45rem;border:none;border-radius:var(--r-sm);font-family:'DM Sans',sans-serif;font-weight:600;cursor:pointer;transition:all .2s var(--ease);white-space:nowrap;text-decoration:none;line-height:1}
+.btn-sm{padding:.5rem 1.1rem;font-size:.83rem}
+.btn-md{padding:.7rem 1.5rem;font-size:.9rem}
+.btn-lg{padding:.9rem 2rem;font-size:1rem}
+.btn-xl{padding:1.05rem 2.4rem;font-size:1.05rem}
+.btn-primary{background:var(--ink);color:var(--paper)}
+.btn-primary:hover{background:#2d2b28;transform:translateY(-1px);box-shadow:var(--sh-md)}
+.btn-gold{background:var(--gold);color:var(--ink);box-shadow:0 2px 8px rgba(201,168,76,.3)}
+.btn-gold:hover{background:var(--gold-d);transform:translateY(-1px);box-shadow:var(--sh-gold)}
+.btn-outline{background:transparent;color:var(--ink);border:1.5px solid var(--border)}
+.btn-outline:hover{border-color:var(--ink);transform:translateY(-1px)}
+.btn-ghost{background:transparent;color:#9b9387;border:none}
+.btn-ghost:hover{color:var(--paper)}
+.btn-white{background:#fff;color:var(--ink);box-shadow:var(--sh-md)}
+.btn-white:hover{transform:translateY(-1px);box-shadow:var(--sh-lg)}
 
 /* ── NAV ── */
-nav{display:flex;align-items:center;justify-content:space-between;padding:1.2rem 2.5rem;border-bottom:1px solid var(--border);background:var(--paper);position:sticky;top:0;z-index:100}
-.logo{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:900;letter-spacing:-.02em;color:var(--ink);cursor:pointer}.logo span{color:var(--gold)}
-nav .nav-links{display:flex;gap:2rem;align-items:center}
-nav a{color:var(--muted);text-decoration:none;font-size:.9rem;font-weight:500;cursor:pointer}nav a:hover{color:var(--ink)}
-.btn-primary{background:var(--ink);color:var(--paper);border:none;padding:.65rem 1.4rem;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:.9rem;font-weight:600;cursor:pointer;transition:background .2s}.btn-primary:hover{background:var(--rust)}
-.btn-gold{background:var(--gold);color:var(--ink);border:none;padding:.75rem 1.8rem;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:1rem;font-weight:700;cursor:pointer;transition:background .2s}.btn-gold:hover{background:#b8933c}
-.btn-outline{background:transparent;color:var(--ink);border:1.5px solid var(--border);padding:.65rem 1.4rem;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:.9rem;font-weight:500;cursor:pointer;transition:border-color .2s}.btn-outline:hover{border-color:var(--ink)}
+nav{display:flex;align-items:center;justify-content:space-between;padding:1.1rem 2.5rem;background:rgba(250,248,243,.94);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100}
+.logo{font-family:'Playfair Display',serif;font-size:1.55rem;font-weight:900;letter-spacing:-.03em;color:var(--ink);cursor:pointer}.logo span{color:var(--gold)}
+.nav-links{display:flex;gap:2rem;align-items:center}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:.88rem;font-weight:500;cursor:pointer;transition:color .15s}
+.nav-links a:hover{color:var(--ink)}
+.user-chip{display:flex;align-items:center;gap:.55rem;background:var(--cream);border:1px solid var(--border);border-radius:100px;padding:.3rem .85rem .3rem .4rem;font-size:.8rem}
+.user-avatar{width:26px;height:26px;border-radius:50%;object-fit:cover}
+.user-avatar-init{width:26px;height:26px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:800;color:var(--ink);flex-shrink:0}
+.pro-tag{background:linear-gradient(135deg,var(--gold),var(--gold-d));color:var(--ink);font-size:.62rem;font-weight:800;padding:.15rem .5rem;border-radius:4px;letter-spacing:.04em}
+.signout-link{color:var(--muted);cursor:pointer;font-size:.75rem;transition:color .15s}.signout-link:hover{color:var(--rust)}
 
 /* ── HERO ── */
-.hero{display:grid;grid-template-columns:1fr 1fr;gap:4rem;max-width:1200px;margin:0 auto;padding:5rem 2.5rem 4rem;align-items:center}
-.hero-tag{display:inline-block;background:var(--cream);border:1px solid var(--border);color:var(--muted);font-size:.78rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:.35rem .9rem;border-radius:100px;margin-bottom:1.5rem}
-.hero h1{font-family:'Playfair Display',serif;font-size:3.8rem;font-weight:900;line-height:1.05;letter-spacing:-.02em;margin-bottom:1.4rem}
-.hero h1 em{font-style:italic;color:var(--rust)}
-.hero p{font-size:1.1rem;color:var(--muted);line-height:1.7;margin-bottom:2rem;max-width:460px}
-.hero-cta{display:flex;gap:1rem;align-items:center;flex-wrap:wrap}.hero-note{font-size:.8rem;color:var(--muted);margin-top:.8rem}
-.resume-preview{background:white;border-radius:12px;box-shadow:0 4px 40px rgba(0,0,0,.12);padding:2rem;font-size:.78rem;position:relative;animation:floatCard 4s ease-in-out infinite}
-@keyframes floatCard{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
-.resume-preview::before{content:'PREVIEW';position:absolute;top:-10px;right:20px;background:var(--gold);color:var(--ink);font-size:.65rem;font-weight:700;letter-spacing:.1em;padding:.2rem .6rem;border-radius:4px}
-.rp-name{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700}.rp-title{color:var(--rust);font-size:.8rem;font-weight:600;margin:.2rem 0 .8rem}
-.rp-contact{color:var(--muted);font-size:.72rem;margin-bottom:1.2rem}.rp-divider{border:none;border-top:1.5px solid var(--ink);margin-bottom:.8rem}
-.rp-section-title{font-weight:700;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.5rem}.rp-job{margin-bottom:.9rem}
-.rp-job-title{font-weight:600}.rp-job-co{color:var(--muted);font-size:.7rem;margin-bottom:.3rem}
-.rp-bullet{color:var(--muted);padding-left:1rem;position:relative;margin-bottom:.2rem;font-size:.71rem}.rp-bullet::before{content:'--';position:absolute;left:0;color:var(--gold)}
-.rp-skills{display:flex;flex-wrap:wrap;gap:.4rem}.rp-skill{background:var(--cream);border:1px solid var(--border);padding:.2rem .6rem;border-radius:4px;font-size:.68rem}
+.hero-section{background:var(--ink);overflow:hidden;position:relative}
+.hero-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 65% 50%,rgba(201,168,76,.09) 0%,transparent 70%),radial-gradient(ellipse 40% 50% at 10% 90%,rgba(184,92,56,.07) 0%,transparent 60%);pointer-events:none}
+.hero-inner{display:grid;grid-template-columns:1fr 1fr;gap:3rem;max-width:1180px;margin:0 auto;padding:6rem 2.5rem 5rem;align-items:center;position:relative;z-index:1}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:.5rem;background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.25);color:var(--gold);font-size:.73rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;padding:.35rem .9rem;border-radius:100px;margin-bottom:1.6rem}
+.hero-eyebrow::before{content:'✦';font-size:.55rem}
+.hero h1{font-family:'Playfair Display',serif;font-size:4.2rem;font-weight:900;line-height:1.04;letter-spacing:-.025em;color:var(--paper);margin-bottom:1.4rem}
+.hero h1 em{font-style:italic;color:var(--gold)}
+.hero-sub{font-size:1.06rem;color:#9b9387;line-height:1.75;margin-bottom:2.2rem;max-width:430px}
+.hero-cta{display:flex;gap:.9rem;align-items:center;flex-wrap:wrap;margin-bottom:2rem}
+.hero-note{display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap}
+.hero-note-item{display:flex;align-items:center;gap:.35rem;font-size:.77rem;color:#6b6560}
+.hero-note-item::before{content:'✓';color:var(--sage);font-weight:700;font-size:.68rem}
 
-/* ── STATS / FEATURES / PRICING ── */
-.stats-bar{background:var(--ink);color:var(--paper);padding:.8rem 2.5rem;display:flex;justify-content:center;gap:4rem;flex-wrap:wrap}
-.stat{text-align:center}.stat .num{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:900;color:var(--gold)}.stat .label{font-size:.72rem;color:#aaa;letter-spacing:.05em}
-.features{max-width:1100px;margin:5rem auto;padding:0 2.5rem}.features-header{text-align:center;margin-bottom:3rem}
-.features-header h2{font-family:'Playfair Display',serif;font-size:2.5rem;font-weight:900;margin-bottom:.8rem}
-.features-header p{color:var(--muted);max-width:500px;margin:0 auto;line-height:1.7}
-.features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
-.feature-card{background:white;border:1px solid var(--border);border-radius:12px;padding:1.8rem;transition:box-shadow .2s}.feature-card:hover{box-shadow:0 8px 30px rgba(0,0,0,.08)}
-.feature-icon{font-size:2rem;margin-bottom:1rem}.feature-card h3{font-weight:700;margin-bottom:.5rem}.feature-card p{font-size:.88rem;color:var(--muted);line-height:1.6}
-.badge{display:inline-block;font-size:.65rem;font-weight:700;padding:.15rem .5rem;border-radius:4px;margin-top:.6rem}
-.badge-free{background:#e8f5e4;color:var(--sage)}.badge-pro{background:var(--gold-light);color:#7a5c1a}
-.pricing-section{background:var(--cream);padding:5rem 2.5rem}
-.pricing-section h2{font-family:'Playfair Display',serif;font-size:2.5rem;font-weight:900;text-align:center;margin-bottom:.8rem}
-.pricing-section .sub{text-align:center;color:var(--muted);margin-bottom:3rem}
-.pricing-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;max-width:780px;margin:0 auto}
-.pricing-card{background:white;border:2px solid var(--border);border-radius:16px;padding:2rem}
-.pricing-card.featured{border-color:var(--gold);position:relative}
-.pricing-card.featured::before{content:'MOST POPULAR';position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--gold);color:var(--ink);font-size:.65rem;font-weight:800;padding:.2rem .8rem;border-radius:100px;white-space:nowrap}
-.pricing-name{font-size:.8rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:.5rem}
-.pricing-price{font-family:'Playfair Display',serif;font-size:3rem;font-weight:900;line-height:1;margin-bottom:.3rem}
-.pricing-price sub{font-size:1rem;font-family:'DM Sans',sans-serif;font-weight:400}
-.pricing-desc{font-size:.82rem;color:var(--muted);margin-bottom:1.5rem}
-.pricing-features{list-style:none;margin-bottom:1.8rem}
-.pricing-features li{padding:.45rem 0;font-size:.86rem;border-bottom:1px solid var(--cream);display:flex;align-items:center;gap:.6rem}
-.check{color:var(--sage);font-weight:700}.cross{color:#ccc}
+/* Hero visual */
+.hero-visual{position:relative;display:flex;justify-content:center;align-items:center}
+.hero-card-wrap{position:relative;animation:heroFloat 5s ease-in-out infinite}
+@keyframes heroFloat{0%,100%{transform:translateY(0) rotate(.8deg)}50%{transform:translateY(-12px) rotate(.8deg)}}
+.hero-glow{position:absolute;top:-50px;left:50%;transform:translateX(-50%);width:300px;height:220px;background:radial-gradient(ellipse,rgba(201,168,76,.14) 0%,transparent 70%);pointer-events:none}
+.hero-card{background:#fff;border-radius:13px;box-shadow:0 40px 80px rgba(0,0,0,.55),0 0 0 1px rgba(255,255,255,.07);padding:2rem;font-size:.78rem;width:340px;position:relative}
+.hero-card::before{content:'PREVIEW';position:absolute;top:-10px;right:20px;background:var(--gold);color:var(--ink);font-size:.6rem;font-weight:800;letter-spacing:.1em;padding:.2rem .6rem;border-radius:4px}
+.hc-name{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:#1a1a1a}
+.hc-title{color:var(--rust);font-size:.78rem;font-weight:600;margin:.2rem 0 .6rem}
+.hc-contact{color:var(--muted);font-size:.67rem;margin-bottom:1rem;font-family:'DM Mono',monospace}
+.hc-div{border:none;border-top:1.5px solid #1a1a1a;margin-bottom:.8rem}
+.hc-sec{font-size:.63rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--rust);margin-bottom:.45rem}
+.hc-job-title{font-size:.78rem;font-weight:600}.hc-job-co{color:var(--muted);font-size:.67rem;margin-bottom:.3rem}
+.hc-bullet{color:var(--muted);font-size:.67rem;padding-left:.85rem;position:relative;margin-bottom:.2rem}
+.hc-bullet::before{content:'▸';position:absolute;left:0;color:var(--gold)}
+.hc-skills{display:flex;flex-wrap:wrap;gap:.3rem;margin-top:.6rem}
+.hc-skill{background:#f5f2ea;border:1px solid #e5e2d8;padding:.15rem .5rem;border-radius:4px;font-size:.63rem;color:#555}
+
+/* Floating badges */
+.hero-badge{position:absolute;background:#fff;border-radius:10px;padding:.55rem .85rem;box-shadow:0 8px 24px rgba(0,0,0,.3);font-size:.77rem;font-weight:700;display:flex;align-items:center;gap:.4rem;animation:badgeFlt 6s ease-in-out infinite}
+.hero-badge-1{top:8%;right:-55px;animation-delay:-1.5s}
+.hero-badge-2{bottom:18%;left:-65px;animation-delay:-3s}
+@keyframes badgeFlt{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.badge-dot{width:8px;height:8px;border-radius:50%;background:var(--sage)}
+
+/* ── LOGOS BAR ── */
+.logos-bar{background:#fff;border-bottom:1px solid var(--border-l);padding:1.7rem 2.5rem}
+.logos-inner{max-width:1000px;margin:0 auto;display:flex;align-items:center;gap:2rem;flex-wrap:wrap;justify-content:center}
+.logos-label{font-size:.7rem;font-weight:700;color:var(--muted);letter-spacing:.07em;text-transform:uppercase;white-space:nowrap}
+.logos-div{width:1px;height:18px;background:var(--border)}
+.logos-list{display:flex;align-items:center;gap:2.5rem;flex-wrap:wrap;justify-content:center}
+.logo-co{font-family:'DM Sans',sans-serif;font-weight:700;font-size:.9rem;color:#c5bfb5;letter-spacing:-.01em}
+
+/* ── STATS ── */
+.stats-section{background:var(--ink);border-top:1px solid rgba(255,255,255,.06)}
+.stats-inner{max-width:860px;margin:0 auto;padding:3rem 2.5rem;display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;text-align:center}
+.stat-num{font-family:'Playfair Display',serif;font-size:2.5rem;font-weight:900;color:var(--gold);line-height:1}
+.stat-label{font-size:.76rem;color:#6b6560;margin-top:.4rem;letter-spacing:.02em}
+
+/* ── FEATURES ── */
+.features-section{background:#fff;padding:7rem 2.5rem}
+.section-header{text-align:center;margin-bottom:4rem}
+.section-tag{display:inline-flex;align-items:center;gap:.4rem;background:var(--cream);border:1px solid var(--border);color:var(--muted);font-size:.7rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;padding:.28rem .85rem;border-radius:100px;margin-bottom:1.2rem}
+.section-header h2{font-family:'Playfair Display',serif;font-size:2.8rem;font-weight:900;line-height:1.1;margin-bottom:.8rem;letter-spacing:-.02em}
+.section-header p{font-size:1rem;color:var(--muted);max-width:490px;margin:0 auto;line-height:1.75}
+.features-grid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem}
+.feature-card{background:var(--paper);border:1px solid var(--border);border-radius:var(--r-lg);padding:2rem;transition:all .25s var(--ease)}
+.feature-card:hover{background:#fff;border-color:var(--gold-l);box-shadow:var(--sh-lg);transform:translateY(-3px)}
+.feature-icon-wrap{width:52px;height:52px;border-radius:12px;background:var(--cream);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin-bottom:1.2rem;transition:all .25s}
+.feature-card:hover .feature-icon-wrap{background:var(--gold-l);border-color:var(--gold)}
+.feature-card h3{font-weight:700;font-size:1rem;margin-bottom:.5rem}
+.feature-card p{font-size:.87rem;color:var(--muted);line-height:1.65}
+.badge{display:inline-block;font-size:.6rem;font-weight:800;padding:.18rem .55rem;border-radius:5px;margin-top:.75rem;letter-spacing:.05em;text-transform:uppercase}
+.badge-free{background:#e8f5e4;color:var(--sage)}.badge-pro{background:var(--gold-l);color:#7a5c1a}
+
+/* ── STEPS ── */
+.steps-section{background:var(--cream);padding:7rem 2.5rem}
+.steps-grid{max-width:960px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:3rem;position:relative}
+.steps-grid::before{content:'';position:absolute;top:27px;left:calc(16.6% + 14px);right:calc(16.6% + 14px);height:1px;background:linear-gradient(90deg,var(--border),var(--gold-l),var(--border))}
+.step-card{text-align:center}
+.step-num{width:56px;height:56px;border-radius:50%;background:var(--paper);border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:900;color:var(--gold);margin:0 auto 1.4rem;position:relative;z-index:1;box-shadow:var(--sh-sm)}
+.step-card h3{font-weight:700;font-size:1rem;margin-bottom:.5rem}
+.step-card p{font-size:.87rem;color:var(--muted);line-height:1.65}
+
+/* ── TESTIMONIALS ── */
+.testimonials-section{background:#fff;padding:7rem 2.5rem}
+.testimonials-grid{max-width:1050px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem}
+.testimonial-card{background:var(--paper);border:1px solid var(--border);border-radius:var(--r-lg);padding:2rem;transition:box-shadow .2s}
+.testimonial-card:hover{box-shadow:var(--sh-md)}
+.t-stars{color:var(--gold);font-size:.88rem;margin-bottom:1rem;letter-spacing:.1em}
+.t-quote{font-size:.9rem;line-height:1.75;color:var(--ink);margin-bottom:1.4rem;font-style:italic;position:relative;padding-left:1.4rem}
+.t-quote::before{content:'\201C';font-family:'Playfair Display',serif;font-size:2.5rem;color:var(--gold);position:absolute;left:0;top:-.4rem;line-height:1}
+.t-author{display:flex;align-items:center;gap:.75rem}
+.t-avatar{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.84rem;color:var(--ink);flex-shrink:0}
+.t-name{font-weight:700;font-size:.88rem}.t-role{font-size:.77rem;color:var(--muted)}
+
+/* ── PRICING ── */
+.pricing-section{background:var(--cream);padding:7rem 2.5rem}
+.pricing-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem;max-width:760px;margin:0 auto}
+.pricing-card{background:#fff;border:1.5px solid var(--border);border-radius:var(--r-xl);padding:2.2rem;transition:box-shadow .2s}
+.pricing-card.featured{border-color:var(--gold);box-shadow:0 0 0 4px rgba(201,168,76,.12),var(--sh-md);position:relative}
+.pricing-card.featured::before{content:'MOST POPULAR';position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(--gold);color:var(--ink);font-size:.6rem;font-weight:800;letter-spacing:.09em;padding:.25rem .9rem;border-radius:100px;white-space:nowrap}
+.pricing-tier{font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:.6rem}
+.pricing-amount{font-family:'Playfair Display',serif;font-size:3.2rem;font-weight:900;line-height:1;color:var(--ink)}
+.pricing-amount sub{font-size:1rem;font-family:'DM Sans',sans-serif;font-weight:400;color:var(--muted)}
+.pricing-desc{font-size:.83rem;color:var(--muted);margin:.5rem 0 1.6rem}
+.pricing-feats{list-style:none;margin-bottom:1.8rem}
+.pricing-feats li{padding:.48rem 0;font-size:.86rem;border-bottom:1px solid var(--cream);display:flex;align-items:center;gap:.65rem}
+.pricing-feats li:last-child{border-bottom:none}
+.chk{color:var(--sage);font-weight:700;font-size:.85rem}.cross{color:#ccc;font-size:.85rem}
+
+/* ── CTA BANNER ── */
+.cta-section{background:var(--ink);padding:6rem 2.5rem;text-align:center;position:relative;overflow:hidden}
+.cta-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 50% 50%,rgba(201,168,76,.09) 0%,transparent 70%);pointer-events:none}
+.cta-section h2{font-family:'Playfair Display',serif;font-size:3rem;font-weight:900;color:var(--paper);margin-bottom:1rem;position:relative}
+.cta-section h2 em{font-style:italic;color:var(--gold)}
+.cta-section p{color:#9b9387;font-size:1rem;margin-bottom:2.2rem;position:relative}
+.cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;position:relative}
+
+/* ── FOOTER ── */
+footer{background:var(--ink);color:#6b6560;border-top:1px solid rgba(255,255,255,.06);padding:3.5rem 2.5rem 2rem}
+.footer-inner{max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:2.5rem;margin-bottom:2.5rem}
+.footer-logo{font-family:'Playfair Display',serif;font-size:1.35rem;color:var(--paper);margin-bottom:.4rem}.footer-logo span{color:var(--gold)}
+.footer-tagline{font-size:.78rem;color:#6b6560;max-width:220px;line-height:1.65}
+.footer-col h4{font-size:.7rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:#9b9387;margin-bottom:.9rem}
+.footer-col ul{list-style:none}.footer-col ul li{margin-bottom:.5rem}
+.footer-col ul li a{color:#6b6560;text-decoration:none;font-size:.84rem;transition:color .15s;cursor:pointer}
+.footer-col ul li a:hover{color:var(--paper)}
+.footer-bottom{max-width:1100px;margin:0 auto;border-top:1px solid rgba(255,255,255,.06);padding-top:1.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;font-size:.77rem;color:#4a4540}
+.footer-bottom a{color:var(--gold);text-decoration:none}
 
 /* ── APP ── */
 #app{display:none}
-.app-layout{display:grid;grid-template-columns:340px 1fr;min-height:calc(100vh - 65px)}
-.sidebar{background:var(--cream);border-right:1px solid var(--border);padding:1.5rem;overflow-y:auto;max-height:calc(100vh - 65px)}
-.sidebar h3{font-family:'Playfair Display',serif;font-size:1.1rem;margin-bottom:1.2rem;padding-bottom:.7rem;border-bottom:1px solid var(--border)}
-.form-group{margin-bottom:1rem}
-.form-group label{display:block;font-size:.78rem;font-weight:600;color:var(--muted);letter-spacing:.05em;text-transform:uppercase;margin-bottom:.4rem}
-.form-group input,.form-group textarea{width:100%;padding:.6rem .8rem;border:1.5px solid var(--border);border-radius:6px;font-family:'DM Sans',sans-serif;font-size:.88rem;background:white;color:var(--ink);transition:border-color .2s}
-.form-group input:focus,.form-group textarea:focus{outline:none;border-color:var(--gold)}
+.app-layout{display:grid;grid-template-columns:340px 1fr;min-height:calc(100vh - 62px)}
+.sidebar{background:#fff;border-right:1px solid var(--border);padding:1.4rem;overflow-y:auto;max-height:calc(100vh - 62px)}
+.pro-banner{display:none;background:linear-gradient(135deg,#fef9ee,#fdf3d0);border:1.5px solid var(--gold);border-radius:8px;padding:.65rem 1rem;font-size:.8rem;color:#7a5c1a;font-weight:600;margin-bottom:1rem}
+.resume-progress{margin-bottom:1rem}
+.resume-progress-label{display:flex;justify-content:space-between;font-size:.7rem;color:var(--muted);margin-bottom:.35rem;font-weight:600}
+.resume-progress-bar{height:3px;background:var(--border);border-radius:2px;overflow:hidden}
+.resume-progress-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--rust));border-radius:2px;transition:width .4s ease}
+.sidebar-tabs{display:flex;margin-bottom:1.4rem;background:var(--cream);border-radius:8px;padding:3px}
+.sidebar-tab{flex:1;padding:.45rem;cursor:pointer;font-size:.82rem;font-weight:600;color:var(--muted);border-radius:6px;transition:all .2s;text-align:center}
+.sidebar-tab.active{background:#fff;color:var(--ink);box-shadow:var(--sh-sm)}
+.form-sec-hd{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;padding:.8rem 0 .6rem;border-bottom:1px solid var(--border-l);margin-bottom:.9rem}
+.form-group{margin-bottom:.9rem}
+.form-group label{display:block;font-size:.7rem;font-weight:600;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin-bottom:.38rem}
+.form-group input,.form-group textarea{width:100%;padding:.6rem .85rem;border:1.5px solid var(--border);border-radius:7px;font-family:'DM Sans',sans-serif;font-size:.88rem;background:var(--paper);color:var(--ink);transition:border-color .2s,box-shadow .2s}
+.form-group input:focus,.form-group textarea:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,168,76,.12)}
 .form-group textarea{resize:vertical;min-height:80px}
-.section-toggle{display:flex;align-items:center;justify-content:space-between;padding:.6rem 0;cursor:pointer;font-weight:600;font-size:.88rem;user-select:none;transition:color .2s}.section-toggle:hover{color:var(--rust)}
-.section-toggle .arrow{transition:transform .25s;display:inline-block}
+.section-toggle{display:flex;align-items:center;justify-content:space-between;padding:.65rem 0;cursor:pointer;font-weight:700;font-size:.88rem;user-select:none;transition:color .15s}
+.section-toggle:hover{color:var(--rust)}
+.section-toggle .arrow{transition:transform .25s;display:inline-block;font-size:.7rem;color:var(--muted)}
 .section-collapsed .arrow{transform:rotate(-90deg)}
-.add-btn{background:none;border:1.5px dashed var(--border);border-radius:6px;padding:.5rem;width:100%;font-size:.82rem;color:var(--muted);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s}.add-btn:hover{border-color:var(--gold);color:var(--ink)}
-.entry-card{background:white;border:1px solid var(--border);border-radius:8px;padding:.8rem;margin-bottom:.6rem;position:relative}
-.entry-card .remove-btn{position:absolute;top:.5rem;right:.5rem;background:none;border:none;cursor:pointer;color:var(--muted);font-size:1rem}.entry-card .remove-btn:hover{color:var(--rust)}
-.sidebar-tabs{display:flex;margin-bottom:1.2rem;border-bottom:1px solid var(--border)}
-.sidebar-tab{padding:.5rem 1rem;cursor:pointer;font-size:.82rem;font-weight:600;color:var(--muted);border-bottom:2px solid transparent;transition:all .2s}
-.sidebar-tab.active{color:var(--ink);border-bottom-color:var(--rust)}
-.ai-btn{display:flex;align-items:center;gap:.5rem;background:linear-gradient(135deg,#f8f0e0,#fdf6e8);border:1.5px solid var(--gold);border-radius:6px;padding:.6rem 1rem;font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:600;cursor:pointer;color:#7a5c1a;width:100%;margin-bottom:.8rem;transition:background .2s}.ai-btn:hover{background:var(--gold-light)}
-.pro-banner{display:none;background:linear-gradient(135deg,#fef9ee,#fdf3d0);border:1.5px solid var(--gold);border-radius:8px;padding:.7rem 1rem;font-size:.82rem;color:#7a5c1a;font-weight:600;margin-bottom:1rem}
-.user-chip{display:flex;align-items:center;gap:.6rem;background:var(--cream);border:1px solid var(--border);border-radius:100px;padding:.35rem .9rem;font-size:.8rem}
-.user-avatar{width:26px;height:26px;border-radius:50%;object-fit:cover}
-.user-avatar-init{width:26px;height:26px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:800;color:var(--ink);flex-shrink:0}
-.pro-tag{background:var(--gold);color:var(--ink);font-size:.65rem;font-weight:800;padding:.1rem .45rem;border-radius:4px}
-.signout-link{color:var(--muted);cursor:pointer;font-size:.75rem;transition:color .2s}.signout-link:hover{color:var(--rust)}
+.sec-divider{border:none;border-top:1px solid var(--border-l);margin:.2rem 0 .6rem}
+.ai-btn{display:flex;align-items:center;gap:.5rem;background:linear-gradient(135deg,#fef9ee,#fdf6e8);border:1.5px solid rgba(201,168,76,.4);border-radius:7px;padding:.6rem 1rem;font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:600;cursor:pointer;color:#7a5c1a;width:100%;margin-bottom:.9rem;transition:all .2s}
+.ai-btn:hover{background:var(--gold-l);border-color:var(--gold);transform:translateY(-1px);box-shadow:var(--sh-sm)}
+.add-btn{background:none;border:1.5px dashed var(--border);border-radius:7px;padding:.55rem;width:100%;font-size:.82rem;color:var(--muted);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s}
+.add-btn:hover{border-color:var(--gold);color:var(--ink);background:#fffbf2}
+.entry-card{background:var(--paper);border:1px solid var(--border);border-radius:8px;padding:.85rem;margin-bottom:.65rem;position:relative}
+.entry-card .remove-btn{position:absolute;top:.55rem;right:.55rem;background:none;border:none;cursor:pointer;color:var(--muted);font-size:.85rem;line-height:1;transition:color .15s;padding:.15rem .3rem;border-radius:4px}
+.entry-card .remove-btn:hover{color:var(--rust);background:rgba(184,92,56,.08)}
+
+/* ── PREVIEW ── */
 .preview-pane{background:#e8e4dc;padding:2rem;overflow-y:auto;display:flex;flex-direction:column;align-items:center}
-.preview-toolbar{width:100%;max-width:680px;display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;flex-wrap:wrap;gap:.5rem}
-.preview-toolbar h4{font-size:.85rem;font-weight:600;color:var(--muted)}
-.preview-toolbar-actions{display:flex;gap:.7rem;flex-wrap:wrap}
-.tabs{display:flex;border-bottom:1px solid var(--border);margin-bottom:1.5rem;width:100%;max-width:680px}
-.tab{padding:.6rem 1.4rem;cursor:pointer;font-size:.85rem;font-weight:600;color:var(--muted);border-bottom:2px solid transparent;transition:all .2s}.tab.active{color:var(--ink);border-bottom-color:var(--ink)}
+.preview-toolbar{width:100%;max-width:680px;display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;flex-wrap:wrap;gap:.75rem}
+.preview-toolbar-left{display:flex;align-items:center;gap:.65rem}
+.preview-toolbar h4{font-size:.84rem;font-weight:600;color:var(--muted)}
+.preview-toolbar-actions{display:flex;gap:.55rem;flex-wrap:wrap}
+.autosave-ind{display:flex;align-items:center;gap:.35rem;font-size:.7rem;color:var(--sage);opacity:0;transition:opacity .4s;font-weight:600}
+.autosave-dot{width:5px;height:5px;border-radius:50%;background:var(--sage)}
+.tabs{display:flex;width:100%;max-width:680px;background:#fff;border-radius:8px 8px 0 0;overflow:hidden;margin-bottom:1.5rem}
+.tab{padding:.65rem 1.4rem;cursor:pointer;font-size:.84rem;font-weight:600;color:var(--muted);border-bottom:2px solid transparent;transition:all .2s;background:none;border:none;font-family:'DM Sans',sans-serif}
+.tab.active{color:var(--ink);border-bottom-color:var(--rust)}
 
 /* ── DOC ── */
-.doc{background:white;width:100%;max-width:680px;min-height:900px;padding:3rem 3.5rem;box-shadow:0 4px 30px rgba(0,0,0,.15);border-radius:4px;font-family:Georgia,serif;font-size:.82rem;line-height:1.5;color:#1a1a1a}
+.doc{background:#fff;width:100%;max-width:680px;min-height:900px;padding:3rem 3.5rem;box-shadow:0 4px 30px rgba(0,0,0,.15),0 0 0 1px rgba(0,0,0,.04);border-radius:4px;font-family:Georgia,serif;font-size:.82rem;line-height:1.5;color:#1a1a1a}
 .doc-name{font-size:2rem;font-weight:700;margin-bottom:.2rem}
 .doc-title{color:var(--rust);font-size:.9rem;font-weight:600;margin-bottom:.5rem;font-family:'DM Sans',sans-serif}
 .doc-contact{font-family:'DM Mono',monospace;font-size:.72rem;color:var(--muted);margin-bottom:1.5rem}
 .doc-divider{border:none;border-top:2px solid #1a1a1a;margin-bottom:1.2rem}
 .doc-section{margin-bottom:1.5rem}
 .doc-section-title{font-family:'DM Sans',sans-serif;font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--rust);margin-bottom:.8rem}
-.doc-entry{margin-bottom:1rem}.doc-entry-header{display:flex;justify-content:space-between;align-items:baseline}
-.doc-entry-title{font-weight:700;font-size:.88rem}.doc-entry-date{font-size:.72rem;color:var(--muted);font-family:'DM Mono',monospace;white-space:nowrap;margin-left:.5rem}
+.doc-entry{margin-bottom:1rem}
+.doc-entry-header{display:flex;justify-content:space-between;align-items:baseline}
+.doc-entry-title{font-weight:700;font-size:.88rem}
+.doc-entry-date{font-size:.72rem;color:var(--muted);font-family:'DM Mono',monospace;white-space:nowrap;margin-left:.5rem}
 .doc-entry-sub{font-size:.8rem;color:var(--muted);font-style:italic;margin-bottom:.4rem}
 .doc-entry-bullets{list-style:none;padding:0}
 .doc-entry-bullets li{position:relative;padding-left:1.2rem;margin-bottom:.3rem;font-size:.8rem;color:#333}
@@ -122,135 +248,104 @@ nav a{color:var(--muted);text-decoration:none;font-size:.9rem;font-weight:500;cu
 .doc-skill{background:#f5f2ea;padding:.25rem .7rem;border-radius:3px;font-size:.75rem;font-family:'DM Sans',sans-serif}
 .doc-summary{font-size:.83rem;line-height:1.7;color:#333;font-style:italic}
 
-/* ── TEMPLATE VARIANTS ── */
-/* Classic: default styles above */
-.tpl-modern .doc-name{color:var(--rust)}
-.tpl-modern .doc-divider{border-top-color:var(--rust)}
-.tpl-modern .doc-section-title{color:var(--ink);border-bottom:1px solid var(--border);padding-bottom:.3rem}
-
-.tpl-executive .doc-name{font-size:2.3rem;text-align:center;letter-spacing:.04em}
-.tpl-executive .doc-title{text-align:center}
-.tpl-executive .doc-contact{text-align:center}
-.tpl-executive .doc-divider{border-top:3px double #1a1a1a}
-
-.tpl-minimal .doc-name{font-family:'DM Sans',sans-serif;font-weight:300;letter-spacing:.05em}
-.tpl-minimal .doc-divider{display:none}
-.tpl-minimal .doc-section-title{color:var(--muted);border-top:1px solid var(--border);padding-top:.6rem;margin-top:1.2rem}
-
-/* Bold: a header band that sits above the content */
-.doc-band{display:none;background:var(--ink);color:white;padding:1.5rem 3.5rem;margin:-3rem -3.5rem 2rem}
-.doc-band .band-name{font-family:Georgia,serif;font-size:2rem;font-weight:700;color:white;margin-bottom:.2rem}
+/* Template variants */
+.tpl-modern .doc-name{color:var(--rust)}.tpl-modern .doc-divider{border-top-color:var(--rust)}.tpl-modern .doc-section-title{color:var(--ink);border-bottom:1px solid var(--border);padding-bottom:.3rem}
+.tpl-executive .doc-name{font-size:2.3rem;text-align:center;letter-spacing:.04em}.tpl-executive .doc-title{text-align:center}.tpl-executive .doc-contact{text-align:center}.tpl-executive .doc-divider{border-top:3px double #1a1a1a}
+.tpl-minimal .doc-name{font-family:'DM Sans',sans-serif;font-weight:300;letter-spacing:.05em}.tpl-minimal .doc-divider{display:none}.tpl-minimal .doc-section-title{color:var(--muted);border-top:1px solid var(--border);padding-top:.6rem;margin-top:1.2rem}
+.doc-band{display:none;background:var(--ink);color:#fff;padding:1.5rem 3.5rem;margin:-3rem -3.5rem 2rem}
+.doc-band .band-name{font-family:Georgia,serif;font-size:2rem;font-weight:700;color:#fff;margin-bottom:.2rem}
 .doc-band .band-title{color:var(--gold);font-size:.9rem;font-weight:600;margin-bottom:.4rem;font-family:'DM Sans',sans-serif}
 .doc-band .band-contact{font-family:'DM Mono',monospace;font-size:.72rem;color:#bbb}
-.tpl-bold .doc-band{display:block}
-.tpl-bold #d-name,.tpl-bold #d-title,.tpl-bold #d-contact{display:none}
+.tpl-bold .doc-band{display:block}.tpl-bold #d-name,.tpl-bold #d-title,.tpl-bold #d-contact{display:none}
 .tpl-bold .doc-section-title{background:var(--cream);display:inline-block;padding:.15rem .6rem;border-left:3px solid var(--gold);color:var(--ink)}
-
-.tpl-compact .doc{font-size:.76rem;line-height:1.4}
-.tpl-compact .doc-name{font-size:1.6rem}
-.tpl-compact .doc-section{margin-bottom:1rem}
-.tpl-compact .doc-entry{margin-bottom:.6rem}
+.tpl-compact .doc{font-size:.76rem;line-height:1.4}.tpl-compact .doc-name{font-size:1.6rem}.tpl-compact .doc-section{margin-bottom:1rem}.tpl-compact .doc-entry{margin-bottom:.6rem}
 
 /* ── MODALS ── */
-.modal-backdrop{display:none;position:fixed;inset:0;background:rgba(15,14,12,.75);z-index:999;align-items:center;justify-content:center}
+.modal-backdrop{display:none;position:fixed;inset:0;background:rgba(15,14,12,.82);z-index:999;align-items:center;justify-content:center;backdrop-filter:blur(5px)}
 .modal-backdrop.open{display:flex}
-.modal{background:var(--paper);border-radius:16px;padding:2.5rem;max-width:480px;width:90%;text-align:center;position:relative;max-height:90vh;overflow-y:auto}
-.modal-close{position:absolute;top:1rem;right:1rem;background:none;border:none;font-size:1.3rem;cursor:pointer;color:var(--muted)}
+.modal{background:var(--paper);border-radius:var(--r-xl);padding:2.5rem;max-width:480px;width:90%;text-align:center;position:relative;max-height:90vh;overflow-y:auto;box-shadow:var(--sh-xl);animation:modalIn .2s var(--ease-out)}
+@keyframes modalIn{from{opacity:0;transform:scale(.96) translateY(8px)}to{opacity:1;transform:scale(1) translateY(0)}}
+.modal-close{position:absolute;top:1rem;right:1rem;background:var(--cream);border:none;border-radius:50%;width:30px;height:30px;cursor:pointer;color:var(--muted);font-size:1rem;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.modal-close:hover{background:var(--border);color:var(--ink)}
 .modal h2{font-family:'Playfair Display',serif;font-size:1.8rem;margin-bottom:.7rem}
-.modal p{color:var(--muted);line-height:1.6;margin-bottom:1.5rem}
-.auth-box{background:var(--paper);border-radius:16px;padding:2.5rem;max-width:420px;width:90%;position:relative}
-.auth-box h2{font-family:'Playfair Display',serif;font-size:1.8rem;margin-bottom:.4rem;text-align:center}
-.auth-sub{color:var(--muted);font-size:.88rem;margin-bottom:1.5rem;text-align:center}
+.modal p{color:var(--muted);line-height:1.65;margin-bottom:1.5rem;font-size:.9rem}
+.auth-box{background:var(--paper);border-radius:var(--r-xl);padding:2.5rem;max-width:420px;width:90%;position:relative;box-shadow:var(--sh-xl);animation:modalIn .2s var(--ease-out)}
+.auth-box h2{font-family:'Playfair Display',serif;font-size:1.9rem;margin-bottom:.4rem;text-align:center}
+.auth-sub{color:var(--muted);font-size:.88rem;margin-bottom:1.6rem;text-align:center}
 .auth-error{color:var(--rust);font-size:.82rem;margin-bottom:.8rem;min-height:1.1rem;text-align:center}
-.google-btn{width:100%;padding:.85rem 1rem;border:1.5px solid var(--border);border-radius:8px;background:white;font-family:'DM Sans',sans-serif;font-size:1rem;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:.75rem;transition:all .2s}.google-btn:hover:not(:disabled){background:#f8f8f8;border-color:#aaa}
+.google-btn{width:100%;padding:.9rem 1rem;border:1.5px solid var(--border);border-radius:9px;background:#fff;font-family:'DM Sans',sans-serif;font-size:.95rem;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:.8rem;transition:all .2s}
+.google-btn:hover:not(:disabled){background:#f8f8f8;border-color:#aaa;box-shadow:var(--sh-sm)}
 .google-btn:disabled{opacity:.6;cursor:not-allowed}
-.plan-toggle{display:flex;border:1.5px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:1.5rem}
-.plan-toggle button{flex:1;padding:.65rem;font-family:'DM Sans',sans-serif;font-size:.85rem;font-weight:700;border:none;cursor:pointer;transition:all .2s}
-.plan-toggle button.active{background:var(--ink);color:var(--paper)}.plan-toggle button.inactive{background:white;color:var(--muted)}
-.tpl-modal{background:var(--paper);border-radius:16px;padding:2rem;max-width:700px;width:95%;position:relative;max-height:90vh;overflow-y:auto}
+.plan-toggle{display:flex;background:var(--cream);border-radius:8px;padding:3px;margin-bottom:1.5rem}
+.plan-toggle button{flex:1;padding:.6rem;font-family:'DM Sans',sans-serif;font-size:.85rem;font-weight:700;border:none;cursor:pointer;border-radius:6px;transition:all .2s}
+.plan-toggle button.active{background:var(--ink);color:var(--paper)}
+.plan-toggle button.inactive{background:transparent;color:var(--muted)}
+.tpl-modal{background:var(--paper);border-radius:var(--r-xl);padding:2rem;max-width:700px;width:95%;position:relative;max-height:90vh;overflow-y:auto;box-shadow:var(--sh-xl);animation:modalIn .2s var(--ease-out)}
 .templates-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:1.5rem}
 .tpl-card{border:2px solid var(--border);border-radius:10px;padding:.8rem;cursor:pointer;transition:all .2s}
-.tpl-card:hover{border-color:var(--gold);transform:translateY(-2px)}.tpl-card.selected{border-color:var(--gold);background:#fef9ee}
+.tpl-card:hover{border-color:var(--gold);transform:translateY(-2px);box-shadow:var(--sh-md)}
+.tpl-card.selected{border-color:var(--gold);background:#fef9ee}
 .tpl-card.locked{opacity:.65}
-.tpl-thumb{height:95px;border-radius:6px;margin-bottom:.6rem;overflow:hidden;border:1px solid #eee;background:white;padding:7px;position:relative}
-.tpl-card-name{font-size:.82rem;font-weight:700;margin-bottom:.1rem}.tpl-card-tag{font-size:.7rem;color:var(--muted)}
-
-/* ── TOAST ── */
-.toast{display:none;position:fixed;bottom:2rem;right:2rem;background:var(--ink);color:var(--paper);padding:.8rem 1.4rem;border-radius:8px;font-size:.85rem;font-weight:600;z-index:9998;animation:slideUp .25s ease}
-@keyframes slideUp{from{transform:translateY(1rem);opacity:0}to{transform:translateY(0);opacity:1}}
-
-/* ── MOBILE FAB ── */
-.mobile-fab{display:none;position:fixed;bottom:1.5rem;right:1.5rem;z-index:200;width:52px;height:52px;border-radius:50%;background:var(--ink);color:white;border:none;font-size:1.3rem;cursor:pointer;box-shadow:0 4px 16px rgba(0,0,0,.3);align-items:center;justify-content:center}
-
-/* ── LOADING ── */
-.loading-overlay{position:fixed;inset:0;background:var(--paper);z-index:9999;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1rem;transition:opacity .4s}
-.loading-overlay.fade{opacity:0;pointer-events:none}
-.spinner{width:36px;height:36px;border:3px solid var(--border);border-top-color:var(--gold);border-radius:50%;animation:spin .8s linear infinite}
-.mini-spinner{width:14px;height:14px;border:2px solid rgba(255,255,255,.3);border-top-color:white;border-radius:50%;animation:spin .6s linear infinite;display:inline-block}
-@keyframes spin{to{transform:rotate(360deg)}}
-
-/* ── PRINT ── */
-@media print{
-  .loading-overlay,nav,#landing,.sidebar,.preview-toolbar,.tabs,.modal-backdrop,.mobile-fab,.toast{display:none!important}
-  #app{display:block!important}.app-layout{display:block!important}
-  .preview-pane{background:white!important;padding:0!important;display:block!important}
-  .doc{box-shadow:none!important;border-radius:0!important;min-height:auto!important;max-width:100%!important;width:100%!important}
-  #resume-doc{display:block!important}
-  #cl-doc{display:none!important}
-}
-
-
-/* ── AUTOSAVE ── */
-.autosave-ind{display:flex;align-items:center;gap:.35rem;font-size:.72rem;color:var(--sage);opacity:0;transition:opacity .4s;font-weight:600}
-.autosave-dot{width:6px;height:6px;border-radius:50%;background:var(--sage)}
-/* ── PROGRESS BAR ── */
-.resume-progress{margin-bottom:1.2rem}
-.resume-progress-label{display:flex;justify-content:space-between;font-size:.72rem;color:var(--muted);margin-bottom:.3rem}
-.resume-progress-bar{height:4px;background:var(--border);border-radius:2px;overflow:hidden}
-.resume-progress-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--rust));border-radius:2px;transition:width .4s ease}
-/* ── ATS RESULTS ── */
+.tpl-thumb{height:95px;border-radius:6px;margin-bottom:.6rem;overflow:hidden;border:1px solid #eee;background:#fff;padding:7px;position:relative}
+.tpl-card-name{font-size:.82rem;font-weight:700;margin-bottom:.1rem}
+.tpl-card-tag{font-size:.7rem;color:var(--muted)}
+#ats-jd{width:100%;min-height:130px;padding:.75rem;border:1.5px solid var(--border);border-radius:8px;font-family:'DM Sans',sans-serif;font-size:.85rem;resize:vertical;margin-bottom:1rem;transition:border-color .2s,box-shadow .2s}
+#ats-jd:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,168,76,.12)}
 .ats-score-ring{font-family:'Playfair Display',serif;font-size:3.5rem;font-weight:900;line-height:1}
 .ats-breakdown{background:var(--cream);border-radius:8px;padding:.8rem 1rem;margin-top:1rem;text-align:left;font-size:.83rem}
 .ats-breakdown div{padding:.3rem 0;border-bottom:1px solid var(--border);display:flex;justify-content:space-between}
 .ats-breakdown div:last-child{border-bottom:none}
 .ats-missing{font-size:.76rem;color:var(--muted);margin-top:.4rem;line-height:1.5}
 
-footer{background:var(--ink);color:#888;text-align:center;padding:2rem;font-size:.82rem}
-footer a{color:var(--gold);text-decoration:none}
-.footer-logo{font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--paper);margin-bottom:.5rem}
+/* ── TOAST ── */
+.toast{display:none;position:fixed;bottom:2rem;right:2rem;background:var(--ink);color:var(--paper);padding:.8rem 1.4rem;border-radius:9px;font-size:.84rem;font-weight:600;z-index:9998;box-shadow:var(--sh-lg);animation:slideUp .25s var(--ease)}
+@keyframes slideUp{from{transform:translateY(1rem);opacity:0}to{transform:translateY(0);opacity:1}}
+.mobile-fab{display:none;position:fixed;bottom:1.5rem;right:1.5rem;z-index:200;width:52px;height:52px;border-radius:50%;background:var(--ink);color:#fff;border:none;font-size:1.3rem;cursor:pointer;box-shadow:0 4px 16px rgba(0,0,0,.3);align-items:center;justify-content:center}
+.loading-overlay{position:fixed;inset:0;background:var(--ink);z-index:9999;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1rem;transition:opacity .4s}
+.loading-overlay.fade{opacity:0;pointer-events:none}
+.spinner{width:36px;height:36px;border:3px solid rgba(255,255,255,.1);border-top-color:var(--gold);border-radius:50%;animation:spin .8s linear infinite}
+.mini-spinner{width:14px;height:14px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .6s linear infinite;display:inline-block}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ── PRINT ── */
+@media print{
+  .loading-overlay,nav,#landing,.sidebar,.preview-toolbar,.tabs,.modal-backdrop,.mobile-fab,.toast{display:none!important}
+  #app{display:block!important}.app-layout{display:block!important}
+  .preview-pane{background:#fff!important;padding:0!important;display:block!important}
+  .doc{box-shadow:none!important;border-radius:0!important;min-height:auto!important;max-width:100%!important;width:100%!important}
+  #resume-doc{display:block!important}#cl-doc{display:none!important}
+}
 
 /* ── RESPONSIVE ── */
+@media(max-width:1024px){.hero-inner{padding:5rem 2rem 4rem;gap:2rem}.hero h1{font-size:3.6rem}}
 @media(max-width:900px){
-  .hero{grid-template-columns:1fr;padding:3rem 1.5rem}.resume-preview{display:none}
-  .features-grid{grid-template-columns:1fr 1fr}
-  .pricing-grid{grid-template-columns:1fr}
-  nav{padding:1rem 1.5rem}
+  .hero-inner{grid-template-columns:1fr;padding:4rem 1.5rem 3rem}.hero-visual{display:none}
+  .features-grid,.steps-grid,.testimonials-grid{grid-template-columns:1fr 1fr}
+  .pricing-grid{grid-template-columns:1fr;max-width:400px}.steps-grid::before{display:none}
+  nav{padding:1rem 1.5rem}.stats-inner{grid-template-columns:repeat(2,1fr)}
 }
 @media(max-width:768px){
   .app-layout{grid-template-columns:1fr}
-  .sidebar{position:fixed;left:0;top:65px;bottom:0;width:85%;max-width:340px;z-index:150;transform:translateX(-110%);transition:transform .3s ease;max-height:calc(100vh - 65px);box-shadow:4px 0 20px rgba(0,0,0,.15)}
+  .sidebar{position:fixed;left:0;top:62px;bottom:0;width:85%;max-width:340px;z-index:150;transform:translateX(-110%);transition:transform .3s var(--ease);max-height:calc(100vh - 62px);box-shadow:4px 0 20px rgba(0,0,0,.15)}
   .sidebar.open{transform:translateX(0)}
-  .sidebar-backdrop{display:none;position:fixed;inset:0;top:65px;background:rgba(0,0,0,.4);z-index:149}
+  .sidebar-backdrop{display:none;position:fixed;inset:0;top:62px;background:rgba(0,0,0,.4);z-index:149}
   .sidebar-backdrop.open{display:block}
-  .mobile-fab{display:flex}
-  .preview-pane{padding:1rem}
-  .features-grid{grid-template-columns:1fr}
-  .templates-grid{grid-template-columns:1fr 1fr}
-  .stats-bar{gap:1.5rem}
+  .mobile-fab{display:flex}.preview-pane{padding:1rem}
+  .features-grid{grid-template-columns:1fr}.templates-grid{grid-template-columns:1fr 1fr}
 }
-@media(max-width:480px){
-  .hero h1{font-size:2.6rem}
-  .templates-grid{grid-template-columns:1fr}
+@media(max-width:600px){
+  .features-grid,.steps-grid,.testimonials-grid{grid-template-columns:1fr}
+  .hero h1{font-size:2.8rem}.section-header h2{font-size:2.2rem}.cta-section h2{font-size:2.2rem}
+  .templates-grid{grid-template-columns:1fr}.logos-list{gap:1.5rem}
   nav .nav-links a{display:none}
 }
 </style>
 </head>
 <body>
 
-<!-- Loading overlay with max-timeout fallback -->
 <div class="loading-overlay" id="loading-overlay">
   <div class="spinner"></div>
-  <div style="font-family:'Playfair Display',serif;font-size:1.3rem">Resume<span style="color:var(--gold)">Forge</span></div>
+  <div style="font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--paper)">Resume<span style="color:var(--gold)">Forge</span></div>
 </div>
 
 <div id="toast" class="toast"></div>
@@ -260,12 +355,10 @@ footer a{color:var(--gold);text-decoration:none}
   <div class="nav-links">
     <a onclick="scrollToFeatures()">Features</a>
     <a onclick="scrollToPricing()">Pricing</a>
-    <!-- Guest nav -->
-    <div id="nav-guest" style="display:flex;gap:1rem;align-items:center">
-      <button class="btn-outline" onclick="openAuth('signin')">Sign In</button>
-      <button class="btn-primary" onclick="openAuth('signup')">Build Free</button>
+    <div id="nav-guest" style="display:flex;gap:.8rem;align-items:center">
+      <button class="btn btn-ghost btn-sm" onclick="openAuth('signin')">Sign In</button>
+      <button class="btn btn-primary btn-sm" onclick="openAuth('signup')">Build Free →</button>
     </div>
-    <!-- Authed nav -->
     <div id="nav-user" style="display:none;align-items:center;gap:.8rem">
       <div class="user-chip">
         <div class="user-avatar-init" id="nav-init">?</div>
@@ -273,125 +366,230 @@ footer a{color:var(--gold);text-decoration:none}
         <span id="nav-name" style="font-weight:600;font-size:.85rem"></span>
         <span id="nav-pro-tag" class="pro-tag" style="display:none">PRO</span>
       </div>
-      <button class="btn-primary" onclick="showApp()" style="font-size:.82rem;padding:.5rem 1.1rem">Open Builder ↗</button>
+      <button class="btn btn-primary btn-sm" onclick="showApp()">Open Builder ↗</button>
       <span class="signout-link" onclick="signOut()">Sign out</span>
     </div>
   </div>
 </nav>
 
-<!-- ════════════════════════════ LANDING ════════════════════════════ -->
+<!-- ═══════════════ LANDING ═══════════════ -->
 <div id="landing">
-  <section class="hero">
-    <div>
-      <div class="hero-tag">&#10022; Trusted by 12,000+ job seekers</div>
-      <h1>Resumes that<br>get you the <em>interview</em></h1>
-      <p>Build a polished, recruiter-ready resume in minutes. AI-powered bullet points, ATS-optimized formatting, and cover letters tailored to every job.</p>
-      <div class="hero-cta">
-        <button class="btn-gold" onclick="openAuth('signup')">Start Building — It's Free</button>
-        <button class="btn-outline" onclick="scrollToPricing()">See Pricing</button>
+
+  <!-- HERO -->
+  <section class="hero-section">
+    <div class="hero-inner">
+      <div>
+        <div class="hero-eyebrow">Trusted by 12,000+ job seekers</div>
+        <h1>Resumes that get you the <em>interview</em></h1>
+        <p class="hero-sub">Build a polished, recruiter-ready resume in minutes. AI-powered bullets, ATS optimization, and cover letters tailored to every job posting.</p>
+        <div class="hero-cta">
+          <button class="btn btn-gold btn-xl" onclick="openAuth('signup')">Start Building Free →</button>
+          <button class="btn btn-ghost btn-xl" onclick="scrollToPricing()">See Pricing</button>
+        </div>
+        <div class="hero-note">
+          <div class="hero-note-item">No credit card required</div>
+          <div class="hero-note-item">Free plan forever</div>
+          <div class="hero-note-item">Ready in 2 minutes</div>
+        </div>
       </div>
-      <p class="hero-note">No credit card required · Free plan includes 1 resume</p>
-    </div>
-    <div class="resume-preview">
-      <div class="rp-name">Alexandra Chen</div>
-      <div class="rp-title">Senior Product Manager</div>
-      <div class="rp-contact">alex@email.com · (415) 555-0192 · San Francisco, CA</div>
-      <hr class="rp-divider">
-      <div class="rp-section-title">Experience</div>
-      <div class="rp-job">
-        <div class="rp-job-title">Lead Product Manager</div>
-        <div class="rp-job-co">Stripe · 2021–Present</div>
-        <div class="rp-bullet">Grew checkout conversion by 18% via A/B-tested UX overhaul</div>
-        <div class="rp-bullet">Launched 3 features adding $4.2M ARR in 12 months</div>
-      </div>
-      <hr class="rp-divider">
-      <div class="rp-section-title">Skills</div>
-      <div class="rp-skills">
-        <span class="rp-skill">Product Strategy</span><span class="rp-skill">SQL</span><span class="rp-skill">Figma</span><span class="rp-skill">Agile</span>
+      <div class="hero-visual">
+        <div class="hero-card-wrap">
+          <div class="hero-glow"></div>
+          <div class="hero-card">
+            <div class="hc-name">Alexandra Chen</div>
+            <div class="hc-title">Senior Product Manager</div>
+            <div class="hc-contact">alex@email.com · SF, CA · linkedin.com/in/alexchen</div>
+            <hr class="hc-div">
+            <div class="hc-sec">Experience</div>
+            <div class="hc-job-title">Lead Product Manager</div>
+            <div class="hc-job-co">Stripe · 2021–Present</div>
+            <div class="hc-bullet">Grew checkout conversion by 18% via A/B-tested UX</div>
+            <div class="hc-bullet">Launched 3 features adding $4.2M ARR in 12 months</div>
+            <hr class="hc-div" style="margin-top:.8rem">
+            <div class="hc-sec">Skills</div>
+            <div class="hc-skills">
+              <span class="hc-skill">Product Strategy</span><span class="hc-skill">SQL</span><span class="hc-skill">Figma</span><span class="hc-skill">Agile</span>
+            </div>
+          </div>
+          <div class="hero-badge hero-badge-1"><div class="badge-dot"></div>ATS Score: 94</div>
+          <div class="hero-badge hero-badge-2">✓ Interview Invitation</div>
+        </div>
       </div>
     </div>
   </section>
 
-  <div class="stats-bar">
-    <div class="stat"><div class="num">12k+</div><div class="label">Resumes Built</div></div>
-    <div class="stat"><div class="num">87%</div><div class="label">Interview Rate</div></div>
-    <div class="stat"><div class="num">4.9★</div><div class="label">User Rating</div></div>
-    <div class="stat"><div class="num">6</div><div class="label">Templates</div></div>
+  <!-- LOGOS -->
+  <div class="logos-bar">
+    <div class="logos-inner">
+      <span class="logos-label">Resumes accepted at</span>
+      <div class="logos-div"></div>
+      <div class="logos-list">
+        <span class="logo-co">Google</span>
+        <span class="logo-co">Meta</span>
+        <span class="logo-co">Apple</span>
+        <span class="logo-co">Netflix</span>
+        <span class="logo-co">Stripe</span>
+        <span class="logo-co">Notion</span>
+        <span class="logo-co">Figma</span>
+      </div>
+    </div>
   </div>
 
-  <section class="features" id="features">
-    <div class="features-header">
+  <!-- STATS -->
+  <div class="stats-section">
+    <div class="stats-inner">
+      <div><div class="stat-num">12k+</div><div class="stat-label">Resumes Built</div></div>
+      <div><div class="stat-num">87%</div><div class="stat-label">Interview Rate</div></div>
+      <div><div class="stat-num">4.9★</div><div class="stat-label">User Rating</div></div>
+      <div><div class="stat-num">6</div><div class="stat-label">Templates</div></div>
+    </div>
+  </div>
+
+  <!-- FEATURES -->
+  <section class="features-section" id="features">
+    <div class="section-header">
+      <div class="section-tag">Features</div>
       <h2>Everything you need to land the job</h2>
-      <p>From first draft to final export — ResumeForge handles the hard parts.</p>
+      <p>From first draft to final export — ResumeForge handles the hard parts so you can focus on the interview.</p>
     </div>
     <div class="features-grid">
-      <div class="feature-card"><div class="feature-icon">✍️</div><h3>Live Resume Builder</h3><p>Type your info and watch your resume update in real time. No design skills needed.</p><span class="badge badge-free">FREE</span></div>
-      <div class="feature-card"><div class="feature-icon">🤖</div><h3>AI Bullet Generator</h3><p>Let AI write strong, quantified bullet points tailored to each role.</p><span class="badge badge-pro">PRO</span></div>
-      <div class="feature-card"><div class="feature-icon">📄</div><h3>Cover Letter Writer</h3><p>Generate a personalized cover letter from any job posting in seconds.</p><span class="badge badge-pro">PRO</span></div>
-      <div class="feature-card"><div class="feature-icon">🎯</div><h3>ATS Score Checker</h3><p>See how well your resume passes applicant tracking systems before you apply.</p><span class="badge badge-pro">PRO</span></div>
-      <div class="feature-card"><div class="feature-icon">📥</div><h3>PDF Export</h3><p>Download a clean, perfectly formatted PDF ready to send to any employer.</p><span class="badge badge-free">FREE</span></div>
-      <div class="feature-card"><div class="feature-icon">🎨</div><h3>6 Templates</h3><p>Classic, Modern, Executive, Minimal, Bold and Compact. Swap with one click.</p><span class="badge badge-pro">PRO</span></div>
+      <div class="feature-card"><div class="feature-icon-wrap">✍️</div><h3>Live Resume Builder</h3><p>Type your info and watch your resume update in real time. No design skills needed whatsoever.</p><span class="badge badge-free">FREE</span></div>
+      <div class="feature-card"><div class="feature-icon-wrap">🤖</div><h3>AI Bullet Generator</h3><p>Let AI write strong, quantified bullet points perfectly tailored to each role you apply for.</p><span class="badge badge-pro">PRO</span></div>
+      <div class="feature-card"><div class="feature-icon-wrap">📄</div><h3>Cover Letter Writer</h3><p>Generate a personalized, compelling cover letter from any job posting in seconds flat.</p><span class="badge badge-pro">PRO</span></div>
+      <div class="feature-card"><div class="feature-icon-wrap">🎯</div><h3>ATS Score Checker</h3><p>See exactly how well your resume passes applicant tracking systems before you hit send.</p><span class="badge badge-pro">PRO</span></div>
+      <div class="feature-card"><div class="feature-icon-wrap">📥</div><h3>PDF Export</h3><p>Download a clean, pixel-perfect PDF ready to send to any employer, instantly.</p><span class="badge badge-free">FREE</span></div>
+      <div class="feature-card"><div class="feature-icon-wrap">🎨</div><h3>6 Pro Templates</h3><p>Classic, Modern, Executive, Minimal, Bold, and Compact. Swap between them in one click.</p><span class="badge badge-pro">PRO</span></div>
     </div>
   </section>
 
+  <!-- HOW IT WORKS -->
+  <section class="steps-section">
+    <div class="section-header">
+      <div class="section-tag">How It Works</div>
+      <h2>Your resume, ready in minutes</h2>
+      <p>Three simple steps from blank page to interview invitation.</p>
+    </div>
+    <div class="steps-grid">
+      <div class="step-card"><div class="step-num">1</div><h3>Sign up and add your details</h3><p>Create a free account and fill in your experience, education, and skills. Takes about 5 minutes.</p></div>
+      <div class="step-card"><div class="step-num">2</div><h3>Pick a template and customize</h3><p>Choose from 6 professional templates. Pro users get AI bullet points and ATS keyword scoring.</p></div>
+      <div class="step-card"><div class="step-num">3</div><h3>Download and land interviews</h3><p>Export a perfect PDF and start applying. 87% of our users land an interview within 2 weeks.</p></div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials-section">
+    <div class="section-header">
+      <div class="section-tag">Testimonials</div>
+      <h2>Loved by job seekers</h2>
+      <p>Real stories from people who landed their dream roles with ResumeForge.</p>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card"><div class="t-stars">★★★★★</div><p class="t-quote">Got 3 interviews in the first 2 weeks after rebuilding my resume here. The ATS checker showed me exactly what keywords I was missing.</p><div class="t-author"><div class="t-avatar" style="background:#d4e4c8">SK</div><div><div class="t-name">Sarah K.</div><div class="t-role">Software Engineer → Google</div></div></div></div>
+      <div class="testimonial-card"><div class="t-stars">★★★★★</div><p class="t-quote">The AI bullet generator saved me hours of agonizing over wording. My resume went from bland to compelling in about 10 minutes.</p><div class="t-author"><div class="t-avatar" style="background:#e4d4c8">MT</div><div><div class="t-name">Marcus T.</div><div class="t-role">Product Manager → Stripe</div></div></div></div>
+      <div class="testimonial-card"><div class="t-stars">★★★★★</div><p class="t-quote">Beautiful templates and surprisingly fast. I had my new resume downloaded and sent out within 20 minutes of signing up.</p><div class="t-author"><div class="t-avatar" style="background:#c8d4e4">PR</div><div><div class="t-name">Priya R.</div><div class="t-role">Designer → Figma</div></div></div></div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
   <section class="pricing-section" id="pricing-section">
-    <h2>Simple, honest pricing</h2>
-    <p class="sub">Start free. Upgrade when you're ready to get serious.</p>
+    <div class="section-header">
+      <div class="section-tag">Pricing</div>
+      <h2>Simple, honest pricing</h2>
+      <p>Start free. Upgrade when you're ready to get serious about your job search.</p>
+    </div>
     <div class="pricing-grid">
       <div class="pricing-card">
-        <div class="pricing-name">Free</div>
-        <div class="pricing-price">$0</div>
+        <div class="pricing-tier">Free</div>
+        <div class="pricing-amount">$0</div>
         <div class="pricing-desc">For casual job seekers</div>
-        <ul class="pricing-features">
-          <li><span class="check">✓</span> 1 resume</li>
-          <li><span class="check">✓</span> PDF export</li>
-          <li><span class="check">✓</span> Classic template</li>
+        <ul class="pricing-feats">
+          <li><span class="chk">✓</span> 1 resume</li>
+          <li><span class="chk">✓</span> PDF export</li>
+          <li><span class="chk">✓</span> Classic template</li>
           <li><span class="cross">✗</span> AI bullet generator</li>
           <li><span class="cross">✗</span> Cover letter writer</li>
           <li><span class="cross">✗</span> ATS score checker</li>
           <li><span class="cross">✗</span> 5 extra templates</li>
         </ul>
-        <button class="btn-outline" style="width:100%" onclick="openAuth('signup')">Get Started Free</button>
+        <button class="btn btn-outline btn-md" style="width:100%" onclick="openAuth('signup')">Get Started Free</button>
       </div>
       <div class="pricing-card featured">
-        <div class="pricing-name">Pro</div>
-        <div class="pricing-price">$9<sub>/mo</sub></div>
+        <div class="pricing-tier">Pro</div>
+        <div class="pricing-amount">$9<sub>/mo</sub></div>
         <div class="pricing-desc">For serious job seekers</div>
-        <ul class="pricing-features">
-          <li><span class="check">✓</span> Unlimited resumes</li>
-          <li><span class="check">✓</span> PDF export</li>
-          <li><span class="check">✓</span> All 6 templates</li>
-          <li><span class="check">✓</span> AI bullet generator</li>
-          <li><span class="check">✓</span> Cover letter writer</li>
-          <li><span class="check">✓</span> ATS score checker</li>
-          <li><span class="check">✓</span> Priority support</li>
+        <ul class="pricing-feats">
+          <li><span class="chk">✓</span> Unlimited resumes</li>
+          <li><span class="chk">✓</span> PDF export</li>
+          <li><span class="chk">✓</span> All 6 templates</li>
+          <li><span class="chk">✓</span> AI bullet generator</li>
+          <li><span class="chk">✓</span> Cover letter writer</li>
+          <li><span class="chk">✓</span> ATS score checker</li>
+          <li><span class="chk">✓</span> Priority support</li>
         </ul>
-        <button class="btn-gold" style="width:100%" onclick="openUpgrade()">Start Pro — 7-Day Free Trial</button>
+        <button class="btn btn-gold btn-md" style="width:100%" onclick="openUpgrade()">Start Pro — 7-Day Free Trial</button>
       </div>
     </div>
   </section>
 
-  <footer>
-    <div class="footer-logo">ResumeForge</div>
-    <p>© 2025 ResumeForge · <a href="#">Privacy</a> · <a href="#">Terms</a></p>
-  </footer>
-</div>
+  <!-- CTA BANNER -->
+  <section class="cta-section">
+    <h2>Ready to land your <em>dream job?</em></h2>
+    <p>Join 12,000+ job seekers who've built interview-winning resumes with ResumeForge.</p>
+    <div class="cta-btns">
+      <button class="btn btn-gold btn-xl" onclick="openAuth('signup')">Build Your Resume Free →</button>
+      <button class="btn btn-white btn-xl" onclick="scrollToPricing()">View Pricing</button>
+    </div>
+  </section>
 
-<!-- ════════════════════════════ APP ════════════════════════════ -->
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div>
+        <div class="footer-logo">Resume<span>Forge</span></div>
+        <div class="footer-tagline">Build resumes that get you interviews. Fast, polished, and ATS-optimized.</div>
+      </div>
+      <div class="footer-col">
+        <h4>Product</h4>
+        <ul>
+          <li><a onclick="scrollToFeatures()">Features</a></li>
+          <li><a onclick="scrollToPricing()">Pricing</a></li>
+          <li><a onclick="openAuth('signup')">Get Started</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 ResumeForge. All rights reserved.</span>
+      <span>Made with care for job seekers everywhere.</span>
+    </div>
+  </footer>
+
+</div><!-- end #landing -->
+
+<!-- ═══════════════ APP ═══════════════ -->
 <div id="app">
   <div class="app-layout">
     <div class="sidebar-backdrop" id="sidebar-backdrop" onclick="closeMobileSidebar()"></div>
     <div class="sidebar" id="sidebar">
-      <div class="resume-progress" id="resume-progress" style="display:none"><div class="resume-progress-label"><span>Resume Complete</span><span id="progress-pct">0%</span></div><div class="resume-progress-bar"><div class="resume-progress-fill" id="progress-fill" style="width:0%"></div></div></div>
+      <div class="resume-progress" id="resume-progress" style="display:none">
+        <div class="resume-progress-label"><span>Resume Complete</span><span id="progress-pct">0%</span></div>
+        <div class="resume-progress-bar"><div class="resume-progress-fill" id="progress-fill" style="width:0%"></div></div>
+      </div>
       <div id="pro-banner" class="pro-banner">⚡ You're on Pro — all features unlocked!</div>
       <div class="sidebar-tabs">
         <div class="sidebar-tab active" onclick="switchSidebarTab('resume',this)">Resume</div>
         <div class="sidebar-tab" onclick="switchSidebarTab('coverletter',this)">Cover Letter</div>
       </div>
 
-      <!-- ── RESUME SIDEBAR ── -->
+      <!-- Resume sidebar -->
       <div id="sidebar-resume">
-        <h3>Personal Info</h3>
+        <div class="form-sec-hd">Personal Info</div>
         <div class="form-group"><label>Full Name</label><input type="text" id="f-name" value="Alexandra Chen" oninput="updateDoc()"></div>
         <div class="form-group"><label>Job Title</label><input type="text" id="f-title" value="Senior Product Manager" oninput="updateDoc()"></div>
         <div class="form-group"><label>Email</label><input type="email" id="f-email" value="alex@email.com" oninput="updateDoc()"></div>
@@ -400,42 +598,36 @@ footer a{color:var(--gold);text-decoration:none}
         <div class="form-group"><label>LinkedIn / Portfolio</label><input type="text" id="f-link" value="linkedin.com/in/alexchen" oninput="updateDoc()"></div>
         <div class="form-group">
           <label>Professional Summary</label>
-          <button class="ai-btn" onclick="aiGate('summary')">✨ Write with AI 🔒 PRO</button>
+          <button class="ai-btn" onclick="aiGate('summary')">✨ Write with AI &nbsp;🔒 PRO</button>
           <textarea id="f-summary" oninput="updateDoc()">Results-driven Product Manager with 7+ years building B2B SaaS products. Track record of shipping features that drive measurable revenue growth and improve user retention at scale.</textarea>
         </div>
-
-        <div style="border-top:1px solid var(--border);padding-top:1rem;margin-bottom:1rem">
-          <div class="section-toggle" id="toggle-exp" onclick="toggleSection('exp-body','toggle-exp')">Experience <span class="arrow">▼</span></div>
-          <div id="exp-body">
-            <button class="ai-btn" onclick="aiGate('bullets')">✨ AI Bullet Points 🔒 PRO</button>
-            <div id="exp-entries"></div>
-            <button class="add-btn" onclick="addEntry('exp')">+ Add Experience</button>
-          </div>
+        <hr class="sec-divider">
+        <div class="section-toggle" id="toggle-exp" onclick="toggleSection('exp-body','toggle-exp')">Experience <span class="arrow">▾</span></div>
+        <div id="exp-body">
+          <button class="ai-btn" onclick="aiGate('bullets')">✨ AI Bullet Points &nbsp;🔒 PRO</button>
+          <div id="exp-entries"></div>
+          <button class="add-btn" onclick="addEntry('exp')">+ Add Experience</button>
         </div>
-
-        <div style="border-top:1px solid var(--border);padding-top:1rem;margin-bottom:1rem">
-          <div class="section-toggle" id="toggle-edu" onclick="toggleSection('edu-body','toggle-edu')">Education <span class="arrow">▼</span></div>
-          <div id="edu-body">
-            <div id="edu-entries"></div>
-            <button class="add-btn" onclick="addEntry('edu')">+ Add Education</button>
-          </div>
+        <hr class="sec-divider" style="margin-top:.8rem">
+        <div class="section-toggle" id="toggle-edu" onclick="toggleSection('edu-body','toggle-edu')">Education <span class="arrow">▾</span></div>
+        <div id="edu-body">
+          <div id="edu-entries"></div>
+          <button class="add-btn" onclick="addEntry('edu')">+ Add Education</button>
         </div>
-
-        <div style="border-top:1px solid var(--border);padding-top:1rem;margin-bottom:3rem">
-          <div class="section-toggle" id="toggle-skills" onclick="toggleSection('skills-body','toggle-skills')">Skills <span class="arrow">▼</span></div>
-          <div id="skills-body">
-            <div class="form-group"><label>Skills (comma separated)</label><textarea id="f-skills" oninput="updateDoc()">Product Strategy, SQL, Figma, Go-to-Market, Agile, User Research, Jira, Roadmapping</textarea></div>
-          </div>
+        <hr class="sec-divider" style="margin-top:.8rem">
+        <div class="section-toggle" id="toggle-skills" onclick="toggleSection('skills-body','toggle-skills')">Skills <span class="arrow">▾</span></div>
+        <div id="skills-body" style="padding-bottom:3rem">
+          <div class="form-group"><label>Skills (comma separated)</label><textarea id="f-skills" oninput="updateDoc()">Product Strategy, SQL, Figma, Go-to-Market, Agile, User Research, Jira, Roadmapping</textarea></div>
         </div>
       </div>
 
-      <!-- ── COVER LETTER SIDEBAR ── -->
+      <!-- Cover Letter sidebar -->
       <div id="sidebar-coverletter" style="display:none">
-        <h3>Cover Letter</h3>
+        <div class="form-sec-hd">Cover Letter</div>
         <div class="form-group"><label>Company Name</label><input type="text" id="cl-company" value="Stripe" oninput="updateCL()"></div>
         <div class="form-group"><label>Hiring Manager</label><input type="text" id="cl-manager" value="Hiring Team" oninput="updateCL()"></div>
         <div class="form-group"><label>Role You're Applying For</label><input type="text" id="cl-job" value="Head of Product" oninput="updateCL()"></div>
-        <button class="ai-btn" onclick="aiGate('coverletter')">✨ Generate with AI 🔒 PRO</button>
+        <button class="ai-btn" onclick="aiGate('coverletter')">✨ Generate with AI &nbsp;🔒 PRO</button>
         <div class="form-group"><label>Your Letter</label>
           <textarea id="cl-body" oninput="updateCL()" style="min-height:300px">Dear Hiring Team,
 
@@ -447,25 +639,27 @@ Alexandra Chen</textarea>
       </div>
     </div>
 
-    <!-- ── PREVIEW PANE ── -->
+    <!-- PREVIEW PANE -->
     <div class="preview-pane">
       <div class="tabs">
-        <div class="tab active" onclick="switchPreview('resume',this)">📄 Resume</div>
-        <div class="tab" onclick="switchPreview('cl',this)">✉️ Cover Letter</div>
+        <button class="tab active" onclick="switchPreview('resume',this)">📄 Resume</button>
+        <button class="tab" onclick="switchPreview('cl',this)">✉️ Cover Letter</button>
       </div>
       <div class="preview-toolbar">
-        <h4>Live Preview · <span id="tpl-label" style="color:var(--gold);font-weight:700">Classic</span></h4>
-        <div class="autosave-ind" id="autosave-ind"><div class="autosave-dot"></div>Saved</div>
+        <div class="preview-toolbar-left">
+          <h4>Live Preview</h4>
+          <span style="font-size:.72rem;color:var(--muted)">·</span>
+          <span style="font-size:.82rem;color:var(--gold);font-weight:700" id="tpl-label">Classic</span>
+          <div class="autosave-ind" id="autosave-ind"><div class="autosave-dot"></div>Saved</div>
+        </div>
         <div class="preview-toolbar-actions">
-          <button class="btn-outline" style="font-size:.8rem" onclick="openTemplates()">🎨 Templates</button>
-          <button class="btn-outline" style="font-size:.8rem" onclick="openATSModal()">📊 ATS Score</button>
-          <button class="btn-primary" style="font-size:.8rem" id="pdf-btn" onclick="downloadPDF()">↓ Download PDF</button>
+          <button class="btn btn-outline btn-sm" onclick="openTemplates()">🎨 Templates</button>
+          <button class="btn btn-outline btn-sm" onclick="openATSModal()">📊 ATS Score</button>
+          <button class="btn btn-primary btn-sm" id="pdf-btn" onclick="downloadPDF()">↓ Download PDF</button>
         </div>
       </div>
 
-      <!-- Resume Document -->
       <div class="doc" id="resume-doc">
-        <!-- Bold template band — always in DOM, shown via CSS on .tpl-bold -->
         <div class="doc-band" id="d-band">
           <div class="band-name" id="d-band-name"></div>
           <div class="band-title" id="d-band-title"></div>
@@ -487,7 +681,6 @@ Alexandra Chen</textarea>
         <div class="doc-section"><div class="doc-section-title">Skills</div><div class="doc-skills-grid" id="d-skills"></div></div>
       </div>
 
-      <!-- Cover Letter Document -->
       <div class="doc" id="cl-doc" style="display:none">
         <div style="margin-bottom:2rem">
           <div class="doc-name" id="cl-d-name">Alexandra Chen</div>
@@ -503,7 +696,7 @@ Alexandra Chen</textarea>
   <button class="mobile-fab" id="mobile-fab" onclick="toggleMobileSidebar()">✏️</button>
 </div>
 
-<!-- ════ AUTH MODAL ════ -->
+<!-- AUTH MODAL -->
 <div class="modal-backdrop" id="auth-modal">
   <div class="auth-box">
     <button class="modal-close" onclick="closeAuth()">✕</button>
@@ -519,18 +712,18 @@ Alexandra Chen</textarea>
   </div>
 </div>
 
-<!-- ════ TEMPLATES MODAL ════ -->
+<!-- TEMPLATES MODAL -->
 <div class="modal-backdrop" id="templates-modal">
   <div class="tpl-modal">
     <button class="modal-close" onclick="closeTemplates()">✕</button>
     <h2 style="font-family:'Playfair Display',serif;font-size:1.8rem;margin-bottom:.4rem">Choose a Template</h2>
     <p style="color:var(--muted);margin-bottom:1.5rem;font-size:.88rem">Free users get Classic. <span id="tpl-pro-hint" style="color:var(--gold);font-weight:700;cursor:pointer" onclick="closeTemplates();openUpgrade()">Upgrade to Pro for all 6 →</span></p>
     <div class="templates-grid" id="templates-grid"></div>
-    <button class="btn-gold" style="width:100%" onclick="applySelectedTemplate()">Apply Template</button>
+    <button class="btn btn-gold btn-md" style="width:100%" onclick="applySelectedTemplate()">Apply Template</button>
   </div>
 </div>
 
-<!-- ════ UPGRADE MODAL ════ -->
+<!-- UPGRADE MODAL -->
 <div class="modal-backdrop" id="upgrade-modal">
   <div class="modal">
     <button class="modal-close" onclick="closeUpgrade()">✕</button>
@@ -539,14 +732,14 @@ Alexandra Chen</textarea>
     <p>AI bullet points, cover letter generator, ATS scoring, all 6 templates &amp; unlimited resumes.</p>
     <div class="plan-toggle">
       <button class="active" id="toggle-monthly" onclick="showPlan('monthly')">Monthly — $9</button>
-      <button class="inactive" id="toggle-annual" onclick="showPlan('annual')">Annual — $59 &nbsp;<span style="background:var(--gold);color:var(--ink);font-size:.65rem;font-weight:800;padding:.1rem .4rem;border-radius:4px">SAVE 39%</span></button>
+      <button class="inactive" id="toggle-annual" onclick="showPlan('annual')">Annual — $59 &nbsp;<span style="background:var(--gold);color:var(--ink);font-size:.62rem;font-weight:800;padding:.1rem .4rem;border-radius:4px">SAVE 39%</span></button>
     </div>
     <div id="plan-monthly">
-      <button class="btn-gold" style="width:100%;font-size:1rem;padding:1rem" onclick="openStripeCheckout('https://buy.stripe.com/test_bJe4gybv04sQ5z7fQNcs801')">Start Monthly — 7-Day Free Trial →</button>
+      <button class="btn btn-gold btn-lg" style="width:100%" onclick="openStripeCheckout('https://buy.stripe.com/test_bJe4gybv04sQ5z7fQNcs801')">Start Monthly — 7-Day Free Trial →</button>
       <p style="font-size:.78rem;color:var(--muted);margin-top:.6rem">$9/month after trial · Cancel anytime</p>
     </div>
     <div id="plan-annual" style="display:none">
-      <button class="btn-gold" style="width:100%;font-size:1rem;padding:1rem" onclick="openStripeCheckout('https://buy.stripe.com/test_6oU00ibv0f7u3qZcEBcs800')">Start Annual — 7-Day Free Trial →</button>
+      <button class="btn btn-gold btn-lg" style="width:100%" onclick="openStripeCheckout('https://buy.stripe.com/test_6oU00ibv0f7u3qZcEBcs800')">Start Annual — 7-Day Free Trial →</button>
       <p style="font-size:.78rem;color:var(--muted);margin-top:.6rem">$59/year after trial · Cancel anytime</p>
     </div>
     <div style="background:var(--cream);border-radius:8px;padding:.9rem;margin-top:1rem;text-align:left">
@@ -557,15 +750,15 @@ Alexandra Chen</textarea>
   </div>
 </div>
 
-<!-- ════ ATS MODAL ════ -->
+<!-- ATS MODAL -->
 <div class="modal-backdrop" id="ats-modal">
   <div class="modal">
     <button class="modal-close" onclick="document.getElementById('ats-modal').classList.remove('open')">✕</button>
     <div style="font-size:3rem;margin-bottom:.5rem">📊</div>
     <h2>ATS Score Checker</h2>
     <p id="ats-intro">Paste the job description and we'll analyze your resume for keyword match, formatting, and ATS compatibility.</p>
-    <textarea id="ats-jd" style="width:100%;min-height:130px;padding:.75rem;border:1.5px solid var(--border);border-radius:8px;font-family:'DM Sans',sans-serif;font-size:.85rem;resize:vertical;margin-bottom:1rem" placeholder="Paste the job description here..."></textarea>
-    <button class="btn-gold" style="width:100%;padding:.85rem" id="ats-analyze-btn" onclick="runATS()">📊 Analyze My Resume</button>
+    <textarea id="ats-jd" placeholder="Paste the job description here..."></textarea>
+    <button class="btn btn-gold btn-lg" style="width:100%" id="ats-analyze-btn" onclick="runATS()">📊 Analyze My Resume</button>
     <div id="ats-results" style="display:none"></div>
   </div>
 </div>
@@ -590,7 +783,6 @@ var TEMPLATES = [
   {id:'bold',     name:'Bold',      tag:'Stand Out',            free:false},
   {id:'compact',  name:'Compact',   tag:'Fits More Content',    free:false}
 ];
-
 
 /* ═══════════════════════════════════════════════
    LOCAL STORAGE — AUTO-SAVE / RESTORE
@@ -667,25 +859,22 @@ function runATS() {
   var jd = document.getElementById('ats-jd').value.trim();
   if (!jd) { showToast('Please paste a job description first.'); return; }
 
-  // Collect resume text
   var resumeText = [val('f-name'), val('f-title'), val('f-summary'), val('f-skills')].join(' ');
   entries.exp.forEach(function(e) { resumeText += ' ' + e.title + ' ' + e.company + ' ' + e.bullets; });
   entries.edu.forEach(function(e) { resumeText += ' ' + e.title + ' ' + e.company; });
   resumeText = resumeText.toLowerCase();
 
-  // Extract keywords from JD (words appearing 2+ times, > 3 chars, not stop words)
   var stop = {the:1,a:1,an:1,and:1,or:1,in:1,of:1,for:1,to:1,with:1,at:1,by:1,from:1,on:1,as:1,is:1,are:1,be:1,we:1,you:1,your:1,will:1,our:1,this:1,that:1,have:1,has:1,can:1,not:1,all:1,any:1,but:1,its:1,who:1,their:1};
   var jdWords = jd.toLowerCase().split(/\W+/).filter(function(w){ return w.length > 3 && !stop[w]; });
   var freq = {};
   jdWords.forEach(function(w){ freq[w] = (freq[w]||0) + 1; });
   var keywords = Object.keys(freq).filter(function(w){ return freq[w] >= 2; });
-  if (keywords.length === 0) keywords = Object.keys(freq).slice(0, 20); // fallback
+  if (keywords.length === 0) keywords = Object.keys(freq).slice(0, 20);
 
   var matched = keywords.filter(function(kw){ return resumeText.indexOf(kw) > -1; });
   var missing = keywords.filter(function(kw){ return resumeText.indexOf(kw) === -1; }).slice(0, 10);
   var kwScore = keywords.length ? Math.round((matched.length / keywords.length) * 100) : 75;
 
-  // Completeness score
   var complete = 0;
   if (val('f-name').trim()) complete += 15;
   if (val('f-title').trim()) complete += 10;
@@ -695,10 +884,8 @@ function runATS() {
   if (entries.edu.length >= 1) complete += 10;
   if (val('f-skills').split(',').filter(Boolean).length >= 4) complete += 15;
 
-  // Content length
   var words = resumeText.split(/\s+/).filter(Boolean).length;
   var lengthScore = words < 80 ? 40 : words < 200 ? 65 : words < 600 ? 90 : 70;
-
   var overall = Math.min(100, Math.max(0, Math.round(kwScore * 0.5 + complete * 0.35 + lengthScore * 0.15)));
   var color = overall >= 75 ? 'var(--sage)' : overall >= 50 ? 'var(--gold)' : 'var(--rust)';
   var grade = overall >= 85 ? 'Excellent' : overall >= 70 ? 'Good' : overall >= 50 ? 'Needs Work' : 'Weak Match';
@@ -715,7 +902,7 @@ function runATS() {
     + '<div><span>Content Length</span><span style="font-weight:700">' + words + ' words</span></div>'
     + '</div>'
     + missingHtml
-    + '<button class="btn-outline" style="width:100%;margin-top:1rem;font-size:.82rem" onclick="resetATS()">← Check Another Job</button>';
+    + '<button class="btn btn-outline btn-sm" style="width:100%;margin-top:1rem" onclick="resetATS()">← Check Another Job</button>';
 
   document.getElementById('ats-results').innerHTML = html;
   document.getElementById('ats-results').style.display = 'block';
@@ -738,26 +925,18 @@ function resetATS() {
    KEYBOARD SHORTCUTS
 ═══════════════════════════════════════════════ */
 document.addEventListener('keydown', function(e) {
-  // Escape: close any open modal
   if (e.key === 'Escape') {
     ['auth-modal','templates-modal','upgrade-modal','ats-modal'].forEach(function(id) {
       document.getElementById(id).classList.remove('open');
     });
     return;
   }
-  // Cmd/Ctrl + P: download PDF (override print)
   if ((e.metaKey || e.ctrlKey) && e.key === 'p') {
     var app = document.getElementById('app');
-    if (app && app.style.display !== 'none') {
-      e.preventDefault();
-      downloadPDF();
-    }
+    if (app && app.style.display !== 'none') { e.preventDefault(); downloadPDF(); }
   }
-  // Cmd/Ctrl + S: show autosave toast
   if ((e.metaKey || e.ctrlKey) && e.key === 's') {
-    e.preventDefault();
-    saveToStorage();
-    showToast('✓ Resume saved locally.');
+    e.preventDefault(); saveToStorage(); showToast('✓ Resume saved locally.');
   }
 });
 
@@ -771,10 +950,7 @@ function goHome() {
 function showApp() {
   document.getElementById('landing').style.display = 'none';
   document.getElementById('app').style.display = 'block';
-  updateProUI();
-  updateDoc();
-  updateCL();
-  updateProgress();
+  updateProUI(); updateDoc(); updateCL(); updateProgress();
 }
 function scrollToPricing() { goHome(); setTimeout(function(){ document.getElementById('pricing-section').scrollIntoView({behavior:'smooth'}); }, 50); }
 function scrollToFeatures() { goHome(); setTimeout(function(){ document.getElementById('features').scrollIntoView({behavior:'smooth'}); }, 50); }
@@ -809,22 +985,15 @@ function handleGoogleSignIn() {
     provider: 'google',
     options: { redirectTo: window.location.origin + window.location.pathname }
   }).then(function(r) {
-    if (r.error) {
-      err.textContent = r.error.message || 'Sign-in failed. Please try again.';
-      resetGoogleBtn();
-    }
-    // On success, browser navigates away — no further action needed here
+    if (r.error) { err.textContent = r.error.message || 'Sign-in failed. Please try again.'; resetGoogleBtn(); }
   }).catch(function(e) {
-    err.textContent = 'An unexpected error occurred. Please try again.';
-    resetGoogleBtn();
+    err.textContent = 'An unexpected error occurred. Please try again.'; resetGoogleBtn();
   });
 }
 function signOut() {
   if (sb) sb.auth.signOut();
   currentUser = null; isPro = false;
-  showGuestNav();
-  goHome();
-  showToast('Signed out successfully.');
+  showGuestNav(); goHome(); showToast('Signed out successfully.');
 }
 function showUserNav() {
   document.getElementById('nav-guest').style.display = 'none';
@@ -864,15 +1033,9 @@ function updateProUI() {
 function aiGate(feature) {
   if (!currentUser) { openAuth('signup'); return; }
   if (!isPro) { openUpgrade(); return; }
-  // Pro user: show toast (wire up real AI calls here)
-  var msgs = {
-    summary: '✨ Generating summary...',
-    bullets: '✨ Generating bullet points...',
-    coverletter: '✨ Generating cover letter...'
-  };
+  var msgs = { summary: '✨ Generating summary...', bullets: '✨ Generating bullet points...', coverletter: '✨ Generating cover letter...' };
   showToast(msgs[feature] || '✨ Generating with AI...');
 }
-// runATS() — defined above with full ATS scoring
 function openATSModal() {
   if (!currentUser) { openAuth('signup'); return; }
   document.getElementById('ats-modal').classList.add('open');
@@ -944,7 +1107,7 @@ function applySelectedTemplate() {
   doc.className = 'doc tpl-' + currentTemplate;
   var found = TEMPLATES.find(function(t) { return t.id === currentTemplate; });
   document.getElementById('tpl-label').textContent = found ? found.name : 'Classic';
-  updateDoc(); // re-sync band content for bold
+  updateDoc();
   closeTemplates();
 }
 
@@ -955,13 +1118,11 @@ function downloadPDF() {
   var btn = document.getElementById('pdf-btn');
   btn.innerHTML = '<span class="mini-spinner"></span> Preparing...';
   btn.disabled = true;
-  // Always print the resume doc, not the cover letter
   var wasShowingCL = (currentPreviewTab === 'cl');
   document.getElementById('resume-doc').style.display = 'block';
   document.getElementById('cl-doc').style.display = 'none';
   setTimeout(function() {
     window.print();
-    // Restore whatever was showing
     if (wasShowingCL) {
       document.getElementById('resume-doc').style.display = 'none';
       document.getElementById('cl-doc').style.display = 'block';
@@ -977,15 +1138,11 @@ function downloadPDF() {
 function toggleSection(bodyId, toggleId) {
   var body = document.getElementById(bodyId);
   var toggle = document.getElementById(toggleId);
-  var isOpen = sectionState[bodyId] !== false; // default open
+  var isOpen = sectionState[bodyId] !== false;
   if (isOpen) {
-    body.style.display = 'none';
-    toggle.classList.add('section-collapsed');
-    sectionState[bodyId] = false;
+    body.style.display = 'none'; toggle.classList.add('section-collapsed'); sectionState[bodyId] = false;
   } else {
-    body.style.display = 'block';
-    toggle.classList.remove('section-collapsed');
-    sectionState[bodyId] = true;
+    body.style.display = 'block'; toggle.classList.remove('section-collapsed'); sectionState[bodyId] = true;
   }
 }
 
@@ -1005,15 +1162,11 @@ entries.edu = [
 function addEntry(type) {
   var id = type === 'exp' ? ++expId : ++eduId;
   entries[type].push({ id: id, title: '', company: '', dates: '', bullets: '' });
-  renderEntries(type);
-  updateDoc();
-  saveToStorage();
+  renderEntries(type); updateDoc(); saveToStorage();
 }
 function removeEntry(type, id) {
   entries[type] = entries[type].filter(function(e) { return e.id !== id; });
-  renderEntries(type);
-  updateDoc();
-  saveToStorage();
+  renderEntries(type); updateDoc(); saveToStorage();
 }
 function esc(s) {
   return (s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
@@ -1044,22 +1197,17 @@ function updateDoc() {
   var contact = [val('f-email'), val('f-phone'), val('f-location'), val('f-link')].filter(Boolean).join(' · ');
   var summary = val('f-summary');
 
-  // Main doc header
   document.getElementById('d-name').textContent = name;
   document.getElementById('d-title').textContent = title;
   document.getElementById('d-contact').textContent = contact;
   document.getElementById('d-summary').textContent = summary;
-
-  // Bold template band — always kept in sync
   document.getElementById('d-band-name').textContent = name;
   document.getElementById('d-band-title').textContent = title;
   document.getElementById('d-band-contact').textContent = contact;
 
-  // Hide summary section if empty
   var summarySection = document.getElementById('summary-section');
   if (summarySection) summarySection.style.display = summary.trim() ? '' : 'none';
 
-  // Experience
   var expHtml = '';
   entries.exp.forEach(function(e) {
     var bl = e.bullets.split('\n').filter(function(b) { return b.trim(); });
@@ -1071,7 +1219,6 @@ function updateDoc() {
   });
   document.getElementById('d-exp').innerHTML = expHtml;
 
-  // Education
   var eduHtml = '';
   entries.edu.forEach(function(e) {
     eduHtml += '<div class="doc-entry">'
@@ -1081,7 +1228,6 @@ function updateDoc() {
   });
   document.getElementById('d-edu').innerHTML = eduHtml;
 
-  // Skills
   var sk = val('f-skills').split(',').map(function(s) { return s.trim(); }).filter(Boolean);
   document.getElementById('d-skills').innerHTML = sk.map(function(s) { return '<span class="doc-skill">' + esc(s) + '</span>'; }).join('');
   updateProgress();
@@ -1097,7 +1243,7 @@ function updateCL() {
 }
 
 /* ═══════════════════════════════════════════════
-   TAB SWITCHING (synced)
+   TAB SWITCHING
 ═══════════════════════════════════════════════ */
 function switchPreview(type, el) {
   currentPreviewTab = type;
@@ -1105,7 +1251,6 @@ function switchPreview(type, el) {
   if (el) el.classList.add('active');
   document.getElementById('resume-doc').style.display = type === 'resume' ? 'block' : 'none';
   document.getElementById('cl-doc').style.display = type === 'cl' ? 'block' : 'none';
-  // Sync sidebar
   var sType = type === 'cl' ? 'coverletter' : 'resume';
   document.querySelectorAll('.sidebar-tab').forEach(function(t) { t.classList.remove('active'); });
   var stabs = document.querySelectorAll('.sidebar-tab');
@@ -1119,7 +1264,6 @@ function switchSidebarTab(type, el) {
   el.classList.add('active');
   document.getElementById('sidebar-resume').style.display = type === 'resume' ? 'block' : 'none';
   document.getElementById('sidebar-coverletter').style.display = type === 'coverletter' ? 'block' : 'none';
-  // Sync preview
   var pType = type === 'coverletter' ? 'cl' : 'resume';
   currentPreviewTab = pType;
   document.querySelectorAll('.tabs .tab').forEach(function(t) { t.classList.remove('active'); });
@@ -1142,7 +1286,6 @@ function closeMobileSidebar() {
   document.getElementById('sidebar').classList.remove('open');
   document.getElementById('sidebar-backdrop').classList.remove('open');
 }
-// Close mobile sidebar when switching to preview on mobile
 document.querySelectorAll('.tabs .tab').forEach(function(tab) {
   tab.addEventListener('click', function() { if (window.innerWidth <= 768) closeMobileSidebar(); });
 });
@@ -1167,7 +1310,6 @@ function hideLoader() {
   ol.classList.add('fade');
   setTimeout(function() { ol.style.display = 'none'; }, 450);
 }
-// Max-timeout: if Supabase doesn't respond in 5s, hide loader anyway
 var loaderTimeout = setTimeout(function() { hideLoader(); }, 5000);
 
 /* ═══════════════════════════════════════════════
@@ -1176,7 +1318,6 @@ var loaderTimeout = setTimeout(function() { hideLoader(); }, 5000);
 loadFromStorage();
 renderEntries('exp');
 renderEntries('edu');
-// Restore template class
 if (currentTemplate !== 'classic') {
   var doc = document.getElementById('resume-doc');
   if (doc) doc.className = 'doc tpl-' + currentTemplate;
@@ -1191,86 +1332,53 @@ updateCL();
    STRIPE CHECKOUT
 ═══════════════════════════════════════════════ */
 function openStripeCheckout(baseUrl) {
-  if (!currentUser) {
-    showAuth();
-    return;
-  }
+  if (!currentUser) { openAuth('signup'); return; }
   var url = baseUrl + '?client_reference_id=' + encodeURIComponent(currentUser.id);
   window.open(url, '_blank');
 }
 
 /* ═══════════════════════════════════════════════
-   SUPABASE — loaded async
+   SUPABASE
 ═══════════════════════════════════════════════ */
 (function() {
   var s = document.createElement('script');
   s.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.3/dist/umd/supabase.min.js';
   s.onload = function() {
     try {
-      // ── IMPORTANT: paste your real anon/publishable key from Supabase dashboard ──
-      // Both the new sb_publishable_... format and the legacy eyJ... JWT format work.
       sb = window.supabase.createClient(
         'https://nwnxhnwnffqzccwrbklv.supabase.co',
-        'sb_publishable_1ZS8klug8sZMU_yrIRndqA_sfvTioMj', // ← your original key (correct format)
+        'sb_publishable_1ZS8klug8sZMU_yrIRndqA_sfvTioMj',
         { auth: { detectSessionInUrl: true, persistSession: true, flowType: 'pkce' } }
       );
-
       sb.auth.onAuthStateChange(function(event, session) {
         clearTimeout(loaderTimeout);
         hideLoader();
-
         if (session && session.user) {
           currentUser = session.user;
-
-          // Pre-fill name from Google profile
           var m = currentUser.user_metadata || {};
           var rn = m.full_name || m.name || '';
           if (rn) {
             var nf = document.getElementById('f-name');
-            if (nf && (nf.value === '' || nf.value === 'Alexandra Chen')) {
-              nf.value = rn; updateDoc();
-            }
+            if (nf && (nf.value === '' || nf.value === 'Alexandra Chen')) { nf.value = rn; updateDoc(); }
           }
-
-          // Check pro status — handle table-not-found gracefully
           sb.from('profiles')
             .select('is_pro')
             .eq('id', currentUser.id)
-            .maybeSingle() // returns null instead of error if no row
-            .then(function(r) {
-              isPro = !!(r.data && r.data.is_pro);
-              updateProUI();
-            })
-            .catch(function() {
-              isPro = false; updateProUI(); // profiles table may not exist yet
-            });
-
+            .maybeSingle()
+            .then(function(r) { isPro = !!(r.data && r.data.is_pro); updateProUI(); })
+            .catch(function() { isPro = false; updateProUI(); });
           showUserNav();
           closeAuth();
-
-          // Detect OAuth callback: PKCE uses ?code= param, implicit uses #access_token hash
           var url = new URL(window.location.href);
           var isOAuthCallback = url.searchParams.has('code') || (window.location.hash && window.location.hash.indexOf('access_token') > -1);
-          if (isOAuthCallback) {
-            window.history.replaceState(null, '', window.location.pathname);
-            showApp();
-          }
+          if (isOAuthCallback) { window.history.replaceState(null, '', window.location.pathname); showApp(); }
         } else {
-          currentUser = null; isPro = false;
-          showGuestNav();
+          currentUser = null; isPro = false; showGuestNav();
         }
       });
-    } catch(e) {
-      clearTimeout(loaderTimeout);
-      hideLoader();
-      console.warn('Supabase init error:', e);
-    }
+    } catch(e) { clearTimeout(loaderTimeout); hideLoader(); console.warn('Supabase init error:', e); }
   };
-  s.onerror = function() {
-    clearTimeout(loaderTimeout);
-    hideLoader();
-    console.warn('Supabase CDN failed to load. Auth unavailable.');
-  };
+  s.onerror = function() { clearTimeout(loaderTimeout); hideLoader(); console.warn('Supabase CDN failed to load.'); };
   document.body.appendChild(s);
 })();
 </script>

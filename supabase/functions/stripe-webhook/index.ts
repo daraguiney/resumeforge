@@ -23,7 +23,7 @@ serve(async (req) => {
 
   try {
     const body = await req.text()
-    event = stripe.webhooks.constructEvent(body, signature, webhookSecret)
+    event = await stripe.webhooks.constructEventAsync(body, signature, webhookSecret)
   } catch (err) {
     console.error('Webhook signature verification failed:', err.message)
     return new Response(`Webhook Error: ${err.message}`, { status: 400 })
@@ -37,7 +37,7 @@ serve(async (req) => {
 
         if (!userId) {
           console.error('No client_reference_id on session:', session.id)
-          break
+          return new Response('No client_reference_id', { status: 200 })
         }
 
         // Upsert the profile row — creates it if missing, sets is_pro = true
@@ -46,8 +46,8 @@ serve(async (req) => {
           .upsert({ id: userId, is_pro: true }, { onConflict: 'id' })
 
         if (error) {
-          console.error('Supabase upsert error:', error)
-          return new Response('DB error', { status: 500 })
+          console.error('Supabase upsert error:', JSON.stringify(error))
+          return new Response(`DB error: ${error.message}`, { status: 500 })
         }
 
         console.log(`Activated pro for user ${userId}`)
