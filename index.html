@@ -396,6 +396,7 @@ footer a{color:var(--gold);text-decoration:none}
       <div class="feature-card"><div class="feature-icon">📄</div><h3>Cover Letter Writer</h3><p>Generate a personalized cover letter from any job posting in seconds.</p><span class="badge badge-pro">PRO</span></div>
       <div class="feature-card"><div class="feature-icon">🎯</div><h3>ATS Score Checker</h3><p>See how well your resume passes applicant tracking systems before you apply.</p><span class="badge badge-pro">PRO</span></div>
       <div class="feature-card"><div class="feature-icon">📥</div><h3>PDF Export</h3><p>Download a clean, perfectly formatted PDF ready to send to any employer.</p><span class="badge badge-free">FREE</span></div>
+      <div class="feature-card"><div class="feature-icon">📥</div><h3>PDF Import</h3><p>Import a current Resume to improve upon.</p><span class="badge badge-free">FREE</span></div>
       <div class="feature-card"><div class="feature-icon">🎨</div><h3>6 Templates</h3><p>Classic, Modern, Executive, Minimal, Bold and Compact. Swap with one click.</p><span class="badge badge-pro">PRO</span></div>
     </div>
   </section>
@@ -426,6 +427,7 @@ footer a{color:var(--gold);text-decoration:none}
         <ul class="pricing-features">
           <li><span class="check">✓</span> Unlimited resumes</li>
           <li><span class="check">✓</span> PDF export</li>
+          <li><span class="check">✓</span> PDF import</li>
           <li><span class="check">✓</span> All 6 templates</li>
           <li><span class="check">✓</span> AI bullet generator</li>
           <li><span class="check">✓</span> Cover letter writer</li>
@@ -501,10 +503,10 @@ footer a{color:var(--gold);text-decoration:none}
         </div>
 
         <div style="border-top:1px solid var(--border);padding-top:1rem;margin-bottom:1rem">
-          <div class="section-toggle" id="toggle-edu" onclick="toggleSection('edu-body','toggle-edu')">Education <span class="arrow">▼</span></div>
+          <div class="section-toggle" id="toggle-edu" onclick="toggleSection('edu-body','toggle-edu')">Education/Certification <span class="arrow">▼</span></div>
           <div id="edu-body">
             <div id="edu-entries"></div>
-            <button class="add-btn" onclick="addEntry('edu')">+ Add Education</button>
+            <button class="add-btn" onclick="addEntry('edu')">+ Add Education/Certification</button>
           </div>
         </div>
 
@@ -570,7 +572,7 @@ Alexandra Chen</textarea>
         <hr class="doc-divider">
         <div class="doc-section"><div class="doc-section-title">Experience</div><div id="d-exp"></div></div>
         <hr class="doc-divider">
-        <div class="doc-section"><div class="doc-section-title">Education</div><div id="d-edu"></div></div>
+        <div class="doc-section"><div class="doc-section-title">Education/Certification</div><div id="d-edu"></div></div>
         <hr class="doc-divider">
         <div class="doc-section"><div class="doc-section-title">Skills</div><div class="doc-skills-grid" id="d-skills"></div></div>
       </div>
