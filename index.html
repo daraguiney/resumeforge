@@ -231,6 +231,8 @@ nav a{color:var(--muted);text-decoration:none;font-size:.9rem;font-weight:500;cu
   .doc{box-shadow:none!important;border-radius:0!important;min-height:auto!important;max-width:100%!important;width:100%!important}
   #resume-doc{display:block!important}
   #cl-doc{display:none!important}
+  body.printing-cl #resume-doc{display:none!important}
+  body.printing-cl #cl-doc{display:block!important}
 }
 
 /* ── AUTOSAVE ── */
@@ -396,7 +398,7 @@ footer a{color:var(--gold);text-decoration:none}
       <div class="feature-card"><div class="feature-icon">📄</div><h3>Cover Letter Writer</h3><p>Generate a personalized cover letter from any job posting in seconds.</p><span class="badge badge-pro">PRO</span></div>
       <div class="feature-card"><div class="feature-icon">🎯</div><h3>ATS Score Checker</h3><p>See how well your resume passes applicant tracking systems before you apply.</p><span class="badge badge-pro">PRO</span></div>
       <div class="feature-card"><div class="feature-icon">📥</div><h3>PDF Export</h3><p>Download a clean, perfectly formatted PDF ready to send to any employer.</p><span class="badge badge-free">FREE</span></div>
-      <div class="feature-card"><div class="feature-icon">📥</div><h3>PDF Import</h3><p>Import a current Resume to improve upon.</p><span class="badge badge-free">FREE</span></div>
+      <div class="feature-card"><div class="feature-icon">⬆️</div><h3>PDF Import</h3><p>Already have a resume? Upload your existing PDF and we'll instantly fill in all your details.</p><span class="badge badge-free">FREE</span></div>
       <div class="feature-card"><div class="feature-icon">🎨</div><h3>6 Templates</h3><p>Classic, Modern, Executive, Minimal, Bold and Compact. Swap with one click.</p><span class="badge badge-pro">PRO</span></div>
     </div>
   </section>
@@ -474,10 +476,10 @@ footer a{color:var(--gold);text-decoration:none}
       <!-- ── RESUME SIDEBAR ── -->
       <div id="sidebar-resume">
         <div style="background:linear-gradient(135deg,#f2ede2,#faf8f3);border:1.5px solid var(--border);border-radius:8px;padding:.75rem 1rem;margin-bottom:1.2rem">
-          <div style="font-size:.78rem;font-weight:700;color:var(--ink);margin-bottom:.4rem">📄 Import Existing Resume</div>
-          <div style="font-size:.74rem;color:var(--muted);margin-bottom:.6rem">Upload a PDF or TXT file to auto-fill your resume.</div>
+          <div style="font-size:.78rem;font-weight:700;color:var(--ink);margin-bottom:.4rem">⬆️ Import Existing Resume</div>
+          <div style="font-size:.74rem;color:var(--muted);margin-bottom:.6rem">Drop in your existing resume and we'll auto-fill your details. Supports PDF and plain text (.txt).</div>
           <input type="file" id="resume-upload-input" accept=".pdf,.txt" style="display:none" onchange="handleResumeUpload(this)">
-          <button class="btn-outline" style="width:100%;font-size:.8rem;padding:.5rem" onclick="document.getElementById('resume-upload-input').click()">↑ Upload PDF or TXT</button>
+          <button class="btn-outline" style="width:100%;font-size:.8rem;padding:.5rem" onclick="document.getElementById('resume-upload-input').click()">⬆️ Upload Resume (PDF or TXT)</button>
           <div id="upload-status" style="font-size:.74rem;color:var(--muted);margin-top:.4rem;min-height:1rem;line-height:1.4"></div>
         </div>
         <h3>Personal Info</h3>
@@ -1417,15 +1419,10 @@ function downloadPDF() {
   var btn = document.getElementById('pdf-btn');
   btn.innerHTML = '<span class="mini-spinner"></span> Preparing...';
   btn.disabled = true;
-  var wasShowingCL = (currentPreviewTab === 'cl');
-  document.getElementById('resume-doc').style.display = 'block';
-  document.getElementById('cl-doc').style.display = 'none';
+  if (currentPreviewTab === 'cl') document.body.classList.add('printing-cl');
   setTimeout(function() {
     window.print();
-    if (wasShowingCL) {
-      document.getElementById('resume-doc').style.display = 'none';
-      document.getElementById('cl-doc').style.display = 'block';
-    }
+    document.body.classList.remove('printing-cl');
     btn.innerHTML = '↓ Download PDF';
     btn.disabled = false;
   }, 350);
