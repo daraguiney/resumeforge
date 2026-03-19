@@ -6,12 +6,12 @@ const stripe = new Stripe(Deno.env.get('STRIPE_SECRET_KEY') ?? '', {
   apiVersion: '2023-10-16',
 })
 
-const supabase = createClient(
+// Service role client — for reading profiles
+const adminSupabase = createClient(
   Deno.env.get('SUPABASE_URL') ?? '',
   Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? ''
 )
 
-// Restrict to known origins — never use wildcard on authenticated endpoints
 const ALLOWED_ORIGINS = [
   'https://resumeforge.com',
   'https://www.resumeforge.com',
@@ -20,7 +20,7 @@ const ALLOWED_ORIGINS = [
   'http://127.0.0.1',
 ]
 
-const DEFAULT_ORIGIN = 'https://resumeforge.com'
+const DEFAULT_ORIGIN = 'https://resumeforge-delta.vercel.app'
 
 function getCorsHeaders(req: Request): Record<string, string> {
   const origin = req.headers.get('origin') || ''
@@ -58,19 +58,25 @@ serve(async (req) => {
       })
     }
 
-    const token = authHeader.replace('Bearer ', '')
+    // Verify the JWT using an anon-key scoped client with the user's token
+    // This is the correct pattern for Supabase Edge Functions
+    const userSupabase = createClient(
+      Deno.env.get('SUPABASE_URL') ?? '',
+      Deno.env.get('SUPABASE_ANON_KEY') ?? '',
+      { global: { headers: { Authorization: authHeader } } }
+    )
 
-    // Verify the JWT and get the user
-    const { data: { user }, error: userError } = await supabase.auth.getUser(token)
+    const { data: { user }, error: userError } = await userSupabase.auth.getUser()
     if (userError || !user) {
-      return new Response(JSON.stringify({ error: 'Invalid token' }), {
+      console.error('Auth error:', userError?.message)
+      return new Response(JSON.stringify({ error: 'Invalid or expired session. Please sign in again.' }), {
         status: 401,
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       })
     }
 
-    // Get stripe_customer_id from profiles
-    const { data: profile, error: profileError } = await supabase
+    // Use admin client to read the profile (bypasses RLS)
+    const { data: profile, error: profileError } = await adminSupabase
       .from('profiles')
       .select('stripe_customer_id')
       .eq('id', user.id)
@@ -87,10 +93,8 @@ serve(async (req) => {
     }
 
     const body = await req.json().catch(() => ({}))
-    // Validate returnUrl to prevent open redirect
     const returnUrl = sanitizeReturnUrl(body.returnUrl || req.headers.get('origin'))
 
-    // Create Stripe Customer Portal session using the configured portal
     const session = await stripe.billingPortal.sessions.create({
       customer: profile.stripe_customer_id,
       configuration: 'bpc_1T9puCCKzWnyU2tPS9a409mj',
