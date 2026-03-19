@@ -163,27 +163,81 @@ nav a{color:var(--muted);text-decoration:none;font-size:.9rem;font-weight:500;cu
 .doc-summary{font-size:.83rem;line-height:1.7;color:#333;font-style:italic}
 
 /* ── TEMPLATE VARIANTS ── */
-.tpl-modern .doc-name{color:var(--rust)}
-.tpl-modern .doc-divider{border-top-color:var(--rust)}
-.tpl-modern .doc-section-title{color:var(--ink);border-bottom:1px solid var(--border);padding-bottom:.3rem}
-.tpl-executive .doc-name{font-size:2.3rem;text-align:center;letter-spacing:.04em}
-.tpl-executive .doc-title{text-align:center}
-.tpl-executive .doc-contact{text-align:center}
-.tpl-executive .doc-divider{border-top:3px double #1a1a1a}
-.tpl-minimal .doc-name{font-family:'DM Sans',sans-serif;font-weight:300;letter-spacing:.05em}
+
+/* Sidebar columns: hidden by default, activated by tpl-modern */
+#d-col-left,#d-col-right{display:none}
+
+/* ══ tpl-modern = SIDEBAR (two-column) ══ */
+.tpl-modern{padding:0;display:grid;grid-template-columns:205px 1fr;min-height:900px;font-family:'DM Sans',sans-serif}
+.tpl-modern #d-col-left{display:block;grid-column:1;grid-row:1;background:#1a1816;color:white;padding:2.5rem 1.5rem}
+.tpl-modern #d-col-right{display:block;grid-column:2;grid-row:1;padding:2.5rem 2rem}
+.tpl-modern .doc-band,.tpl-modern #d-name,.tpl-modern #d-title,.tpl-modern #d-contact,.tpl-modern #summary-wrapper,.tpl-modern>hr.doc-divider,.tpl-modern>.doc-section{display:none}
+.sbl-name{font-family:Georgia,serif;font-size:1.25rem;font-weight:700;color:white;line-height:1.2;margin-bottom:.3rem}
+.sbl-title{font-size:.74rem;color:var(--gold);font-weight:600;margin-bottom:.7rem}
+.sbl-divider{border-top:1px solid rgba(255,255,255,.12);margin:.75rem 0}
+.sbl-contact-item{font-size:.65rem;color:#aaa;margin-bottom:.32rem;word-break:break-all;line-height:1.4}
+.sbl-section-title{font-size:.58rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--gold);margin-bottom:.5rem}
+.sbl-skill{font-size:.7rem;color:#ddd;padding:.17rem 0;border-bottom:1px solid rgba(255,255,255,.07);margin-bottom:.17rem}
+.sbl-edu-entry{margin-bottom:.65rem}
+.sbl-edu-title{font-size:.73rem;font-weight:700;color:white}
+.sbl-edu-school{font-size:.67rem;color:#999;margin:.1rem 0}
+.sbl-edu-date{font-size:.63rem;color:#666}
+.sbr-summary{font-size:.81rem;color:#555;line-height:1.75;margin-bottom:1.2rem;padding-bottom:1rem;border-bottom:1px solid #eee}
+.sbr-section-title{font-family:'DM Sans',sans-serif;font-size:.63rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--rust);margin-bottom:.8rem}
+.tpl-modern .doc-entry{margin-bottom:.9rem}
+.tpl-modern .doc-entry-title{font-family:'DM Sans',sans-serif;font-size:.85rem;font-weight:700}
+.tpl-modern .doc-entry-sub{font-style:normal;color:var(--muted)}
+.tpl-modern .doc-entry-date{font-family:'DM Mono',monospace;font-size:.7rem}
+.tpl-modern .doc-entry-bullets li{font-size:.78rem}
+.tpl-modern .doc-entry-bullets li::before{content:'▸';color:var(--gold)}
+
+/* ══ tpl-executive = EXECUTIVE (luxury centered) ══ */
+.tpl-executive .doc-name{font-size:2.1rem;text-align:center;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.4rem}
+.tpl-executive .doc-title{text-align:center;font-size:.85rem;color:var(--muted);font-weight:400;letter-spacing:.05em;margin-bottom:.5rem;font-family:'DM Sans',sans-serif}
+.tpl-executive .doc-contact{text-align:center;margin-bottom:1.8rem}
+.tpl-executive .doc-divider{border:none;border-top:1px solid var(--gold);margin-bottom:1.5rem}
+.tpl-executive .doc-section-title{font-family:Georgia,serif;font-size:.73rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--ink);margin-bottom:1rem}
+.tpl-executive .doc-entry-bullets li::before{content:'—';color:var(--gold);top:.05rem;font-weight:700}
+.tpl-executive .doc-summary{font-style:normal;color:var(--muted);font-size:.84rem;line-height:1.85}
+.tpl-executive .doc-entry-sub{font-style:normal;color:var(--muted)}
+
+/* ══ tpl-minimal = MINIMAL (ultra-clean) ══ */
+.tpl-minimal .doc-name{font-family:'DM Sans',sans-serif;font-weight:300;font-size:2.3rem;letter-spacing:.04em}
+.tpl-minimal .doc-title{font-family:'DM Sans',sans-serif;font-weight:400;font-size:.88rem;color:var(--muted);margin-bottom:.6rem}
+.tpl-minimal .doc-contact{margin-bottom:2rem}
 .tpl-minimal .doc-divider{display:none}
-.tpl-minimal .doc-section-title{color:var(--muted);border-top:1px solid var(--border);padding-top:.6rem;margin-top:1.2rem}
-.doc-band{display:none;background:var(--ink);color:white;padding:1.5rem 3.5rem;margin:-3rem -3.5rem 2rem}
-.doc-band .band-name{font-family:Georgia,serif;font-size:2rem;font-weight:700;color:white;margin-bottom:.2rem}
-.doc-band .band-title{color:var(--gold);font-size:.9rem;font-weight:600;margin-bottom:.4rem;font-family:'DM Sans',sans-serif}
-.doc-band .band-contact{font-family:'DM Mono',monospace;font-size:.72rem;color:#bbb}
+.tpl-minimal .doc-section{margin-bottom:1.8rem}
+.tpl-minimal .doc-section-title{font-family:'DM Sans',sans-serif;font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:.9rem;padding-bottom:.4rem;border-bottom:1px solid var(--border)}
+.tpl-minimal .doc-entry-bullets li::before{content:'–';color:var(--muted);font-weight:700;top:.05rem}
+.tpl-minimal .doc-skill{background:none;border:1px solid var(--border);padding:.22rem .65rem;font-size:.72rem}
+.tpl-minimal .doc-summary{font-style:normal;font-size:.84rem;color:var(--muted);line-height:1.8}
+.tpl-minimal .doc-entry-sub{font-style:normal;color:var(--muted)}
+
+/* ══ tpl-bold = BOLD (dark header band) ══ */
+.doc-band{display:none;background:var(--ink);color:white;padding:1.8rem 3.5rem;margin:-3rem -3.5rem 2.2rem}
+.doc-band .band-name{font-family:Georgia,serif;font-size:2.2rem;font-weight:700;color:white;margin-bottom:.25rem}
+.doc-band .band-title{color:var(--gold);font-size:.88rem;font-weight:600;margin-bottom:.4rem;font-family:'DM Sans',sans-serif;letter-spacing:.04em}
+.doc-band .band-contact{font-family:'DM Mono',monospace;font-size:.7rem;color:#999}
 .tpl-bold .doc-band{display:block}
 .tpl-bold #d-name,.tpl-bold #d-title,.tpl-bold #d-contact{display:none}
-.tpl-bold .doc-section-title{background:var(--cream);display:inline-block;padding:.15rem .6rem;border-left:3px solid var(--gold);color:var(--ink)}
-.tpl-compact .doc{font-size:.76rem;line-height:1.4}
-.tpl-compact .doc-name{font-size:1.6rem}
-.tpl-compact .doc-section{margin-bottom:1rem}
-.tpl-compact .doc-entry{margin-bottom:.6rem}
+.tpl-bold .doc-divider{border-top:1px solid var(--border)}
+.tpl-bold .doc-section-title{display:block;background:none;border-left:3px solid var(--gold);padding:.1rem .6rem;color:var(--ink);letter-spacing:.1em}
+.tpl-bold .doc-entry-bullets li::before{color:var(--gold)}
+
+/* ══ tpl-compact = TECH (DM Sans, structured) ══ */
+.tpl-compact .doc-name{font-family:'DM Sans',sans-serif;font-weight:700;font-size:2rem;letter-spacing:-.02em}
+.tpl-compact .doc-title{font-family:'DM Sans',sans-serif;color:var(--muted);font-weight:400;font-size:.88rem}
+.tpl-compact .doc-contact{font-family:'DM Mono',monospace;font-size:.7rem;margin-bottom:1.8rem}
+.tpl-compact .doc-divider{display:none}
+.tpl-compact .doc-section{margin-bottom:1.5rem}
+.tpl-compact .doc-section-title{font-family:'DM Sans',sans-serif;font-size:.7rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--ink);border-left:3px solid var(--gold);padding:.05rem 0 .05rem .6rem;margin-bottom:.9rem}
+.tpl-compact .doc-entry{margin-bottom:.9rem}
+.tpl-compact .doc-entry-title{font-family:'DM Sans',sans-serif;font-weight:700}
+.tpl-compact .doc-entry-sub{font-style:normal;font-family:'DM Sans',sans-serif;color:var(--rust);font-size:.78rem}
+.tpl-compact .doc-entry-date{font-family:'DM Mono',monospace;font-size:.68rem}
+.tpl-compact .doc-entry-bullets li::before{content:'▸';color:var(--rust)}
+.tpl-compact .doc-skill{background:white;border:1px solid var(--border);font-family:'DM Mono',monospace;font-size:.69rem;padding:.2rem .5rem}
+.tpl-compact .doc-summary{font-style:normal;font-family:'DM Sans',sans-serif;font-size:.84rem}
 
 /* ── MODALS ── */
 .modal-backdrop{display:none;position:fixed;inset:0;background:rgba(15,14,12,.75);z-index:999;align-items:center;justify-content:center}
@@ -229,7 +283,9 @@ nav a{color:var(--muted);text-decoration:none;font-size:.9rem;font-weight:500;cu
   #app{display:block!important}.app-layout{display:block!important}
   .preview-pane{background:white!important;padding:0!important;display:block!important}
   .doc{box-shadow:none!important;border-radius:0!important;min-height:auto!important;max-width:100%!important;width:100%!important}
-  #resume-doc{display:block!important}
+  #resume-doc:not(.tpl-modern){display:block!important}
+  .tpl-modern{display:grid!important}
+  .tpl-modern #d-col-left,.tpl-modern #d-col-right{display:block!important}
   #cl-doc{display:none!important}
   body.printing-cl #resume-doc{display:none!important}
   body.printing-cl #cl-doc{display:block!important}
@@ -556,6 +612,9 @@ Alexandra Chen</textarea>
 
       <!-- Resume Document -->
       <div class="doc" id="resume-doc">
+        <!-- Sidebar template columns (populated by updateDoc when tpl-modern active) -->
+        <div id="d-col-left"></div>
+        <div id="d-col-right"></div>
         <div class="doc-band" id="d-band">
           <div class="band-name" id="d-band-name"></div>
           <div class="band-title" id="d-band-title"></div>
@@ -676,12 +735,12 @@ var currentPreviewTab = 'resume';
 var sectionState = {};
 
 var TEMPLATES = [
-  {id:'classic',  name:'Classic',   tag:'Clean & Professional', free:true},
-  {id:'modern',   name:'Modern',    tag:'Contemporary Style',   free:false},
-  {id:'executive',name:'Executive', tag:'Senior Roles',         free:false},
-  {id:'minimal',  name:'Minimal',   tag:'Less is More',         free:false},
-  {id:'bold',     name:'Bold',      tag:'Stand Out',            free:false},
-  {id:'compact',  name:'Compact',   tag:'Fits More Content',    free:false}
+  {id:'classic',   name:'Classic',    tag:'Clean & Professional', free:true},
+  {id:'modern',    name:'Sidebar',    tag:'Two-Column Layout',    free:false},
+  {id:'executive', name:'Executive',  tag:'Luxury & Spacious',    free:false},
+  {id:'minimal',   name:'Minimal',    tag:'Ultra Clean',          free:false},
+  {id:'bold',      name:'Bold',       tag:'Dark Header Impact',   free:false},
+  {id:'compact',   name:'Tech',       tag:'Modern & ATS-Ready',   free:false}
 ];
 
 
@@ -1199,21 +1258,81 @@ function renderTemplatesGrid() {
     var c = document.createElement('div');
     c.className = 'tpl-card' + (sel ? ' selected' : '') + (locked ? ' locked' : '');
     c.dataset.id = t.id;
-    var thumb = '<div class="tpl-thumb">';
-    if (t.id === 'bold') {
-      thumb += '<div style="background:#0f0e0c;color:white;margin:-7px -7px 5px;padding:5px 7px;font-size:6.5px;font-weight:700">Alexandra Chen</div><div style="font-size:5px;color:#c9a84c;margin-bottom:4px">Senior Product Manager</div>';
+    var thumb;
+    if (t.id === 'classic') {
+      thumb = '<div class="tpl-thumb">'
+        + '<div style="font-size:6.5px;font-weight:700;color:#0f0e0c;font-family:Georgia,serif;margin-bottom:1px">Alexandra Chen</div>'
+        + '<div style="font-size:4px;color:#b85c38;margin-bottom:3px">Senior Product Manager</div>'
+        + '<div style="border-top:1.5px solid #1a1a1a;margin-bottom:3px"></div>'
+        + '<div style="font-size:3.5px;text-transform:uppercase;color:#b85c38;letter-spacing:.5px;margin-bottom:2px">Experience</div>'
+        + '<div style="font-size:3.8px;font-weight:700;color:#333">Lead PM · Stripe</div>'
+        + '<div style="font-size:3.2px;color:#777;padding-left:5px">▸ Grew conversion by 18%</div>'
+        + '<div style="font-size:3.2px;color:#777;padding-left:5px">▸ Led 6 PMs, $4.2M ARR</div>'
+        + '</div>';
+    } else if (t.id === 'modern') {
+      thumb = '<div class="tpl-thumb" style="padding:0;overflow:hidden;display:grid;grid-template-columns:28px 1fr">'
+        + '<div style="background:#1a1816;padding:5px 4px">'
+        + '<div style="font-size:4.5px;font-weight:700;color:white;margin-bottom:1px;font-family:Georgia,serif;line-height:1.2">Alex<br>Chen</div>'
+        + '<div style="font-size:3px;color:#c9a84c;margin-bottom:3px">PM</div>'
+        + '<div style="border-top:1px solid rgba(255,255,255,.15);margin-bottom:2px"></div>'
+        + '<div style="font-size:2.6px;color:#aaa;margin-bottom:1px">alex@...</div>'
+        + '<div style="font-size:2.6px;color:#aaa;margin-bottom:3px">SF, CA</div>'
+        + '<div style="font-size:2.8px;text-transform:uppercase;color:#c9a84c;letter-spacing:.3px;margin-bottom:1px">Skills</div>'
+        + '<div style="font-size:2.6px;color:#ccc;border-bottom:1px solid rgba(255,255,255,.08);padding-bottom:1px;margin-bottom:1px">Product</div>'
+        + '<div style="font-size:2.6px;color:#ccc">SQL</div>'
+        + '</div>'
+        + '<div style="padding:5px 5px">'
+        + '<div style="font-size:3.2px;text-transform:uppercase;color:#b85c38;letter-spacing:.4px;margin-bottom:2px">Experience</div>'
+        + '<div style="font-size:3.8px;font-weight:700">Lead PM · Stripe</div>'
+        + '<div style="font-size:3px;color:#777;padding-left:4px">▸ Grew conversion 18%</div>'
+        + '<div style="font-size:3px;color:#777;padding-left:4px">▸ $4.2M ARR</div>'
+        + '</div>'
+        + '</div>';
     } else if (t.id === 'executive') {
-      thumb += '<div style="font-size:6.5px;font-weight:700;text-align:center;margin-bottom:2px">Alexandra Chen</div><div style="font-size:4.5px;color:#b85c38;text-align:center;margin-bottom:3px">Senior Product Manager</div><div style="border-top:2px double #1a1a1a;margin-bottom:3px"></div>';
+      thumb = '<div class="tpl-thumb">'
+        + '<div style="font-size:6px;font-weight:700;text-align:center;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:2px">ALEXANDRA CHEN</div>'
+        + '<div style="font-size:3.8px;text-align:center;color:#7a7165;margin-bottom:3px">Senior Product Manager</div>'
+        + '<div style="border-top:1px solid #c9a84c;margin-bottom:3px"></div>'
+        + '<div style="font-size:3.4px;text-transform:uppercase;letter-spacing:.5px;color:#0f0e0c;font-weight:700;font-family:Georgia,serif;margin-bottom:2px">Experience</div>'
+        + '<div style="font-size:3.8px;font-weight:700">Lead PM · Stripe</div>'
+        + '<div style="font-size:3.1px;color:#777;padding-left:5px">— Grew conversion by 18%</div>'
+        + '<div style="font-size:3.1px;color:#777;padding-left:5px">— Led 6 PMs, $4.2M ARR</div>'
+        + '</div>';
     } else if (t.id === 'minimal') {
-      thumb += '<div style="font-size:7px;font-weight:300;letter-spacing:1px;margin-bottom:2px">Alexandra Chen</div><div style="font-size:4.5px;color:#7a7165;margin-bottom:4px">Senior Product Manager</div>';
+      thumb = '<div class="tpl-thumb">'
+        + '<div style="font-size:8px;font-weight:300;color:#0f0e0c;letter-spacing:.5px;font-family:\'DM Sans\',sans-serif;margin-bottom:1px">Alexandra Chen</div>'
+        + '<div style="font-size:4px;color:#7a7165;margin-bottom:7px">Senior Product Manager</div>'
+        + '<div style="font-size:3px;text-transform:uppercase;letter-spacing:.9px;color:#aaa;border-bottom:1px solid #ddd;padding-bottom:1.5px;margin-bottom:3px">Experience</div>'
+        + '<div style="font-size:3.8px;font-weight:600">Lead PM · Stripe</div>'
+        + '<div style="font-size:3.1px;color:#999;padding-left:4px">– Grew conversion 18%</div>'
+        + '<div style="font-size:3.1px;color:#999;padding-left:4px">– $4.2M ARR</div>'
+        + '</div>';
+    } else if (t.id === 'bold') {
+      thumb = '<div class="tpl-thumb" style="padding:0;overflow:hidden">'
+        + '<div style="background:#0f0e0c;padding:5px 7px;margin-bottom:5px">'
+        + '<div style="font-size:7px;font-weight:700;color:white;font-family:Georgia,serif">Alexandra Chen</div>'
+        + '<div style="font-size:4px;color:#c9a84c">Senior Product Manager</div>'
+        + '<div style="font-size:3px;color:#888">alex@email.com</div>'
+        + '</div>'
+        + '<div style="padding:0 7px">'
+        + '<div style="font-size:3.4px;border-left:2px solid #c9a84c;padding-left:3px;text-transform:uppercase;letter-spacing:.4px;font-weight:700;color:#0f0e0c;margin-bottom:2px">Experience</div>'
+        + '<div style="font-size:3.8px;font-weight:700">Lead PM · Stripe</div>'
+        + '<div style="font-size:3.1px;color:#777;padding-left:4px">▸ Grew conversion 18%</div>'
+        + '</div>'
+        + '</div>';
     } else {
-      thumb += '<div style="font-size:6.5px;font-weight:700;color:' + (t.id === 'modern' ? '#b85c38' : '#0f0e0c') + ';margin-bottom:2px">Alexandra Chen</div><div style="font-size:4.5px;color:#b85c38;margin-bottom:3px">Senior Product Manager</div><div style="border-top:1.5px solid ' + (t.id === 'modern' ? '#b85c38' : '#1a1a1a') + ';margin-bottom:3px"></div>';
+      thumb = '<div class="tpl-thumb">'
+        + '<div style="font-size:7px;font-weight:700;color:#0f0e0c;font-family:\'DM Sans\',sans-serif;letter-spacing:-.3px;margin-bottom:1px">Alexandra Chen</div>'
+        + '<div style="font-size:4px;color:#7a7165;margin-bottom:4px">Senior Product Manager</div>'
+        + '<div style="display:flex;align-items:center;gap:3px;margin-bottom:2px">'
+        + '<div style="width:2px;height:7px;background:#c9a84c;flex-shrink:0"></div>'
+        + '<div style="font-size:3.4px;text-transform:uppercase;letter-spacing:.4px;font-weight:700;color:#0f0e0c">Experience</div>'
+        + '</div>'
+        + '<div style="font-size:3.8px;font-weight:700;font-family:\'DM Sans\',sans-serif">Lead PM</div>'
+        + '<div style="font-size:3.2px;color:#b85c38;margin-bottom:1px">Stripe</div>'
+        + '<div style="font-size:3.1px;color:#777;padding-left:4px">▸ Grew conversion 18%</div>'
+        + '</div>';
     }
-    thumb += '<div style="font-size:3.8px;text-transform:uppercase;color:#999;letter-spacing:.5px;margin-bottom:2px">Experience</div>';
-    thumb += '<div style="font-size:3.8px;color:#333;margin-bottom:1px">Lead PM · Stripe · 2021-Present</div>';
-    thumb += '<div style="font-size:3.4px;color:#777">Grew conversion by 18%</div>';
-    if (t.id === 'compact') { thumb += '<div style="font-size:3.4px;color:#777">Led 6 PMs, $4.2M ARR</div>'; }
-    thumb += '</div>';
     c.innerHTML = thumb
       + '<div class="tpl-card-name">' + t.name + (locked ? ' 🔒' : '') + (sel ? ' <span style="color:var(--gold)">✓</span>' : '') + '</div>'
       + '<div class="tpl-card-tag">' + t.tag + '</div>';
@@ -1535,6 +1654,40 @@ function updateDoc() {
 
   var sk = val('f-skills').split(',').map(function(s) { return s.trim(); }).filter(Boolean);
   document.getElementById('d-skills').innerHTML = sk.map(function(s) { return '<span class="doc-skill">' + esc(s) + '</span>'; }).join('');
+
+  // Sidebar template: populate two-column layout
+  var colLeft = document.getElementById('d-col-left');
+  var colRight = document.getElementById('d-col-right');
+  if (currentTemplate === 'modern' && colLeft && colRight) {
+    var leftHtml = '<div class="sbl-name">' + esc(name) + '</div>'
+      + '<div class="sbl-title">' + esc(title) + '</div>';
+    var contactParts = [val('f-email'), val('f-phone'), val('f-location'), val('f-link')].filter(Boolean);
+    if (contactParts.length) {
+      leftHtml += '<div class="sbl-divider"></div>'
+        + contactParts.map(function(v) { return '<div class="sbl-contact-item">' + esc(v) + '</div>'; }).join('');
+    }
+    if (sk.length) {
+      leftHtml += '<div class="sbl-divider"></div>'
+        + '<div class="sbl-section-title">Skills</div>'
+        + sk.map(function(s) { return '<div class="sbl-skill">' + esc(s) + '</div>'; }).join('');
+    }
+    if (entries.edu.length) {
+      leftHtml += '<div class="sbl-divider"></div><div class="sbl-section-title">Education</div>'
+        + entries.edu.map(function(e) {
+            return '<div class="sbl-edu-entry">'
+              + '<div class="sbl-edu-title">' + esc(e.title) + '</div>'
+              + '<div class="sbl-edu-school">' + esc(e.company) + '</div>'
+              + '<div class="sbl-edu-date">' + esc(e.dates) + '</div>'
+              + '</div>';
+          }).join('');
+    }
+    colLeft.innerHTML = leftHtml;
+    var rightHtml = summary.trim()
+      ? '<div class="sbr-summary">' + esc(summary) + '</div>' : '';
+    rightHtml += '<div class="sbr-section-title">Experience</div>' + expHtml;
+    colRight.innerHTML = rightHtml;
+  }
+
   updateProgress();
   saveToStorage();
 }
